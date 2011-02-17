@@ -51,6 +51,7 @@ import panels.ReceiptsTablePanel;
 import panels.TypesTablePanel;
 import panels.totalsPanel;
 import forms.EarnForm;
+import java.awt.Desktop;
 import tools.CalcTaxes;
 import tools.Helper;
 import tools.Options;
@@ -201,6 +202,7 @@ public class Main extends javax.swing.JFrame {
     menuItem_info = new javax.swing.JMenuItem();
     menuItem_contact = new javax.swing.JMenuItem();
     menuItem_website = new javax.swing.JMenuItem();
+    MenuItem_checkUpdate = new javax.swing.JMenuItem();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Αποδείξεις (Βάση:"+Options.DATABASE+")");
@@ -725,6 +727,10 @@ public class Main extends javax.swing.JFrame {
     menuItem_website.setText("Ιστοσελίδα");
     help.add(menuItem_website);
 
+    MenuItem_checkUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
+    MenuItem_checkUpdate.setText("Έλεγχος νέας έκδοσης");
+    help.add(MenuItem_checkUpdate);
+
     menuBar.add(help);
 
     setJMenuBar(menuBar);
@@ -1047,7 +1053,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_calcTaxesActionPerformed
 
     private void menuItem_helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_helpActionPerformed
-      // TODO add your handling code here:
+      File helpHtml = new File(Options.DOCS_PATH + "index.html");
+      try {
+        boolean browse = Helper.browse(helpHtml.toURI());
+      } catch (UnsupportedOperationException ex) {
+        Helper.message("Το λειτουργικό σύστημα που χρησιμοποιείτε δεν επιτρέπει "
+            + "το άνοιγμα αρχείων\n"
+            + "Για να δείτε την βοήθεια ανοίξτε τον υποφάκελλο "
+            + "/docs/ και το αρχείο index.html", "Βοήθεια", JOptionPane.WARNING_MESSAGE);
+        Main.log(Level.WARNING, ex.getMessage(), ex);
+      } catch (IOException ex) {
+        Helper.message(ex.getMessage(), "Βοήθεια", JOptionPane.WARNING_MESSAGE);
+        Main.log(Level.WARNING, ex.getMessage(), ex);
+      }
     }//GEN-LAST:event_menuItem_helpActionPerformed
 
   public void updateKindPanel() {
@@ -1119,6 +1137,7 @@ public class Main extends javax.swing.JFrame {
     });
   }
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JMenuItem MenuItem_checkUpdate;
   private javax.swing.JButton bt_calcTaxes;
   private javax.swing.JButton button_csv;
   private javax.swing.JButton button_excel;
@@ -1208,6 +1227,7 @@ public class Main extends javax.swing.JFrame {
     new File(Options.USER_DIR + "/" + Options.LOG_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.DB_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.EXPORTS_PATH).mkdir();
+    new File(Options.USER_DIR + "/" + Options.DOCS_PATH).mkdir();
   }
 
   private boolean deleteDb(String db) {

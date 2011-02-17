@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -79,7 +80,7 @@ public class Helper {
   }
 
   public static void message(String mess, String title, int type) {
-     Info i = new Info(title,mess,type);
+    Info i = new Info(title, mess, type);
     // JOptionPane.showMessageDialog(null, mess, title, type);
   }
 
@@ -155,6 +156,22 @@ public class Helper {
 
   public static int substringCount(String needle, String haystack) {
     return haystack.split(needle, -1).length - 1;
+  }
+
+  public static boolean browse(URI uri) throws UnsupportedOperationException, IOException{
+    if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+      try {
+        Desktop.getDesktop().browse(uri);
+        return true;
+      } catch (IOException ex) {
+       throw new IOException("Δεν ήταν δυνατή η περιήγηση στην σελίδα " + uri);
+      }
+      
+    } else {
+      throw new UnsupportedOperationException("Η περιήγηση στη σελίδα " + uri + " δεν "
+          + "επιτρέπεται από το λειτουργικό σύστημα");
+    }
+
   }
 
   private Helper() {
@@ -285,7 +302,7 @@ public class Helper {
   }
 
   public static String fixAmount(String am) {
-    if(am.equals("")){
+    if (am.equals("")) {
       return "";
     }
     if (am.indexOf(".") == -1) {

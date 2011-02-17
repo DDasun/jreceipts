@@ -27,10 +27,11 @@ public class Options {
   public static String LOG_PATH = "logs/";
   public static String DB_PATH = "databases/";
   public static String EXPORTS_PATH = "exports/";
-  //TO DO if one year interface DB select it) 
+  public static String DOCS_PATH = "docs/";
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
   public static Color DISABLED_COLOR = Color.BLACK;
   public static int DISABLED_COLOR_ALPHA = 192;
+
 
   private Options() {
   }
