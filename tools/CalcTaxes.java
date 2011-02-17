@@ -19,7 +19,7 @@ import receipts.Main;
  *
  * @author ssoldatos
  */
-public class CalcTaxes extends MyDraggable {
+public class CalcTaxes extends MyDraggable implements Taxes {
 
   private static final long serialVersionUID = 45757585L;
   private final double owner;
@@ -47,13 +47,13 @@ public class CalcTaxes extends MyDraggable {
     this.owner = owner;
     this.married = married;
     total = Receipt.getAmount("");
-    if(married == 0){
-      if(total > 15000){
-        total = 15000;
+    if (married == 0) {
+      if (total > MAX_OWNER_TOTAL) {
+        total = MAX_OWNER_TOTAL;
       }
     } else {
-      if(total > 30000){
-        total = 30000;
+      if (total > MAX_OWNER_MARRIED_TOTAL) {
+        total = MAX_OWNER_MARRIED_TOTAL;
       }
     }
     calculate();
@@ -112,6 +112,8 @@ public class CalcTaxes extends MyDraggable {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+    jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
     jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
     jButton1.setToolTipText("Κλείσιμο");
     jButton1.setBorder(null);
@@ -141,16 +143,16 @@ public class CalcTaxes extends MyDraggable {
     panel.setBackground(new java.awt.Color(255, 255, 255));
     panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-    jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     jLabel2.setText("Συνολικό εισόδημα :");
 
-    jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     jLabel3.setText("Εισόδημα υπόχρεου :");
 
-    jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     jLabel4.setText("Εισόδημα συζύγου :");
 
-    jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     jLabel5.setText("Συνολικό ποσό αποδείξεων :");
 
     jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getStyle() | java.awt.Font.BOLD));
@@ -189,63 +191,63 @@ public class CalcTaxes extends MyDraggable {
     lb_totalForos.setText(totalForosResult);
 
     lb_totalEarn.setFont(lb_totalEarn.getFont().deriveFont(lb_totalEarn.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_totalEarn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_totalEarn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_totalEarn.setText(Helper.convertAmountForViewing(married+owner));
 
     lb_total_owner.setFont(lb_total_owner.getFont().deriveFont(lb_total_owner.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_total_owner.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_total_owner.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_total_owner.setText(Helper.convertAmountForViewing(owner));
 
     lb_total_married.setFont(lb_total_married.getFont().deriveFont(lb_total_married.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_total_married.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_total_married.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_total_married.setText(Helper.convertAmountForViewing(married));
 
     lb_totalEarn3.setFont(lb_totalEarn3.getFont().deriveFont(lb_totalEarn3.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_totalEarn3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_totalEarn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_totalEarn3.setText(Helper.convertAmountForViewing(total));
 
     lb_owner_needed.setFont(lb_owner_needed.getFont().deriveFont(lb_owner_needed.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_owner_needed.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_owner_needed.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_owner_needed.setText(Helper.convertAmountForViewing(ownerNeeded));
 
     lb_owner_neededExp.setText(ownerNeededExpl);
 
     lb_married_needed.setFont(lb_married_needed.getFont().deriveFont(lb_married_needed.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_married_needed.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_married_needed.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_married_needed.setText(Helper.convertAmountForViewing(marriedNeeded));
 
     lb_married_neededExp.setText(marriedNeededExpl);
 
     lb_total_needed.setFont(lb_total_needed.getFont().deriveFont(lb_total_needed.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_total_needed.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_total_needed.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_total_needed.setText(Helper.convertAmountForViewing(totalNeeded));
 
     lb_owner_ratio.setFont(lb_owner_ratio.getFont().deriveFont(lb_owner_ratio.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_owner_ratio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_owner_ratio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_owner_ratio.setText(Helper.convertAmountForViewing(ownerRatio));
 
     lb_owner_ratioExp.setText(ownerRatioExpl);
 
     lb_married_ratio.setFont(lb_married_ratio.getFont().deriveFont(lb_married_ratio.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_married_ratio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_married_ratio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_married_ratio.setText(Helper.convertAmountForViewing(marriedRatio));
 
     lb_married_ratioExp.setText(marriedRatioExpl);
 
     lb_owner_tax.setFont(lb_owner_tax.getFont().deriveFont(lb_owner_tax.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_owner_tax.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_owner_tax.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_owner_tax.setText(Helper.convertAmountForViewing(ownerTax));
 
     lb_owner_taxExp.setText(ownerTaxExp);
 
     lb_married_tax.setFont(lb_married_tax.getFont().deriveFont(lb_married_tax.getFont().getStyle() | java.awt.Font.BOLD));
-    lb_married_tax.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_married_tax.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     lb_married_tax.setText(Helper.convertAmountForViewing(marriedTax));
 
     lb_married_taxExp.setText(marriedTaxExp);
 
     lb_total_tax.setFont(lb_total_tax.getFont().deriveFont(lb_total_tax.getFont().getStyle() | java.awt.Font.BOLD, lb_total_tax.getFont().getSize()+2));
-    lb_total_tax.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    lb_total_tax.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lb_total_tax.setText(Helper.convertAmountForViewing(totalTax));
     lb_total_tax.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -253,181 +255,178 @@ public class CalcTaxes extends MyDraggable {
     panel.setLayout(panelLayout);
     panelLayout.setHorizontalGroup(
       panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-        .addContainerGap(10, Short.MAX_VALUE)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(lb_totalEarn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(lb_total_married, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(lb_total_owner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(lb_totalEarn, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-        .addGap(395, 395, 395))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addGap(10, 10, 10)
-        .addComponent(jLabel6)
-        .addContainerGap(221, Short.MAX_VALUE))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(lb_owner_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(129, Short.MAX_VALUE))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(lb_married_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(395, 395, 395))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addGap(197, 197, 197)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-          .addComponent(lb_married_neededExp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(lb_owner_neededExp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
-        .addContainerGap(15, Short.MAX_VALUE))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jLabel9)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(lb_total_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(129, Short.MAX_VALUE))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-        .addGap(395, 395, 395))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(lb_owner_ratio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(129, Short.MAX_VALUE))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(lb_married_ratio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(395, 395, 395))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
-            .addGap(188, 188, 188)
-            .addComponent(lb_married_ratioExp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
-            .addGap(185, 185, 185)
-            .addComponent(lb_owner_ratioExp, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-      .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(lb_foros, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(176, Short.MAX_VALUE))
       .addGroup(panelLayout.createSequentialGroup()
         .addContainerGap()
         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(panelLayout.createSequentialGroup()
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(lb_owner_tax, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(119, 119, 119))
+            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+              .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(lb_totalEarn, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+              .addComponent(lb_total_owner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+              .addComponent(lb_total_married, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+              .addComponent(lb_totalEarn3, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+            .addGap(56, 56, 56))
           .addGroup(panelLayout.createSequentialGroup()
-            .addGap(162, 162, 162)
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(panelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(lb_married_taxExp, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                  .addComponent(lb_married_taxExp, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(panelLayout.createSequentialGroup()
+                    .addGap(67, 67, 67)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addComponent(lb_married_ratio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4))
+                      .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(lb_owner_ratio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE))
+                      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addComponent(lb_married_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4))
+                      .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(lb_owner_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE))
+                      .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lb_married_tax, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                      .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(lb_owner_tax, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(254, 254, 254))
               .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lb_married_tax, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(panelLayout.createSequentialGroup()
-            .addComponent(lb_totalForos, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(lb_total_tax, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(panelLayout.createSequentialGroup()
-            .addGap(175, 175, 175)
-            .addComponent(lb_owner_taxExp, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addGap(272, 272, 272))
+                .addComponent(lb_totalForos, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_total_tax, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(201, 201, 201))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(lb_foros, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_total_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                  .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(lb_owner_neededExp, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addGap(254, 254, 254))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(lb_married_neededExp, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(lb_owner_ratioExp, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(lb_married_ratioExp, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(lb_owner_taxExp, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(395, 395, 395))))
     );
 
-    panelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel11, jLabel12, jLabel14, jLabel2, jLabel3, jLabel4, jLabel5, jLabel7, jLabel8, jLabel9});
+    panelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lb_married_neededExp, lb_married_ratioExp, lb_married_taxExp, lb_owner_neededExp, lb_owner_ratioExp, lb_owner_taxExp});
 
     panelLayout.setVerticalGroup(
       panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(panelLayout.createSequentialGroup()
-        .addGap(38, 38, 38)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(panelLayout.createSequentialGroup()
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-            .addGap(6, 6, 6)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-            .addGap(4, 4, 4)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-            .addGap(6, 6, 6)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel5))
           .addGroup(panelLayout.createSequentialGroup()
-            .addComponent(lb_totalEarn, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+            .addComponent(lb_totalEarn)
             .addGap(6, 6, 6)
-            .addComponent(lb_total_owner, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-            .addGap(4, 4, 4)
-            .addComponent(lb_total_married, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-            .addGap(6, 6, 6)
-            .addComponent(lb_totalEarn3, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
+            .addComponent(lb_total_owner, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(lb_total_married)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(lb_totalEarn3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addGap(18, 18, 18)
-        .addComponent(jLabel6)
+        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+            .addComponent(jLabel6)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(lb_owner_needed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-          .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(lb_owner_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(1, 1, 1)
         .addComponent(lb_owner_neededExp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-          .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(lb_married_needed, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lb_married_needed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(lb_married_neededExp)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel9)
-          .addComponent(lb_total_needed))
-        .addGap(27, 27, 27)
-        .addComponent(jLabel10)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel11)
-          .addComponent(lb_owner_ratio))
+        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lb_owner_ratio, javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel9)
+              .addComponent(lb_total_needed))
+            .addGap(27, 27, 27)
+            .addComponent(jLabel10)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel11)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(lb_owner_ratioExp)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel12)
-          .addComponent(lb_married_ratio))
+        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lb_married_ratio, javax.swing.GroupLayout.Alignment.TRAILING)
+          .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(lb_married_ratioExp)
         .addGap(18, 18, 18)
-        .addComponent(lb_foros, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel14)
-          .addComponent(lb_owner_tax))
+        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lb_owner_tax, javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+            .addComponent(lb_foros, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel14)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(lb_owner_taxExp)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel15)
-          .addComponent(lb_married_tax))
+        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lb_married_tax, javax.swing.GroupLayout.Alignment.TRAILING)
+          .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(lb_married_taxExp)
         .addGap(7, 7, 7)
         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(lb_totalForos)
           .addComponent(lb_total_tax))
-        .addGap(41, 41, 41))
+        .addContainerGap())
     );
 
     jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+2));
@@ -440,27 +439,27 @@ public class CalcTaxes extends MyDraggable {
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabel1))
           .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addGap(6, 6, 6)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(11, 11, 11)
+            .addComponent(jLabel1)))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap())
     );
@@ -469,11 +468,11 @@ public class CalcTaxes extends MyDraggable {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+      .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
 
     pack();
@@ -487,7 +486,6 @@ public class CalcTaxes extends MyDraggable {
   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     PrintUtilities.printComponent(panel);
   }//GEN-LAST:event_jButton2ActionPerformed
-
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButton1;
   private javax.swing.JButton jButton2;
@@ -540,19 +538,7 @@ public class CalcTaxes extends MyDraggable {
     calcTotalTax();
   }
 
-  private void calcOwnerTax() {
-    ownerTax = (ownerRatio - ownerNeeded)*10/100;
-    ownerTaxExp = "(" +Helper.convertAmountForViewing(ownerRatio) +" - " +
-        Helper.convertAmountForViewing(ownerNeeded) + ") x 10%";
-  }
-
-  private void calcMarriedTax() {
-    marriedTax = (marriedRatio - marriedNeeded)*10/100;
-    marriedTaxExp = "(" +Helper.convertAmountForViewing(marriedRatio) +" - " +
-        Helper.convertAmountForViewing(marriedNeeded) + ") x 10%";
-  }
-
-    private void calcOwnerNeeded() {
+  private void calcOwnerNeeded() {
     Object[] c = calcNeeded(owner);
     ownerNeeded = (Double) c[0];
     ownerNeededExpl = (String) c[1];
@@ -562,6 +548,23 @@ public class CalcTaxes extends MyDraggable {
     Object[] c = calcNeeded(married);
     marriedNeeded = (Double) c[0];
     marriedNeededExpl = (String) c[1];
+  }
+
+  private Object[] calcNeeded(double amount) {
+    if (amount <= MIN_EARN_THAT_NOT_NEEDS_RECEIPT) {
+      return new Object[]{0.0, "Δεν απαιτούνται"};
+    } else if (amount > MAX_EARN) {
+      return new Object[]{MAX_NEED, "Μεγιστο ποσό για εισοδήματα > " + MAX_EARN};
+    } else {
+      double validPercent = MAX_NEED * PER_CENT_FOR_VALID_RECEIPTS / 100;
+      double invalidPercent = (amount - MAX_NEED) * PER_CENT_FOR_INVALID_RECEIPTS / 100;
+      double tot = validPercent + invalidPercent;
+      String ex = "("
+          + Helper.convertAmountForViewing(12000) + " x " + PER_CENT_FOR_VALID_RECEIPTS + "% + "
+          + (Helper.convertAmountForViewing(amount - 12000)) + " x " + PER_CENT_FOR_INVALID_RECEIPTS + "% = "
+          + Helper.convertAmountForViewing(validPercent + invalidPercent) + ")";
+      return new Object[]{tot, ex};
+    }
   }
 
   private void calcOwnerRatio() {
@@ -586,26 +589,21 @@ public class CalcTaxes extends MyDraggable {
     return new Object[]{t, e};
   }
 
-  private Object[] calcNeeded(double amount) {
-    if (amount <= 6000) {
-      return new Object[]{0.0, "Δεν απαιτούνται"};
-    } else if (amount > 48000) {
-      return new Object[]{12000.0, "Μεγιστο ποσό για εισοδήματα > " + 48000};
-    } else {
-      double tenPerCent = 12000 * 10 / 100;
-      double thirtyPerCent = (amount - 12000) * 30 / 100;
-      double tot = tenPerCent + thirtyPerCent;
-      String ex = "("
-          + Helper.convertAmountForViewing(12000) + " x 10% + "
-          + (Helper.convertAmountForViewing(amount - 12000)) + " x 30% = "
-          + Helper.convertAmountForViewing(tenPerCent + thirtyPerCent) + ")";
-      return new Object[]{tot, ex};
-    }
+  private void calcOwnerTax() {
+    ownerTax = (ownerRatio - ownerNeeded) * PER_CENT_TAX_BONUS / 100;
+    ownerTaxExp = "(" + Helper.convertAmountForViewing(ownerRatio) + " - "
+        + Helper.convertAmountForViewing(ownerNeeded) + ") x " + PER_CENT_TAX_BONUS + "%";
+  }
+
+  private void calcMarriedTax() {
+    marriedTax = (marriedRatio - marriedNeeded) * PER_CENT_TAX_BONUS / 100;
+    marriedTaxExp = "(" + Helper.convertAmountForViewing(marriedRatio) + " - "
+        + Helper.convertAmountForViewing(marriedNeeded) + ") x " + PER_CENT_TAX_BONUS + "%";
   }
 
   private void calcTotalTax() {
     totalTax = ownerTax + marriedTax;
-    if(totalTax < 0){
+    if (totalTax < 0) {
       taxResult = "Επιβάρυνση φόρου";
       totalForosResult = "Συνολική επιβάρυνση φόρου:";
     } else {
