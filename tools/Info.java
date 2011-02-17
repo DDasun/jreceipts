@@ -38,9 +38,9 @@ public class Info extends MyDraggable {
     if(type == JOptionPane.INFORMATION_MESSAGE){
       jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info.png")));
     } else if(type == JOptionPane.ERROR_MESSAGE){
-      jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/severe.png")));
-    }else if(type == JOptionPane.WARNING_MESSAGE){
       jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/error.png")));
+    }else if(type == JOptionPane.WARNING_MESSAGE){
+      jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/warning.png")));
     }
     setLocationRelativeTo(null);
     setVisible(true);

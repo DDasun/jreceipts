@@ -56,6 +56,7 @@ import java.awt.Desktop;
 import java.net.URI;
 import tools.About;
 import tools.CalcTaxes;
+import tools.CheckUpdate;
 import tools.Helper;
 import tools.Options;
 import tools.Skin;
@@ -205,9 +206,10 @@ public class Main extends javax.swing.JFrame {
     menuItem_pdf = new javax.swing.JMenuItem();
     help = new javax.swing.JMenu();
     menuItem_help = new javax.swing.JMenuItem();
-    menuItem_info = new javax.swing.JMenuItem();
-    menuItem_contact = new javax.swing.JMenuItem();
     menuItem_website = new javax.swing.JMenuItem();
+    menuItem_contact = new javax.swing.JMenuItem();
+    jSeparator11 = new javax.swing.JPopupMenu.Separator();
+    menuItem_info = new javax.swing.JMenuItem();
     MenuItem_checkUpdate = new javax.swing.JMenuItem();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -721,19 +723,6 @@ public class Main extends javax.swing.JFrame {
     });
     help.add(menuItem_help);
 
-    menuItem_info.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info_small.png"))); // NOI18N
-    menuItem_info.setText("Πληροφορίες");
-    menuItem_info.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        menuItem_infoActionPerformed(evt);
-      }
-    });
-    help.add(menuItem_info);
-
-    menuItem_contact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contact.png"))); // NOI18N
-    menuItem_contact.setText("Επικοινωνία");
-    help.add(menuItem_contact);
-
     menuItem_website.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/website.png"))); // NOI18N
     menuItem_website.setText("Ιστοσελίδα");
     menuItem_website.addActionListener(new java.awt.event.ActionListener() {
@@ -743,8 +732,32 @@ public class Main extends javax.swing.JFrame {
     });
     help.add(menuItem_website);
 
+    menuItem_contact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contact.png"))); // NOI18N
+    menuItem_contact.setText("Επικοινωνία");
+    menuItem_contact.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_contactActionPerformed(evt);
+      }
+    });
+    help.add(menuItem_contact);
+    help.add(jSeparator11);
+
+    menuItem_info.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info_small.png"))); // NOI18N
+    menuItem_info.setText("Πληροφορίες");
+    menuItem_info.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_infoActionPerformed(evt);
+      }
+    });
+    help.add(menuItem_info);
+
     MenuItem_checkUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
     MenuItem_checkUpdate.setText("Έλεγχος νέας έκδοσης");
+    MenuItem_checkUpdate.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        MenuItem_checkUpdateActionPerformed(evt);
+      }
+    });
     help.add(MenuItem_checkUpdate);
 
     menuBar.add(help);
@@ -1103,6 +1116,22 @@ public class Main extends javax.swing.JFrame {
       new About();
     }//GEN-LAST:event_menuItem_infoActionPerformed
 
+    private void menuItem_contactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_contactActionPerformed
+      try {
+        String subject = ("?subject="+TITLE +" "+version).replaceAll("\\s", "%20");
+        URI email = new URI("mailto:"+Options.EMAIL+subject);
+        Helper.mail(email);
+      } catch (IOException ex) {
+        log(Level.SEVERE, null, ex);
+      } catch (URISyntaxException ex) {
+        log(Level.SEVERE, null, ex);
+      }
+    }//GEN-LAST:event_menuItem_contactActionPerformed
+
+    private void MenuItem_checkUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_checkUpdateActionPerformed
+      CheckUpdate cu = new CheckUpdate(false);
+    }//GEN-LAST:event_MenuItem_checkUpdateActionPerformed
+
   public void updateKindPanel() {
     KindTablePanel aPanel = new KindTablePanel(this);
     panel_main.removeAll();
@@ -1181,6 +1210,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenu help;
   private javax.swing.JToolBar.Separator jSeparator1;
   private javax.swing.JToolBar.Separator jSeparator10;
+  private javax.swing.JPopupMenu.Separator jSeparator11;
   private javax.swing.JToolBar.Separator jSeparator2;
   private javax.swing.JToolBar.Separator jSeparator3;
   private javax.swing.JToolBar.Separator jSeparator4;
