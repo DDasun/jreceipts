@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -30,6 +31,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -174,8 +176,27 @@ public class Helper {
 
   }
 
-  private Helper() {
+  public static boolean mail(URI email) throws IOException {
+    if (Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
+      try {
+        Desktop.getDesktop().mail(email);
+        return true;
+      } catch (IOException ex) {
+       throw new IOException("Δεν ήταν δυνατή η αποστολή στο " + email);
+      }
+
+    } else {
+      throw new UnsupportedOperationException("Η αποστολή email δεν "
+          + "επιτρέπεται από το λειτουργικό σύστημα");
+    }
   }
+
+  public static String stripHTML(String str) {
+    return str.replaceAll("\\<.*?>", "");
+
+  }
+
+  
 
   public static String convertAmountForViewing(double amount) {
     DecimalFormatSymbols dfs = new DecimalFormatSymbols();
@@ -316,5 +337,42 @@ public class Helper {
     }
     return fixAmount(am.replaceFirst("\\.", ""));
 
+  }
+
+   public static boolean hasInternetConnection(String address) {
+    BufferedReader in = null;
+    try {
+      URL url = new URL(address);
+      in = new BufferedReader(new InputStreamReader(url.openStream()));
+      return true;
+    } catch (IOException ex) {
+      return false;
+    }
+  }
+
+   public static void initInternetConnection() {
+    if (Options.toBoolean(Options.USE_PROXY)) {
+      Properties props = System.getProperties();
+      props.put("http.proxyHost", Options.toString(Options.PROXY_HOST));
+      props.put("http.proxyPort", Options.toString(Options.PROXY_PORT));
+      System.setProperties(props);
+    } else {
+      Properties props = System.getProperties();
+      props.put("http.proxyHost", "");
+      props.put("http.proxyPort", "80");
+      System.setProperties(props);
+    }
+  }
+
+  static boolean isNumeric(String string) {
+     try {
+      long l = Long.parseLong(string.trim());
+    } catch (NumberFormatException ex) {
+      return false;
+    }
+    return true;
+  }
+
+  private Helper() {
   }
 }
