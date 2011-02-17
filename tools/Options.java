@@ -28,6 +28,8 @@ public class Options {
   public static String DB_PATH = "databases/";
   public static String EXPORTS_PATH = "exports/";
   public static String DOCS_PATH = "docs/";
+  public static String WEBSITE = "http://code.google.com/p/jreceipts/";
+  public static String EMAIL = "lordovol@hotmail.com";
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
   public static Color DISABLED_COLOR = Color.BLACK;
   public static int DISABLED_COLOR_ALPHA = 192;

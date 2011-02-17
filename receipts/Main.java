@@ -54,6 +54,7 @@ import panels.totalsPanel;
 import forms.EarnForm;
 import java.awt.Desktop;
 import java.net.URI;
+import tools.About;
 import tools.CalcTaxes;
 import tools.Helper;
 import tools.Options;
@@ -69,6 +70,9 @@ public class Main extends javax.swing.JFrame {
   public static final long serialVersionUID = 13456457457L;
   public static Logger logger;
   public static String version = "1.0 beta";
+  public static String revision = "5";
+  public static String date = "17/02/2010";
+  public static String TITLE = "Αποδείξεις";
 
   /** Creates new form Main */
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
@@ -719,6 +723,11 @@ public class Main extends javax.swing.JFrame {
 
     menuItem_info.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info_small.png"))); // NOI18N
     menuItem_info.setText("Πληροφορίες");
+    menuItem_info.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_infoActionPerformed(evt);
+      }
+    });
     help.add(menuItem_info);
 
     menuItem_contact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contact.png"))); // NOI18N
@@ -1077,7 +1086,7 @@ public class Main extends javax.swing.JFrame {
 
     private void menuItem_websiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_websiteActionPerformed
       try {
-        URI uri = new URI("http://code.google.com/p/jreceipts/");
+        URI uri = new URI(Options.WEBSITE);
         try {
           Helper.browse(uri);
         } catch (UnsupportedOperationException ex) {
@@ -1089,6 +1098,10 @@ public class Main extends javax.swing.JFrame {
         Main.log(Level.WARNING, ex.getMessage(), ex);
       }
     }//GEN-LAST:event_menuItem_websiteActionPerformed
+
+    private void menuItem_infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_infoActionPerformed
+      new About();
+    }//GEN-LAST:event_menuItem_infoActionPerformed
 
   public void updateKindPanel() {
     KindTablePanel aPanel = new KindTablePanel(this);
