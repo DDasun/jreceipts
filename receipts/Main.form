@@ -347,6 +347,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x399;&#x3c3;&#x3c4;&#x3bf;&#x3c3;&#x3b5;&#x3bb;&#x3af;&#x3b4;&#x3b1;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_websiteActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuItem_checkUpdate">
               <Properties>

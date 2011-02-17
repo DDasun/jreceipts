@@ -17,8 +17,8 @@ import models.Afm;
 import models.Receipt;
 import models.Type;
 import receipts.Main;
-import tools.Global;
 import tools.Helper;
+import tools.Options;
 
 /**
  *
@@ -103,7 +103,7 @@ public class AfmsTablePanel extends MyTablePanel {
   }
 
   public void tableChanged(TableModelEvent e) {
-    String oldValue = (String) Global.selectedValue;
+    String oldValue = (String) Options.selectedValue;
     String rec[] = new String[_NUMBER_OF_FIELDS];
     if (e.getType() == TableModelEvent.UPDATE) {
       int row = e.getFirstRow();

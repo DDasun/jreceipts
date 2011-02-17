@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
-import tools.Global;
 import tools.Helper;
+import tools.Options;
 
 /**
  * The cell editor for the datechooser
@@ -58,7 +58,7 @@ public class MyAmountCellEditor extends AbstractCellEditor implements TableCellE
     Double dAmount = Double.parseDouble(amount.getText());
     } catch(NumberFormatException ex){
       Helper.message("Λάθος φορμάτ ποσού\nΤο φορμάτ πρέπει να είναι της μορφής:\n 12345.55 ή 12345 ή 12345.6", "Λάθος ποσό", JOptionPane.ERROR_MESSAGE);
-      amount.setText((String) Global.selectedValue);
+      amount.setText((String) Options.selectedValue);
       return false;
     }
     return super.stopCellEditing();
