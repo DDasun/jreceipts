@@ -31,6 +31,7 @@ public class Options {
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
   public static Color DISABLED_COLOR = Color.BLACK;
   public static int DISABLED_COLOR_ALPHA = 192;
+  public static Object selectedValue;
 
 
   private Options() {

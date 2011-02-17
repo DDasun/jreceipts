@@ -6,10 +6,8 @@ package components;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.event.TableModelListener;
-import tools.Global;
+import tools.Options;
 
 /**
  *
@@ -26,18 +24,20 @@ public abstract class MyTablePanel extends MyStaticTablePanel implements MyTable
     initPopUp();
   }
 
-  private void initPopUp(){
+  private void initPopUp() {
     popup = new javax.swing.JPopupMenu();
     popup_delete = new javax.swing.JMenuItem();
     popup.setInvoker(table);
     popup_delete.setText("Διαγραφή");
     popup_delete.addActionListener(new java.awt.event.ActionListener() {
+
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         popup_deleteActionPerformed(evt);
       }
     });
     popup.add(popup_delete);
     table.addMouseListener(new java.awt.event.MouseAdapter() {
+
       public void mouseReleased(java.awt.event.MouseEvent evt) {
         tableMouseReleased(evt);
       }
@@ -56,16 +56,16 @@ public abstract class MyTablePanel extends MyStaticTablePanel implements MyTable
       if (evt.getButton() == MouseEvent.BUTTON3) {
         popup.show(evt.getComponent(), evt.getX(), evt.getY());
       } else if (evt.getButton() == MouseEvent.BUTTON1) {
-        Global.selectedValue = table.getModel().getValueAt(rowSelected, colSelected);
+        Options.selectedValue = table.getModel().getValueAt(rowSelected, colSelected);
       }
 
     }
   }
 
-   private void popup_deleteActionPerformed(java.awt.event.ActionEvent evt) {
+  private void popup_deleteActionPerformed(java.awt.event.ActionEvent evt) {
     int id = Integer.parseInt(String.valueOf(tableModel.getValueAt(rowSelected, 0)));
     delete(id);
-  }   
+  }
 
   public abstract void delete(int id);
 }

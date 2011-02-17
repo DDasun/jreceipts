@@ -29,6 +29,7 @@ import importDb.ImportXls;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ import panels.TypesTablePanel;
 import panels.totalsPanel;
 import forms.EarnForm;
 import java.awt.Desktop;
+import java.net.URI;
 import tools.CalcTaxes;
 import tools.Helper;
 import tools.Options;
@@ -725,6 +727,11 @@ public class Main extends javax.swing.JFrame {
 
     menuItem_website.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/website.png"))); // NOI18N
     menuItem_website.setText("Ιστοσελίδα");
+    menuItem_website.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_websiteActionPerformed(evt);
+      }
+    });
     help.add(menuItem_website);
 
     MenuItem_checkUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
@@ -1067,6 +1074,21 @@ public class Main extends javax.swing.JFrame {
         Main.log(Level.WARNING, ex.getMessage(), ex);
       }
     }//GEN-LAST:event_menuItem_helpActionPerformed
+
+    private void menuItem_websiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_websiteActionPerformed
+      try {
+        URI uri = new URI("http://code.google.com/p/jreceipts/");
+        try {
+          Helper.browse(uri);
+        } catch (UnsupportedOperationException ex) {
+          Main.log(Level.WARNING, ex.getMessage(), ex);
+        } catch (IOException ex) {
+          Main.log(Level.WARNING, ex.getMessage(), ex);
+        }
+      } catch (URISyntaxException ex) {
+        Main.log(Level.WARNING, ex.getMessage(), ex);
+      }
+    }//GEN-LAST:event_menuItem_websiteActionPerformed
 
   public void updateKindPanel() {
     KindTablePanel aPanel = new KindTablePanel(this);
