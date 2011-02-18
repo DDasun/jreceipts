@@ -26,34 +26,34 @@ import receipts.Main;
  */
 public class Options {
 
+  public static final String USER_DIR = "./";
+  public static final String LOG_PATH = "logs/";
+  public static final String DB_PATH = "databases/";
+  public static final String EXPORTS_PATH = "exports/";
+  public static final String DOCS_PATH = "docs/";
+  public static final String WEBSITE = "http://code.google.com/p/jreceipts/";
+  public static final String EMAIL = "lordovol@hotmail.com";
+  public static final String DATE_FORMAT = "dd/MM/yyyy";
+  public static final String DATE_SQL_FORMAT = "yyyy-MM-dd";
+  public static final String _DECIMAL_FORMAT = "###,##0.00 '€'";
+  public static final String _DECIMAL_EDITING_FORMAT = "##0.00";
+  public static final Color DISABLED_COLOR = Color.BLACK;
+  public static final int DISABLED_COLOR_ALPHA = 192;
 
-  //public static final String USER_DIR = System.getProperties().getProperty("user.dir");
-  public static String USER_DIR = "./";
+
   public static boolean DEBUG = true;
   public static String DATABASE = "";
   public static Color COLOR = new Color(255,255,153);
-  public static String DATE_FORMAT = "dd/MM/yyyy";
-  public static String DATE_SQL_FORMAT = "yyyy-MM-dd";
-  public static String _DECIMAL_FORMAT = "###,##0.00 '€'";
-  public static String _DECIMAL_EDITING_FORMAT = "##0.00";
-  public static String LOG_PATH = "logs/";
-  public static String DB_PATH = "databases/";
-  public static String EXPORTS_PATH = "exports/";
-  public static String DOCS_PATH = "docs/";
-  public static String WEBSITE = "http://code.google.com/p/jreceipts/";
-  public static String EMAIL = "lordovol@hotmail.com";
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-  public static Color DISABLED_COLOR = Color.BLACK;
-  public static int DISABLED_COLOR_ALPHA = 192;
   public static Object selectedValue;
+  
+  
   private static HashMap<String, Object> options;
   public static String USE_PROXY;
   public static String PROXY_HOST;
   public static String PROXY_PORT;
 
   public static void getOptions() throws FileNotFoundException, IOException {
-    //Options._USER_DIR_ = System.getProperties().getProperty("user.dir");
-    Options.USER_DIR = "./";
     options = new HashMap<String, Object>();
     Options.loadDefaultOptions();
     if (!new File(Options.USER_DIR + "jreceipts.ini").isFile()) {
@@ -161,6 +161,9 @@ public class Options {
    */
   public static Boolean toBoolean(String key) {
     Boolean val = false;
+    if (options.get(key)==null){
+      return false;
+    }
     String value = String.valueOf(options.get(key)).trim();
     if (value.trim().equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
       val = Boolean.parseBoolean(String.valueOf(options.get(key)));

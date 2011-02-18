@@ -340,7 +340,8 @@ public class Helper {
   }
 
    public static boolean hasInternetConnection(String address) {
-    BufferedReader in = null;
+     initInternetConnection();
+     BufferedReader in = null;
     try {
       URL url = new URL(address);
       in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -358,8 +359,8 @@ public class Helper {
       System.setProperties(props);
     } else {
       Properties props = System.getProperties();
-      props.put("http.proxyHost", "");
-      props.put("http.proxyPort", "80");
+      props.put("http.proxyHost", "192.168.6.191");
+      props.put("http.proxyPort", "8080");
       System.setProperties(props);
     }
   }
