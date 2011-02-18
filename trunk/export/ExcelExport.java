@@ -22,7 +22,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import receipts.Main;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *

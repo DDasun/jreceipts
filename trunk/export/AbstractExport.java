@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import models.Receipt;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *
@@ -37,7 +37,8 @@ public abstract class AbstractExport implements ExportConstants {
     c.setDialogTitle("Εξαγωγή λίστας αποδείξεων");
     try {
       //c.setCurrentDirectory(new File(Options.USER_DIR + Options.EXPORTS_PATH));
-      c.setSelectedFile(new File(Options.USER_DIR + Options.EXPORTS_PATH + Options.DATABASE + "." + ExportConstants.EXTENSIONS[type]).getCanonicalFile());
+      c.setSelectedFile(new File(Options.USER_DIR + Options.EXPORTS_PATH + 
+          Options.toString(Options.DATABASE) + "." + ExportConstants.EXTENSIONS[type]).getCanonicalFile());
     } catch (IOException ex) {
       Logger.getLogger(AbstractExport.class.getName()).log(Level.SEVERE, null, ex);
     }
