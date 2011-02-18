@@ -26,8 +26,9 @@ import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
 import components.Database;
 import java.sql.ResultSet;
-import models.Receipt;
+import java.util.Date;
 import tools.Helper;
+import tools.options.Options;
 
 /**
  *
@@ -72,10 +73,10 @@ public class AddReceipt extends MyDraggable {
     label_amount = new javax.swing.JLabel();
     textfield_amount = new STextField();
     label_date = new javax.swing.JLabel();
-    combo_date = new org.freixas.jcalendar.JCalendarCombo();
     jLabel1 = new javax.swing.JLabel();
     combo_afm = new javax.swing.JComboBox();
     spinner_multiplier = new javax.swing.JSpinner();
+    combo_date = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
     label_comment = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
     textArea_comments = new javax.swing.JTextArea();
@@ -156,8 +157,6 @@ public class AddReceipt extends MyDraggable {
     label_date.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     label_date.setText("Ημερομηνία");
 
-    combo_date.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
-
     jLabel1.setText("Επιλογή Α.Φ.Μ.");
 
     combo_afm.setModel(Afm.getModel());
@@ -194,19 +193,19 @@ public class AddReceipt extends MyDraggable {
             .addComponent(label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(panel_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(combo_date, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
           .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(checkbox_newType)
           .addComponent(label_date)
-          .addComponent(combo_date, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(panel_leftLayout.createSequentialGroup()
             .addComponent(textfield_newType, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(spinner_multiplier, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addComponent(combo_afm, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(combo_afm, 0, 201, Short.MAX_VALUE))
         .addContainerGap())
     );
 
-    panel_leftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {combo_type, textfield_afm, textfield_amount});
+    panel_leftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textfield_afm, textfield_amount});
 
     panel_leftLayout.setVerticalGroup(
       panel_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,9 +223,9 @@ public class AddReceipt extends MyDraggable {
           .addComponent(label_amount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(label_date))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(panel_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(textfield_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(combo_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGroup(panel_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(combo_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(textfield_amount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addGap(7, 7, 7)
         .addGroup(panel_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(checkbox_newType, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,7 +238,7 @@ public class AddReceipt extends MyDraggable {
         .addContainerGap())
     );
 
-    panel_leftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {combo_date, combo_type, textfield_afm, textfield_amount, textfield_newType});
+    panel_leftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {combo_type, textfield_afm, textfield_amount, textfield_newType});
 
     label_comment.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     label_comment.setText("Σχόλια");
@@ -255,9 +254,9 @@ public class AddReceipt extends MyDraggable {
     panelLayout.setHorizontalGroup(
       panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(panelLayout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addContainerGap()
         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(panel_left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(panel_left, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addGroup(panelLayout.createSequentialGroup()
             .addGap(10, 10, 10)
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +272,7 @@ public class AddReceipt extends MyDraggable {
         .addComponent(label_comment)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap())
     );
 
     title.setFont(title.getFont().deriveFont(title.getFont().getStyle() | java.awt.Font.BOLD, title.getFont().getSize()+2));
@@ -308,30 +307,30 @@ public class AddReceipt extends MyDraggable {
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel1Layout.createSequentialGroup()
-        .addContainerGap()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
         .addContainerGap(397, Short.MAX_VALUE)
         .addComponent(button_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
         .addContainerGap()
         .addComponent(button_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+      .addGroup(jPanel1Layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+        .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(button_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(jPanel1Layout.createSequentialGroup()
             .addGap(11, 11, 11)
-            .addComponent(title))
-          .addComponent(button_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(title)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(button_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
@@ -383,8 +382,16 @@ public class AddReceipt extends MyDraggable {
         error = true;
         errorMessage += "Το ποσό πρέπει να είναι στη μορφή XXXXXX.XX ή XXXX\n";
       }
+      SimpleDateFormat sdf = new SimpleDateFormat(Options.DATE_FORMAT);
+      if(combo_date.getDate()!=null){
+        date = sdf.format(combo_date.getDate());  
+      } else {
+        error = true;
+        errorMessage += "Η ημερομηνία πρέπει να είναι στη μορφή ΗΗ/ΜΜ/ΕΕΕΕ\n";
+        combo_date.setDate(null);
+      }
 
-      date = String.valueOf(combo_date.getSelectedItem()).trim();
+
 
       if (checkbox_newType.isSelected()) {
         type_id = 0;
@@ -402,6 +409,7 @@ public class AddReceipt extends MyDraggable {
       comments = textArea_comments.getText().trim();
       if (error) {
         Helper.message(errorMessage, "Εισαγωγή απόδειξης", JOptionPane.WARNING_MESSAGE);
+        Main.glassPane.activate(null);
       } else {
         Main.glassPane.deactivate();
         dispose();
@@ -464,7 +472,7 @@ public class AddReceipt extends MyDraggable {
   private javax.swing.JButton button_ok;
   private javax.swing.JCheckBox checkbox_newType;
   private javax.swing.JComboBox combo_afm;
-  private org.freixas.jcalendar.JCalendarCombo combo_date;
+  private com.toedter.calendar.JDateChooser combo_date;
   private com.googlecode.svalidators.formcomponents.SComboBox combo_type;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;
