@@ -44,14 +44,6 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="panel" alignment="0" min="-2" pref="409" max="-2" attributes="0"/>
-                      <Component id="title" alignment="0" min="-2" pref="364" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="397" max="32767" attributes="0"/>
                   <Component id="button_ok" min="-2" pref="32" max="-2" attributes="0"/>
@@ -60,21 +52,29 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="button_cancel" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="title" alignment="0" min="-2" pref="384" max="-2" attributes="0"/>
+                      <Component id="panel" alignment="0" pref="409" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="button_cancel" min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="11" pref="11" max="11" attributes="0"/>
                           <Component id="title" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="button_cancel" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panel" min="-2" pref="310" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="panel" pref="310" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="button_ok" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -103,9 +103,9 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panel_left" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="panel_left" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="10" pref="10" max="10" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -120,13 +120,13 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="panel_left" min="-2" max="-2" attributes="2"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="label_comment" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="87" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -142,7 +142,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" max="-2" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -159,26 +159,26 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="combo_type" linkSize="4" pref="166" max="32767" attributes="1"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="combo_type" pref="166" max="32767" attributes="2"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="label_type" min="-2" pref="52" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="combo_date" pref="201" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
                               <Component id="checkbox_newType" min="-2" max="-2" attributes="0"/>
                               <Component id="label_date" min="-2" max="-2" attributes="1"/>
-                              <Component id="combo_date" alignment="0" min="-2" pref="201" max="-2" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="textfield_newType" min="-2" pref="148" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="spinner_multiplier" min="-2" pref="47" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="combo_afm" min="-2" pref="201" max="-2" attributes="1"/>
+                              <Component id="combo_afm" pref="201" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -203,9 +203,9 @@
                               <Component id="label_date" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textfield_amount" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="combo_date" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="combo_date" max="32767" attributes="1"/>
+                              <Component id="textfield_amount" linkSize="1" alignment="0" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -315,13 +315,6 @@
                     <Property name="text" type="java.lang.String" value="&#x397;&#x3bc;&#x3b5;&#x3c1;&#x3bf;&#x3bc;&#x3b7;&#x3bd;&#x3af;&#x3b1;"/>
                   </Properties>
                 </Component>
-                <Component class="org.freixas.jcalendar.JCalendarCombo" name="combo_date">
-                  <Properties>
-                    <Property name="dateFormat" type="java.text.DateFormat" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new SimpleDateFormat(&quot;dd/MM/yyyy&quot;)" type="code"/>
-                    </Property>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x395;&#x3c0;&#x3b9;&#x3bb;&#x3bf;&#x3b3;&#x3ae; &#x391;.&#x3a6;.&#x39c;."/>
@@ -346,6 +339,11 @@
                       <SpinnerModel initial="1.0" maximum="3.0" minimum="1.0" numberType="java.lang.Double" stepSize="0.5" type="number"/>
                     </Property>
                   </Properties>
+                </Component>
+                <Component class="com.toedter.calendar.JDateChooser" name="combo_date">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.toedter.calendar.JDateChooser(&quot;dd/MM/yyyy&quot;,&quot;##/##/####&quot;,&apos;_&apos;)"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

@@ -276,7 +276,6 @@ public class Options {
     options.put(Options.PROXY_PORT, "");
     options.put(Options.AUTO_UPDATE, true);
     options.put(Options.DEBUG, true);
-
   }
 
   private Options() {

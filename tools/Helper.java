@@ -161,15 +161,15 @@ public class Helper {
     return haystack.split(needle, -1).length - 1;
   }
 
-  public static boolean browse(URI uri) throws UnsupportedOperationException, IOException{
+  public static boolean browse(URI uri) throws UnsupportedOperationException, IOException {
     if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
       try {
         Desktop.getDesktop().browse(uri);
         return true;
       } catch (IOException ex) {
-       throw new IOException("Δεν ήταν δυνατή η περιήγηση στην σελίδα " + uri);
+        throw new IOException("Δεν ήταν δυνατή η περιήγηση στην σελίδα " + uri);
       }
-      
+
     } else {
       throw new UnsupportedOperationException("Η περιήγηση στη σελίδα " + uri + " δεν "
           + "επιτρέπεται από το λειτουργικό σύστημα");
@@ -183,7 +183,7 @@ public class Helper {
         Desktop.getDesktop().mail(email);
         return true;
       } catch (IOException ex) {
-       throw new IOException("Δεν ήταν δυνατή η αποστολή στο " + email);
+        throw new IOException("Δεν ήταν δυνατή η αποστολή στο " + email);
       }
 
     } else {
@@ -196,8 +196,6 @@ public class Helper {
     return str.replaceAll("\\<.*?>", "");
 
   }
-
-  
 
   public static String convertAmountForViewing(double amount) {
     DecimalFormatSymbols dfs = new DecimalFormatSymbols();
@@ -340,9 +338,9 @@ public class Helper {
 
   }
 
-   public static boolean hasInternetConnection(String address) {
-     initInternetConnection();
-     BufferedReader in = null;
+  public static boolean hasInternetConnection(String address) {
+    initInternetConnection();
+    BufferedReader in = null;
     try {
       URL url = new URL(address);
       in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -352,7 +350,7 @@ public class Helper {
     }
   }
 
-   public static void initInternetConnection() {
+  public static void initInternetConnection() {
     if (Options.toBoolean(Options.USE_PROXY)) {
       Properties props = System.getProperties();
       props.put("http.proxyHost", Options.toString(Options.PROXY_HOST));
@@ -367,7 +365,7 @@ public class Helper {
   }
 
   public static boolean isNumeric(String string) {
-     try {
+    try {
       long l = Long.parseLong(string.trim());
     } catch (NumberFormatException ex) {
       return false;
@@ -377,6 +375,29 @@ public class Helper {
 
   public static boolean isInArray(String[] array, String string) {
     return isInArray(string, array);
+  }
+
+  public static boolean isValidDate(String date) {
+    if (date == null) {
+      return false;
+    }
+
+    //set the format to use as a constructor argument
+    SimpleDateFormat dateFormat = new SimpleDateFormat(Options.DATE_FORMAT);
+
+    if (date.trim().length() != dateFormat.toPattern().length()) {
+      return false;
+    }
+
+    dateFormat.setLenient(false);
+
+    try {
+      //parse the inDate parameter
+      dateFormat.parse(date.trim());
+    } catch (ParseException pe) {
+      return false;
+    }
+    return true;
   }
 
   private Helper() {
