@@ -73,7 +73,7 @@ public class AfmsTablePanel extends MyTablePanel {
   public void delete(int id) {
     if (Helper.confirm("Διαγραφή Α.Φ.Μ.", "Θέλετε να διαγραφεί το Α.Φ.Μ.;") == JOptionPane.YES_OPTION) {
       Afm.deleteById(id);
-      m.updateAfmPanel();
+      update();
     }
   }
 

@@ -41,7 +41,6 @@ public class DBRecord {
   }
 
   public static int getIdByField(String table , String field, String idField, String value) throws SQLException {
-
     sql = "SELECT " + idField + " FROM " + table + " WHERE " +field  + " = '" + value + "'";
     rs = stmt.executeQuery(sql);
     if(rs.next()){
