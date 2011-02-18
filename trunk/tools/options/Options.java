@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package tools;
+package tools.options;
 
 import exceptions.OptionFormatException;
 import java.awt.Color;
@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import receipts.Main;
+import tools.Helper;
 
 /**
  *
@@ -39,10 +40,14 @@ public class Options {
   public static final String _DECIMAL_EDITING_FORMAT = "##0.00";
   public static final Color DISABLED_COLOR = Color.BLACK;
   public static final int DISABLED_COLOR_ALPHA = 192;
-
-
   public static boolean DEBUG = true;
-  public static String DATABASE = "";
+  public static final String DEFAULT_DATABASE = "DEFAULT_DATABASE";
+  public static final String DATABASE = "DATABASE";
+  public static final String ASK_FOR_DB = "Ερώτηση στην έναρξη";
+
+  public static String[] _COMBO_OPTIONS_ = {DEFAULT_DATABASE};
+  
+  
   public static Color COLOR = new Color(255,255,153);
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
   public static Object selectedValue;
@@ -52,6 +57,7 @@ public class Options {
   public static String USE_PROXY;
   public static String PROXY_HOST;
   public static String PROXY_PORT;
+
 
   public static void getOptions() throws FileNotFoundException, IOException {
     options = new HashMap<String, Object>();
@@ -221,7 +227,7 @@ public class Options {
    */
   private static void writeDefaultIniFile() throws IOException {
     PrintWriter out = Helper.createOutputStream(new File(Options.USER_DIR + "jreceipts.ini"), false);
-//    out.println(Options.DB_NAME + "=");
+    out.println(Options.DEFAULT_DATABASE + "=");
 //    out.println(Options.DEBUG_MODE + "=0");
 //    out.println(Options.MODAL + "=true");
 //    out.println(Options.DATE_FORMAT + "=dd/MM/yyyy");
@@ -276,11 +282,11 @@ public class Options {
           value = String.valueOf(options.get(key));
         }
         // Check DB extension
-        if (key.equals(Options.DATABASE)) {
-          if (!value.endsWith(".db")) {
-            value = value + ".db";
-          }
-        }
+//        if (key.equals(Options.DATABASE)) {
+//          if (!value.endsWith(".db")) {
+//            value = value + ".db";
+//          }
+//        }
         out.println(key + "=" + value);
       }
       out.close();
@@ -292,7 +298,7 @@ public class Options {
   }
 
   private static void loadDefaultOptions() {
-//    options.put(Options.DB_NAME, "");
+    options.put(Options.DEFAULT_DATABASE, "");
 //    options.put(Options.DEBUG_MODE, new Integer(0));
 //    options.put(Options.MODAL, true);
 //    options.put(Options.DATE_FORMAT, "dd/MM/yyyy");
