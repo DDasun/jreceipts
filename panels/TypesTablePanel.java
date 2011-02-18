@@ -6,13 +6,16 @@ package panels;
 
 import components.MyTableModel;
 import components.MyTablePanel;
+import exceptions.ErrorMessages;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
+import models.Receipt;
 import models.Type;
 import receipts.Main;
 import tools.Helper;
@@ -70,9 +73,20 @@ public class TypesTablePanel extends MyTablePanel {
 
   @Override
   public void delete(int id) {
+    try {
+      int r_id = Receipt.getIdByField("receipts", "type_id", "receipt_id", String.valueOf(id));
+      if(r_id > 0){
+        Helper.message("Δεν μπορείτε να διαγράψετε κατηγορία στην οποία υπάρχουν αποδείξεις", "Διαγραφή κατηγορίας", JOptionPane.ERROR_MESSAGE);
+        return;
+      }
+    } catch (SQLException ex) {
+      Helper.message(ErrorMessages.SQL_EXCEPTION, "Διαγραφή κατηγορίας", JOptionPane.ERROR_MESSAGE);
+      Main.log(Level.SEVERE, null, ex);
+      return;
+    }
     if (Helper.confirm("Διαγραφή καταστήματος", "Θέλετε να διαγραφεί το κατάστημα;") == JOptionPane.YES_OPTION) {
       Type.deleteById(id);
-      m.updateTypesPanel();
+      update();
     }
   }
 

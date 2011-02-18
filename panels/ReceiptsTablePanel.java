@@ -102,6 +102,7 @@ public class ReceiptsTablePanel extends MyTablePanel {
   public void delete(int id) {
     if (Helper.confirm("Διαγραφή απόδειξης", "Θέλετε να διαγραφεί η απόδειξη;") == JOptionPane.YES_OPTION) {
       Receipt.deleteById(id);
+      update();
     }
   }
 
