@@ -97,10 +97,11 @@ public class Info extends MyDraggable {
 
     ta.setColumns(20);
     ta.setEditable(false);
-    ta.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+    ta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
     ta.setLineWrap(true);
     ta.setRows(4);
     ta.setText(message);
+    ta.setWrapStyleWord(true);
     ta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
     ta.setEnabled(false);
     ta.setFocusable(false);
