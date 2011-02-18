@@ -27,7 +27,7 @@ import models.Receipt;
 import receipts.Main;
 import sun.font.FontManager;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *
