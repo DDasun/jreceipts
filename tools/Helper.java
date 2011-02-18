@@ -4,6 +4,7 @@
  */
 package tools;
 
+import tools.options.Options;
 import exceptions.ErrorMessages;
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
@@ -365,13 +366,17 @@ public class Helper {
     }
   }
 
-  static boolean isNumeric(String string) {
+  public static boolean isNumeric(String string) {
      try {
       long l = Long.parseLong(string.trim());
     } catch (NumberFormatException ex) {
       return false;
     }
     return true;
+  }
+
+  public static boolean isInArray(String[] array, String string) {
+    return isInArray(string, array);
   }
 
   private Helper() {

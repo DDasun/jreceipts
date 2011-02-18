@@ -10,6 +10,7 @@
  */
 package tools;
 
+import tools.options.Options;
 import components.MyDraggable;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -69,6 +70,7 @@ public class About extends MyDraggable {
     lb_website = new javax.swing.JLabel();
     lb_email = new javax.swing.JLabel();
     jLabel3 = new javax.swing.JLabel();
+    jLabel4 = new javax.swing.JLabel();
     jLabel1 = new javax.swing.JLabel();
     bt_cancel = new javax.swing.JButton();
     jLabel2 = new javax.swing.JLabel();
@@ -101,6 +103,8 @@ public class About extends MyDraggable {
     jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getStyle() | java.awt.Font.BOLD));
     jLabel3.setText("Πληροφορίες συστήματος :");
 
+    jLabel4.setText("Το πρόγραμμα διατίθετε δωρεάν. Αν το αγοράσατε σας πιάσανε κορόιδο.");
+
     javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
     jPanel2.setLayout(jPanel2Layout);
     jPanel2Layout.setHorizontalGroup(
@@ -108,18 +112,19 @@ public class About extends MyDraggable {
       .addGroup(jPanel2Layout.createSequentialGroup()
         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGap(106, 106, 106)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(lb_version, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(lb_date, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(lb_website, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(lb_email, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
-          .addGroup(jPanel2Layout.createSequentialGroup()
             .addContainerGap()
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
           .addGroup(jPanel2Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
+          .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGap(106, 106, 106)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+              .addComponent(lb_version, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(lb_date, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(lb_website, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(lb_email, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))))
         .addContainerGap())
     );
     jPanel2Layout.setVerticalGroup(
@@ -133,7 +138,9 @@ public class About extends MyDraggable {
         .addComponent(lb_website, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(lb_email, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jLabel4)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
         .addComponent(jLabel3)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,6 +227,7 @@ public class About extends MyDraggable {
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
   private javax.swing.JPanel jPanel2;
   private javax.swing.JPanel jPanel3;
   private javax.swing.JScrollPane jScrollPane2;
