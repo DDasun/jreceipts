@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import receipts.Main;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Database {
   public static Statement stmt;
   public static String db;
 
-  public static void createConnection() {
+  public static void createConnection(boolean ask) {
     String[] databases = getDatabases();
     try {
       if (databases.length == 0) {
@@ -38,21 +38,25 @@ public class Database {
         db = databases[0];
         db = db.replaceAll(".db$", "");
       } else {
+        if(loadDefaultDb() && !ask){
+         db= Options.toString(Options.DEFAULT_DATABASE);
+        }else {
         db = Helper.ask("Επιλογή Βάσης", "Επιλέξτε τη βάση που θέλετε να χρησιμοποιήσετε", databases);
+        }
         if(!db.equals("")){
         db = db.replaceAll(".db$", "");
         } else {
-          if(Options.DATABASE.equals("")){
+          if(Options.toString(Options.DATABASE).equals("")){
             System.exit(0);
           } else {
-            db = Options.DATABASE;
+            db = Options.toString(Options.DATABASE);
           }
         }
       }
       Class.forName("org.sqlite.JDBC");
       conn = DriverManager.getConnection("jdbc:sqlite:" + Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
       stmt = conn.createStatement();
-      Options.DATABASE = db;
+      Options.setOption(Options.DATABASE, db);
     } catch (SQLException ex) {
       Main.log(Level.SEVERE, "Could not connect to the SQLite database", ex);
     } catch (ClassNotFoundException ex) {
@@ -89,7 +93,7 @@ public class Database {
       stmt.executeUpdate(types);
       String receipts = "CREATE  TABLE `receipts` (`receipt_id` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ," + " `afm` VARCHAR DEFAULT 0, `amount` DOUBLE NOT NULL , `buy_date` DATETIME NOT NULL , `type_id` INTEGER NOT NULL , `comments` TEXT)";
       stmt.executeUpdate(receipts);
-      Options.DATABASE = db;
+      Options.setOption(Options.DATABASE, db);
       return true;
     } catch (SQLException ex) {
       Main.log(Level.SEVERE, ErrorMessages.CREATE_DB_ERROR, ex);
@@ -136,7 +140,7 @@ public class Database {
         return;
       }
       db = newDb;
-      Options.DATABASE = db;
+      Options.setOption(Options.DATABASE, db);
       Class.forName("org.sqlite.JDBC");
       conn = DriverManager.getConnection("jdbc:sqlite:" + Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
       stmt = conn.createStatement();
@@ -145,6 +149,15 @@ public class Database {
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
+
+  private static boolean loadDefaultDb() {
+    if(Options.toString(Options.DEFAULT_DATABASE).equals(Options.ASK_FOR_DB)){
+      return false;
+    }else if(Options.toString(Options.DEFAULT_DATABASE).equals("")){
+      return false;
+    }
+    return true;
   }
 
   private Database() {

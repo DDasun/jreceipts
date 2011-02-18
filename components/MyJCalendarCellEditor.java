@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import org.freixas.jcalendar.JCalendarCombo;
 import receipts.Main;
-import tools.Options;
+import tools.options.Options;
 
 /**
  * The cell editor for the datechooser

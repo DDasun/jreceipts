@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  * The cell editor for the datechooser
