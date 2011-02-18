@@ -82,6 +82,7 @@ public class Main extends javax.swing.JFrame {
     if (Options.DEBUG) {
       createLogger();
     }
+    Options.getOptions();
     Skin skin = new Skin(Options.COLOR);
     //Skin.applySkin();
     backUpDb();
@@ -182,6 +183,10 @@ public class Main extends javax.swing.JFrame {
     menuItem_importXls = new javax.swing.JMenuItem();
     menuItem_importMdb = new javax.swing.JMenuItem();
     menuItem_importOds = new javax.swing.JMenuItem();
+    jMenu1 = new javax.swing.JMenu();
+    menuItem_excel = new javax.swing.JMenuItem();
+    menuItem_csv = new javax.swing.JMenuItem();
+    menuItem_pdf = new javax.swing.JMenuItem();
     menuItem_selectYear = new javax.swing.JMenuItem();
     jSeparator5 = new javax.swing.JPopupMenu.Separator();
     menuItem_exit = new javax.swing.JMenuItem();
@@ -201,9 +206,7 @@ public class Main extends javax.swing.JFrame {
     menuItem_monthlyStats = new javax.swing.JMenuItem();
     menuItem_kindStats = new javax.swing.JMenuItem();
     jSeparator7 = new javax.swing.JSeparator();
-    menuItem_excel = new javax.swing.JMenuItem();
-    menuItem_csv = new javax.swing.JMenuItem();
-    menuItem_pdf = new javax.swing.JMenuItem();
+    menuItem_options = new javax.swing.JMenuItem();
     help = new javax.swing.JMenu();
     menuItem_help = new javax.swing.JMenuItem();
     menuItem_website = new javax.swing.JMenuItem();
@@ -516,7 +519,7 @@ public class Main extends javax.swing.JFrame {
     databases.add(menuItem_restoreBackup);
 
     menu_importDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/import_database.png"))); // NOI18N
-    menu_importDatabase.setText("Δημιουργία Βάσης από ...");
+    menu_importDatabase.setText("Εισαγωγή από ...");
 
     menuItem_importAscii.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ascii.png"))); // NOI18N
     menuItem_importAscii.setText("αρχείο ascii");
@@ -555,6 +558,38 @@ public class Main extends javax.swing.JFrame {
     menu_importDatabase.add(menuItem_importOds);
 
     databases.add(menu_importDatabase);
+
+    jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export.png"))); // NOI18N
+    jMenu1.setText("Εξαγωγή σε...");
+
+    menuItem_excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export_xls.png"))); // NOI18N
+    menuItem_excel.setText("αρχείο excel");
+    menuItem_excel.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_excelActionPerformed(evt);
+      }
+    });
+    jMenu1.add(menuItem_excel);
+
+    menuItem_csv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export_csv.png"))); // NOI18N
+    menuItem_csv.setText("αρχείο ascii");
+    menuItem_csv.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_csvActionPerformed(evt);
+      }
+    });
+    jMenu1.add(menuItem_csv);
+
+    menuItem_pdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export_pdf.png"))); // NOI18N
+    menuItem_pdf.setText("αρχείο pdf");
+    menuItem_pdf.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_pdfActionPerformed(evt);
+      }
+    });
+    jMenu1.add(menuItem_pdf);
+
+    databases.add(jMenu1);
 
     menuItem_selectYear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/year.png"))); // NOI18N
     menuItem_selectYear.setText("Επιλογή Έτους");
@@ -682,32 +717,9 @@ public class Main extends javax.swing.JFrame {
     stats.add(menuItem_kindStats);
     stats.add(jSeparator7);
 
-    menuItem_excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export_xls.png"))); // NOI18N
-    menuItem_excel.setText("Εξαγωγή σε Excel");
-    menuItem_excel.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        menuItem_excelActionPerformed(evt);
-      }
-    });
-    stats.add(menuItem_excel);
-
-    menuItem_csv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export_csv.png"))); // NOI18N
-    menuItem_csv.setText("Εξαγωγή σε Csv");
-    menuItem_csv.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        menuItem_csvActionPerformed(evt);
-      }
-    });
-    stats.add(menuItem_csv);
-
-    menuItem_pdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export_pdf.png"))); // NOI18N
-    menuItem_pdf.setText("Εξαγωγή σε Pdf");
-    menuItem_pdf.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        menuItem_pdfActionPerformed(evt);
-      }
-    });
-    stats.add(menuItem_pdf);
+    menuItem_options.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings.png"))); // NOI18N
+    menuItem_options.setText("Ρυθμίσεις");
+    stats.add(menuItem_options);
 
     menuBar.add(stats);
 
@@ -1208,6 +1220,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JButton button_pdf;
   private javax.swing.JMenu databases;
   private javax.swing.JMenu help;
+  private javax.swing.JMenu jMenu1;
   private javax.swing.JToolBar.Separator jSeparator1;
   private javax.swing.JToolBar.Separator jSeparator10;
   private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -1241,6 +1254,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenuItem menuItem_kindStats;
   private javax.swing.JMenuItem menuItem_loadDatabase;
   private javax.swing.JMenuItem menuItem_monthlyStats;
+  private javax.swing.JMenuItem menuItem_options;
   private javax.swing.JMenuItem menuItem_pdf;
   private javax.swing.JMenuItem menuItem_receiptList;
   private javax.swing.JMenuItem menuItem_restoreBackup;

@@ -60,7 +60,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/import_database.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x394;&#x3b7;&#x3bc;&#x3b9;&#x3bf;&#x3c5;&#x3c1;&#x3b3;&#x3af;&#x3b1; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2; &#x3b1;&#x3c0;&#x3cc; ..."/>
+                <Property name="text" type="java.lang.String" value="&#x395;&#x3b9;&#x3c3;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae; &#x3b1;&#x3c0;&#x3cc; ..."/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="menuItem_importAscii">
@@ -105,6 +105,49 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_importOdsActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/export.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&#x395;&#x3be;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae; &#x3c3;&#x3b5;..."/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_excel">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/export_xls.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x3b1;&#x3c1;&#x3c7;&#x3b5;&#x3af;&#x3bf; excel"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_excelActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_csv">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/export_csv.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x3b1;&#x3c1;&#x3c7;&#x3b5;&#x3af;&#x3bf; ascii"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_csvActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_pdf">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/export_pdf.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x3b1;&#x3c1;&#x3c7;&#x3b5;&#x3af;&#x3bf; pdf"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_pdfActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -272,38 +315,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JSeparator" name="jSeparator7">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem_excel">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItem_options">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/export_xls.png"/>
+                  <Image iconType="3" name="/images/settings.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x395;&#x3be;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae; &#x3c3;&#x3b5; Excel"/>
+                <Property name="text" type="java.lang.String" value="&#x3a1;&#x3c5;&#x3b8;&#x3bc;&#x3af;&#x3c3;&#x3b5;&#x3b9;&#x3c2;"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_excelActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem_csv">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/export_csv.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="&#x395;&#x3be;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae; &#x3c3;&#x3b5; Csv"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_csvActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem_pdf">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/export_pdf.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="&#x395;&#x3be;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae; &#x3c3;&#x3b5; Pdf"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_pdfActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
