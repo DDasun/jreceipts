@@ -54,7 +54,7 @@ import org.jopendocument.panel.Messages;
 import org.jopendocument.util.PrintUtilities;
 import receipts.Main;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *
