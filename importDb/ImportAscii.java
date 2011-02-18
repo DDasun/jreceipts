@@ -9,7 +9,7 @@ import importDb.base.ImportConstants;
 import importDb.base.Import;
 import java.io.File;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *
