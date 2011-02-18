@@ -7,7 +7,7 @@ package components;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.event.TableModelListener;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *
