@@ -72,7 +72,7 @@ public class Main extends javax.swing.JFrame {
   public static final long serialVersionUID = 13456457457L;
   public static Logger logger;
   public static String version = "1.0 beta";
-  public static String revision = "5";
+  public static String revision = "1";
   public static String date = "17/02/2010";
   public static String TITLE = "Αποδείξεις";
 
@@ -80,9 +80,9 @@ public class Main extends javax.swing.JFrame {
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
     setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
     createDirs();
-    if (Options.DEBUG) {
+   // if (Options.toBoolean(Options.DEBUG)) {
       createLogger();
-    }
+   // }
     Options.getOptions();
     Skin skin = new Skin(Options.COLOR);
     //Skin.applySkin();
@@ -113,10 +113,13 @@ public class Main extends javax.swing.JFrame {
     updateTotalsPanel();
     logger.log(Level.FINE, "Panels updated");
     setLocationRelativeTo(null);
+     if(Options.toBoolean(Options.AUTO_UPDATE)){
+      CheckUpdate c = new CheckUpdate(true);
+    }
   }
 
   public static void log(Level level, String message, Exception ex) {
-    if (Options.DEBUG) {
+    if (Options.toBoolean(Options.DEBUG)) {
       logger.log(level, message, ex);
     }
   }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package tools.options;
 
 import exceptions.OptionFormatException;
@@ -40,24 +39,24 @@ public class Options {
   public static final String _DECIMAL_EDITING_FORMAT = "##0.00";
   public static final Color DISABLED_COLOR = Color.BLACK;
   public static final int DISABLED_COLOR_ALPHA = 192;
-  public static boolean DEBUG = true;
+  
+
   public static final String DEFAULT_DATABASE = "DEFAULT_DATABASE";
   public static final String DATABASE = "DATABASE";
-  public static final String ASK_FOR_DB = "Ερώτηση στην έναρξη";
+  public static final String USE_PROXY = "USE_PROXY";
+  public static final String PROXY_HOST = "PROXY_HOST";
+  public static final String PROXY_PORT = "PROXY_PORT";
+  public static final String AUTO_UPDATE = "AUTO_UPDATE";
+  public static final String DEBUG = "DEBUG";
 
+
+  public static final String ASK_FOR_DB = "Ερώτηση στην έναρξη";
   public static String[] _COMBO_OPTIONS_ = {DEFAULT_DATABASE};
-  
-  
-  public static Color COLOR = new Color(255,255,153);
+  public static Color COLOR = new Color(255, 255, 153);
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
   public static Object selectedValue;
-  
-  
   private static HashMap<String, Object> options;
-  public static String USE_PROXY;
-  public static String PROXY_HOST;
-  public static String PROXY_PORT;
-
+  
 
   public static void getOptions() throws FileNotFoundException, IOException {
     options = new HashMap<String, Object>();
@@ -100,9 +99,6 @@ public class Options {
     }
     return intArr;
   }
-
-  
-  
 
   /**
    * Get an option of an integer type
@@ -167,7 +163,7 @@ public class Options {
    */
   public static Boolean toBoolean(String key) {
     Boolean val = false;
-    if (options.get(key)==null){
+    if (options.get(key) == null) {
       return false;
     }
     String value = String.valueOf(options.get(key)).trim();
@@ -221,46 +217,7 @@ public class Options {
 
   }
 
-  /**
-   * Writes the default ini file
-   * @throws java.io.IOException
-   */
-  private static void writeDefaultIniFile() throws IOException {
-    PrintWriter out = Helper.createOutputStream(new File(Options.USER_DIR + "jreceipts.ini"), false);
-    out.println(Options.DEFAULT_DATABASE + "=");
-//    out.println(Options.DEBUG_MODE + "=0");
-//    out.println(Options.MODAL + "=true");
-//    out.println(Options.DATE_FORMAT + "=dd/MM/yyyy");
-//    out.println(Options.LOOK_AND_FEEL + "=");
-//    out.println(Options.SKIN_COLOR + " =240,240,240");
-//    out.println(Options.USE_SKIN + " =true");
-//    out.println(Options.USE_PROXY + " =false");
-//    out.println(Options.UNIFIED_SERIES + " =true");
-//    out.println(Options.PROXY_HOST + " =");
-//    out.println(Options.PROXY_PORT + " =");
-//    out.println(Options.DIVIDER_LOCATION + " =250");
-//    out.println(Options.FEED_DIVIDER_LOCATION + " =250");
-//    out.println(Options.FONT_FACE + " =Arial");
-//    out.println(Options.FONT_SIZE + " =12");
-//    out.println(Options.TABLE_WIDTHS + " =" + getDefaultColumnWidths());
-//    out.println(Options.WINDOW_STATE + " =" + JFrame.NORMAL);
-//    out.println(Options.WIDTH + " =1000");
-//    out.println(Options.HEIGHT + " =600");
-//    out.println(Options.CHECK_VERSION + " =true");
-//    out.println(Options.PRIMARY_SUB + " =Greek");
-//    out.println(Options.SECONDARY_SUB + " =English");
-//    out.println(Options.SUBTITLE_SITE + " =" + SubtitleConstants.SUBTITLE_ONLINE_NAME);
-//    out.println(Options.AUTO_FILE_UPDATING + " =false");
-//    out.println(Options.SEASON_SEPARATOR + " =SE");
-//    out.println(Options.TITLE_SEPARATOR + " = - ");
-//    out.println(Options.EPISODE_SEPARATOR + " =x");
-//    out.println(Options.TOOLBAR_POSITION + " =1");
-//    out.println(Options.TOOLBAR_BUTTONS + "=" + getDefaultToolbarButtons());
-//    out.println(Options.FEED_COLUMNS + "=" + 1);
-//    out.println(Options.VIDEO_APP + "=");
-
-    out.close();
-  }
+  
 
   /**
    * Saves the options file
@@ -297,42 +254,31 @@ public class Options {
     }
   }
 
+  /**
+   * Writes the default ini file
+   * @throws java.io.IOException
+   */
+  private static void writeDefaultIniFile() throws IOException {
+    PrintWriter out = Helper.createOutputStream(new File(Options.USER_DIR + "jreceipts.ini"), false);
+    out.println(Options.DEFAULT_DATABASE + "=");
+    out.println(Options.USE_PROXY + " =false");
+    out.println(Options.PROXY_HOST + " =");
+    out.println(Options.PROXY_PORT + " =");
+    out.println(Options.AUTO_UPDATE + " =true");
+    out.println(Options.DEBUG + "=true");
+    out.close();
+  }
+
   private static void loadDefaultOptions() {
     options.put(Options.DEFAULT_DATABASE, "");
-//    options.put(Options.DEBUG_MODE, new Integer(0));
-//    options.put(Options.MODAL, true);
-//    options.put(Options.DATE_FORMAT, "dd/MM/yyyy");
-//    options.put(Options.LOOK_AND_FEEL, "");
-//    options.put(Options.SKIN_COLOR, "240,240,240");
-//    options.put(Options.USE_SKIN, true);
-//    options.put(Options.USE_PROXY, false);
-//    options.put(Options.PROXY_HOST, "");
-//    options.put(Options.PROXY_PORT, "");
-//    options.put(Options.DIVIDER_LOCATION, new Integer(250));
-//    options.put(Options.FONT_FACE, "Arial");
-//    options.put(Options.FONT_SIZE, new Float(12F));
-//    options.put(Options.TABLE_WIDTHS, getDefaultColumnWidths());
-//    options.put(Options.WINDOW_STATE, JFrame.NORMAL);
-//    options.put(Options.WIDTH, new Integer(1000));
-//    options.put(Options.HEIGHT, new Integer(600));
-//    options.put(Options.CHECK_VERSION, true);
-//    options.put(Options.PRIMARY_SUB, "Greek");
-//    options.put(Options.SECONDARY_SUB, "English");
-//    options.put(Options.SUBTITLE_SITE, SubtitleConstants.SUBTITLE_ONLINE_NAME);
-//    options.put(Options.AUTO_FILE_UPDATING, true);
-//    options.put(Options.SEASON_SEPARATOR, " SE");
-//    options.put(Options.TITLE_SEPARATOR, "  - ");
-//    options.put(Options.EPISODE_SEPARATOR, " x");
-//    options.put(Options.TOOLBAR_POSITION, new Integer(0));
-//    options.put(Options.TOOLBAR_BUTTONS, getDefaultToolbarButtons());
-//    options.put(Options.FEED_DIVIDER_LOCATION, 250);
-//    options.put(Options.FEED_COLUMNS, 1);
-//    options.put(Options.UNIFIED_SERIES, false);
-//    options.put(Options.VIDEO_APP, "");
+    options.put(Options.USE_PROXY, false);
+    options.put(Options.PROXY_HOST, "");
+    options.put(Options.PROXY_PORT, "");
+    options.put(Options.AUTO_UPDATE, true);
+    options.put(Options.DEBUG, true);
+
   }
 
   private Options() {
   }
-
-
 }

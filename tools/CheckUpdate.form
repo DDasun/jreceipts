@@ -153,7 +153,7 @@
             <Component class="javax.swing.JLabel" name="label_currentVersion">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Main.version" type="code"/>
+                  <Connection code="Main.version + &quot;(r&quot;+Main.revision+&quot;)&quot;" type="code"/>
                 </Property>
               </Properties>
             </Component>

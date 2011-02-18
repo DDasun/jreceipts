@@ -175,7 +175,7 @@ public class OptionsForm extends MyDraggable {
     private void bt_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_okActionPerformed
       Main.glassPane.deactivate();
       try {
-        new OptionsParser(new JPanel[]{dbPanel, internetPanel});
+        new OptionsParser(new JPanel[]{dbPanel, internetPanel,generalPanel});
       } catch (IOException ex) {
         Main.log(Level.SEVERE, null, ex);
       } catch (ParseException ex) {
