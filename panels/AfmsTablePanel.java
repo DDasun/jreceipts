@@ -18,7 +18,7 @@ import models.Receipt;
 import models.Type;
 import receipts.Main;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *

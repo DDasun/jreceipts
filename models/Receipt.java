@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import receipts.Main;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *

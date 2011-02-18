@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import receipts.Main;
-import tools.Options;
+import tools.options.Options;
 
 /**
  *

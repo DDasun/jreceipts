@@ -58,8 +58,9 @@ import tools.About;
 import tools.CalcTaxes;
 import tools.CheckUpdate;
 import tools.Helper;
-import tools.Options;
+import tools.options.Options;
 import tools.Skin;
+import tools.options.OptionsForm;
 
 /**
  *
@@ -85,12 +86,12 @@ public class Main extends javax.swing.JFrame {
     Options.getOptions();
     Skin skin = new Skin(Options.COLOR);
     //Skin.applySkin();
-    backUpDb();
+   
 
-    //UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+   //-- UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
     //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-    //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-    //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+   //-- UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+   //--UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
     logger.log(Level.INFO, "Initializing components");
@@ -100,8 +101,9 @@ public class Main extends javax.swing.JFrame {
     root.setGlassPane(glassPane);
     logger.log(Level.FINE, "Components initialized");
     logger.log(Level.INFO, "Creating connection to database");
-    Database.createConnection();
-    logger.log(Level.FINE, "Connected to database: {0}", Options.DATABASE);
+    Database.createConnection(false);
+    backUpDb();
+    logger.log(Level.FINE, "Connected to database: {0}", Options.toString(Options.DATABASE));
     logger.log(Level.INFO, "Setting the year");
     setYear();
     logger.log(Level.FINE, "Year set to : {0}", Options.YEAR);
@@ -161,7 +163,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_listAfm = new javax.swing.JButton();
     jSeparator3 = new javax.swing.JToolBar.Separator();
     bt_calcTaxes = new javax.swing.JButton();
-    jSeparator10 = new javax.swing.JToolBar.Separator();
+    toolbal_button_settings = new javax.swing.JButton();
     toolbar_button_monthlyStats = new javax.swing.JButton();
     toolbar_button_kindStats = new javax.swing.JButton();
     jSeparator4 = new javax.swing.JToolBar.Separator();
@@ -216,7 +218,7 @@ public class Main extends javax.swing.JFrame {
     MenuItem_checkUpdate = new javax.swing.JMenuItem();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    setTitle("Αποδείξεις (Βάση:"+Options.DATABASE+")");
+    setTitle("Αποδείξεις (Βάση:"+Options.toString(Options.DATABASE)+")");
     setBackground(Skin.getColor_1());
     setMinimumSize(new java.awt.Dimension(750, 550));
     addWindowListener(new java.awt.event.WindowAdapter() {
@@ -382,7 +384,18 @@ public class Main extends javax.swing.JFrame {
       }
     });
     toolbar.add(bt_calcTaxes);
-    toolbar.add(jSeparator10);
+
+    toolbal_button_settings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings.png"))); // NOI18N
+    toolbal_button_settings.setToolTipText("Ρυθμίσεις");
+    toolbal_button_settings.setFocusable(false);
+    toolbal_button_settings.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbal_button_settings.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+    toolbal_button_settings.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        toolbal_button_settingsActionPerformed(evt);
+      }
+    });
+    toolbar.add(toolbal_button_settings);
 
     toolbar_button_monthlyStats.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/monthlyStats.png"))); // NOI18N
     toolbar_button_monthlyStats.setToolTipText("Στατιστικά ανά μήνα");
@@ -719,6 +732,11 @@ public class Main extends javax.swing.JFrame {
 
     menuItem_options.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings.png"))); // NOI18N
     menuItem_options.setText("Ρυθμίσεις");
+    menuItem_options.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_optionsActionPerformed(evt);
+      }
+    });
     stats.add(menuItem_options);
 
     menuBar.add(stats);
@@ -954,7 +972,7 @@ public class Main extends javax.swing.JFrame {
 
     private void menuItem_loadDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_loadDatabaseActionPerformed
       if (Database.getDatabases().length > 1) {
-        Database.createConnection();
+        Database.createConnection(true);
         setAppTitle();
         updateReceiptPanel();
         updateTotalsPanel();
@@ -1010,7 +1028,7 @@ public class Main extends javax.swing.JFrame {
       String db = Helper.ask("Διαγραφή Βάσης", "Επιλέξτε τη βάση που θέλετε να διαγράψετε", dbs);
       db = db.replaceAll(".db$", "");
       if (!db.equals("")) {
-        if (db.equals(Options.DATABASE)) {
+        if (db.equals(Options.toString(Options.DATABASE))) {
           Helper.message(ErrorMessages.DELETE_ACTIVE_DB, "Διαγραφή βάσης", JOptionPane.ERROR_MESSAGE);
           return;
         }
@@ -1144,6 +1162,14 @@ public class Main extends javax.swing.JFrame {
       CheckUpdate cu = new CheckUpdate(false);
     }//GEN-LAST:event_MenuItem_checkUpdateActionPerformed
 
+    private void menuItem_optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_optionsActionPerformed
+      OptionsForm op = new OptionsForm();
+    }//GEN-LAST:event_menuItem_optionsActionPerformed
+
+    private void toolbal_button_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbal_button_settingsActionPerformed
+     menuItem_optionsActionPerformed(evt);
+    }//GEN-LAST:event_toolbal_button_settingsActionPerformed
+
   public void updateKindPanel() {
     KindTablePanel aPanel = new KindTablePanel(this);
     panel_main.removeAll();
@@ -1222,7 +1248,6 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenu help;
   private javax.swing.JMenu jMenu1;
   private javax.swing.JToolBar.Separator jSeparator1;
-  private javax.swing.JToolBar.Separator jSeparator10;
   private javax.swing.JPopupMenu.Separator jSeparator11;
   private javax.swing.JToolBar.Separator jSeparator2;
   private javax.swing.JToolBar.Separator jSeparator3;
@@ -1268,6 +1293,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenu receipts;
   private javax.swing.JSplitPane splitPane;
   private javax.swing.JMenu stats;
+  private javax.swing.JButton toolbal_button_settings;
   private javax.swing.JToolBar toolbar;
   private javax.swing.JButton toolbar_button_addAfm;
   private javax.swing.JButton toolbar_button_addDatabase;
@@ -1286,14 +1312,14 @@ public class Main extends javax.swing.JFrame {
   // End of variables declaration//GEN-END:variables
 
   private void backUpDb() throws FileNotFoundException, IOException {
-    backUpDb(Options.DATABASE);
+    backUpDb(Options.toString(Options.DATABASE));
   }
 
   private void backUpDb(String db) throws FileNotFoundException, IOException {
     log(Level.INFO, "Δημιουργία backup βάσης", null);
     File sourceFile = new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
     if (sourceFile.isFile()) {
-      File targetFile = new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + Options.DATABASE + ".bak");
+      File targetFile = new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + Options.toString(Options.DATABASE) + ".bak");
       if (Helper.copyFile(sourceFile, targetFile)) {
         log(Level.FINE, "Το backup της βάσης δημιουργήθηκε", null);
       } else {
@@ -1333,7 +1359,7 @@ public class Main extends javax.swing.JFrame {
   }
 
   private void setAppTitle() {
-    setTitle("Receipts " + version + " - Βάση: " + Options.DATABASE + " - Έτος: " + Options.YEAR);
+    setTitle("Receipts " + version + " - Βάση: " + Options.toString(Options.DATABASE) + " - Έτος: " + Options.YEAR);
   }
 
   private void setYear() {
