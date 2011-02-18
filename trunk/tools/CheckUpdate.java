@@ -33,16 +33,16 @@ public class CheckUpdate extends MyDraggable {
   private Update up;
   private static final long serialVersionUID = 34646758678L;
   private boolean onStartUp;
-  /** The url to project on google code : "http://code.google.com/p/myseriesproject/" **/
-  public static final String MYSERIESPROJECT_URL = "http://code.google.com/p/myseriesproject/";
-  /** The url of the downloads list : "http://code.google.com/p/myseriesproject/downloads/list" **/
-  public static final String MYSERIESPROJECT_DOWNLOAD_LIST = "http://code.google.com/p/myseriesproject/downloads/list";
+  /** The url to project on google code : "http://code.google.com/p/jreceipts/" **/
+  public static final String MYSERIESPROJECT_URL = "http://code.google.com/p/jreceipts/";
+  /** The url of the downloads list : "http://code.google.com/p/jreceipts//downloads/list" **/
+  public static final String MYSERIESPROJECT_DOWNLOAD_LIST = "http://code.google.com/p/jreceipts/downloads/list";
 
   /** Creates new form CheckUpdate
    * @param onStartUp 
    */
   public CheckUpdate(boolean onStartUp) {
-    Main.glassPane.activate(null);
+    
     initComponents();
     this.onStartUp = onStartUp;
     if (check()) {
@@ -51,11 +51,11 @@ public class CheckUpdate extends MyDraggable {
       Thread t = new Thread(up);
       t.start();
     } else {
-      Main.glassPane.deactivate();
       return;
     }
     setLocationRelativeTo(null);
     if (!onStartUp) {
+      Main.glassPane.activate(null);
       setVisible(true);
     }
   }
@@ -70,13 +70,14 @@ public class CheckUpdate extends MyDraggable {
       try {
         latestVersion = getLatestVersion();
         if (latestVersion != null) {
-          currentVersion = Main.version;
+          currentVersion = Main.version + "(r"+Main.revision+")";
           label_latestVersion.setText(latestVersion);
           if (currentVersion.compareTo(latestVersion) < 0) {
             Main.log(Level.INFO, "Βρέθηκε νέα έκδοση!!!", null);
             label_needUpdate.setText("Βρέθηκε νέα έκδοση");
             label_needUpdate1.setText("Κατεβάστε την νέα έκδοση.");
             if (onStartUp) {
+              Main.glassPane.activate(null);
               setVisible(true);
             }
           } else {
@@ -165,7 +166,7 @@ public class CheckUpdate extends MyDraggable {
     jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     jLabel3.setText("Τελευταία έκδοση :");
 
-    label_currentVersion.setText(Main.version);
+    label_currentVersion.setText(Main.version + "(r"+Main.revision+")");
 
     label_latestVersion.setText(" ");
 

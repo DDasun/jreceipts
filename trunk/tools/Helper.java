@@ -360,8 +360,8 @@ public class Helper {
       System.setProperties(props);
     } else {
       Properties props = System.getProperties();
-      props.put("http.proxyHost", "192.168.6.191");
-      props.put("http.proxyPort", "8080");
+      props.put("http.proxyHost", "");
+      props.put("http.proxyPort", "");
       System.setProperties(props);
     }
   }

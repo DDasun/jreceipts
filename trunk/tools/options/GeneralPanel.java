@@ -40,6 +40,8 @@ public class GeneralPanel extends javax.swing.JPanel {
   private void initComponents() {
 
     jLabel1 = new javax.swing.JLabel();
+    cb_autoUpdate = new javax.swing.JCheckBox();
+    jCheckBox1 = new javax.swing.JCheckBox();
 
     setBackground(new java.awt.Color(255, 255, 255));
 
@@ -47,24 +49,49 @@ public class GeneralPanel extends javax.swing.JPanel {
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel1.setText("Γενικές Ρυθμίσεις");
 
+    cb_autoUpdate.setSelected(Options.toBoolean(Options.AUTO_UPDATE));
+    cb_autoUpdate.setText("Αναζήτηση νεώτερης έκδοσης στην έναρξη");
+    cb_autoUpdate.setName(Options.AUTO_UPDATE);
+    cb_autoUpdate.setOpaque(false);
+
+    jCheckBox1.setSelected(Options.toBoolean(Options.DEBUG));
+    jCheckBox1.setText("Εγγραφή αρχείου γεγονότων");
+    jCheckBox1.setName(Options.DEBUG);
+    jCheckBox1.setOpaque(false);
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-        .addContainerGap())
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+              .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+              .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+              .addComponent(cb_autoUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+              .addGap(14, 14, 14)))))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addComponent(jLabel1)
-        .addContainerGap(157, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addComponent(jCheckBox1)
+        .addGap(7, 7, 7)
+        .addComponent(cb_autoUpdate)
+        .addContainerGap(97, Short.MAX_VALUE))
     );
   }// </editor-fold>//GEN-END:initComponents
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JCheckBox cb_autoUpdate;
+  private javax.swing.JCheckBox jCheckBox1;
   private javax.swing.JLabel jLabel1;
   // End of variables declaration//GEN-END:variables
 }
