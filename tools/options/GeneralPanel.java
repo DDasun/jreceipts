@@ -42,6 +42,9 @@ public class GeneralPanel extends javax.swing.JPanel {
     jLabel1 = new javax.swing.JLabel();
     cb_autoUpdate = new javax.swing.JCheckBox();
     jCheckBox1 = new javax.swing.JCheckBox();
+    jLabel2 = new javax.swing.JLabel();
+    combo_laf = new javax.swing.JComboBox();
+    jLabel3 = new javax.swing.JLabel();
 
     setBackground(new java.awt.Color(255, 255, 255));
 
@@ -59,6 +62,14 @@ public class GeneralPanel extends javax.swing.JPanel {
     jCheckBox1.setName(Options.DEBUG);
     jCheckBox1.setOpaque(false);
 
+    jLabel2.setText("Εμφάνιση:");
+
+    combo_laf.setModel(new DefaultComboBoxModel(LookAndFeel.LOOK_AND_FEELS));
+    combo_laf.setSelectedItem(Options.toString(Options.LOOK_FEEL));
+    combo_laf.setName(Options.LOOK_FEEL);
+
+    jLabel3.setText("(Απαιτείτε επανεκίνηση της εφαρμογής)");
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
@@ -66,32 +77,40 @@ public class GeneralPanel extends javax.swing.JPanel {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
-          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-              .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-              .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-              .addComponent(cb_autoUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-              .addGap(14, 14, 14)))))
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(combo_laf, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(jLabel3)
+          .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(cb_autoUpdate))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addComponent(jLabel1)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel2)
+          .addComponent(combo_laf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jLabel3)
+        .addGap(18, 18, 18)
         .addComponent(jCheckBox1)
-        .addGap(7, 7, 7)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(cb_autoUpdate)
-        .addContainerGap(97, Short.MAX_VALUE))
+        .addContainerGap(47, Short.MAX_VALUE))
     );
   }// </editor-fold>//GEN-END:initComponents
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox cb_autoUpdate;
+  private javax.swing.JComboBox combo_laf;
   private javax.swing.JCheckBox jCheckBox1;
   private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
   // End of variables declaration//GEN-END:variables
 }

@@ -54,6 +54,7 @@ import panels.totalsPanel;
 import forms.EarnForm;
 import java.awt.Desktop;
 import java.net.URI;
+import javax.swing.LookAndFeel;
 import tools.About;
 import tools.CalcTaxes;
 import tools.CheckUpdate;
@@ -80,19 +81,13 @@ public class Main extends javax.swing.JFrame {
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
     setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
     createDirs();
-   // if (Options.toBoolean(Options.DEBUG)) {
-      createLogger();
-   // }
+    // if (Options.toBoolean(Options.DEBUG)) {
+    createLogger();
+    // }
     Options.getOptions();
     Skin skin = new Skin(Options.COLOR);
     //Skin.applySkin();
-   
-
-   //-- UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-    //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-   //-- UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-   //--UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
 
     logger.log(Level.INFO, "Initializing components");
     initComponents();
@@ -113,7 +108,7 @@ public class Main extends javax.swing.JFrame {
     updateTotalsPanel();
     logger.log(Level.FINE, "Panels updated");
     setLocationRelativeTo(null);
-     if(Options.toBoolean(Options.AUTO_UPDATE)){
+    if (Options.toBoolean(Options.AUTO_UPDATE)) {
       CheckUpdate c = new CheckUpdate(true);
     }
   }
@@ -1151,8 +1146,8 @@ public class Main extends javax.swing.JFrame {
 
     private void menuItem_contactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_contactActionPerformed
       try {
-        String subject = ("?subject="+TITLE +" "+version).replaceAll("\\s", "%20");
-        URI email = new URI("mailto:"+Options.EMAIL+subject);
+        String subject = ("?subject=" + TITLE + " " + version).replaceAll("\\s", "%20");
+        URI email = new URI("mailto:" + Options.EMAIL + subject);
         Helper.mail(email);
       } catch (IOException ex) {
         log(Level.SEVERE, null, ex);
@@ -1170,7 +1165,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItem_optionsActionPerformed
 
     private void toolbal_button_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbal_button_settingsActionPerformed
-     menuItem_optionsActionPerformed(evt);
+      menuItem_optionsActionPerformed(evt);
     }//GEN-LAST:event_toolbal_button_settingsActionPerformed
 
   public void updateKindPanel() {

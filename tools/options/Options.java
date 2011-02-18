@@ -48,10 +48,12 @@ public class Options {
   public static final String PROXY_PORT = "PROXY_PORT";
   public static final String AUTO_UPDATE = "AUTO_UPDATE";
   public static final String DEBUG = "DEBUG";
+  public static final String LOOK_FEEL = "LOOK_FEEL";
+
 
 
   public static final String ASK_FOR_DB = "Ερώτηση στην έναρξη";
-  public static String[] _COMBO_OPTIONS_ = {DEFAULT_DATABASE};
+  public static String[] _COMBO_OPTIONS_ = {DEFAULT_DATABASE, LOOK_FEEL};
   public static Color COLOR = new Color(255, 255, 153);
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
   public static Object selectedValue;
@@ -266,6 +268,7 @@ public class Options {
     out.println(Options.PROXY_PORT + " =");
     out.println(Options.AUTO_UPDATE + " =true");
     out.println(Options.DEBUG + "=true");
+    out.println(Options.LOOK_FEEL + "="+LookAndFeel.SYSTEM);
     out.close();
   }
 
@@ -276,6 +279,7 @@ public class Options {
     options.put(Options.PROXY_PORT, "");
     options.put(Options.AUTO_UPDATE, true);
     options.put(Options.DEBUG, true);
+    options.put(Options.LOOK_FEEL, LookAndFeel.SYSTEM);
   }
 
   private Options() {
