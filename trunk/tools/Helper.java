@@ -88,7 +88,9 @@ public class Helper {
     }
 
     public static int confirm(String title, String message) {
-        return JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        Confirm c = new Confirm(title, message);
+        return c.answer;
+        //return JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
     }
 
     public static String convertDateForSQL(String date) {

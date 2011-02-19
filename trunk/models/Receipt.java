@@ -59,7 +59,11 @@ public class Receipt extends DBRecord {
   public void save() throws SQLException {
     if (getReceipt_id() == 0) {
       if (exists()) {
-        Helper.message("Η εγγραφή υπήρχε ήδη στη βάση.\nΔεν έγινε εισαγωγή", "Διπλή εγγραφή", JOptionPane.ERROR_MESSAGE);
+          int c = Helper.confirm("Διπλή εγγραφή", "Η εγγραφή υπάρχει ήδη στη βάση.\nΘέλετε να γίνει η εισαγωγή;");
+          //Helper.message("Η εγγραφή υπήρχε ήδη στη βάση.\nΔεν έγινε εισαγωγή", "Διπλή εγγραφή", JOptionPane.ERROR_MESSAGE);
+          if(c == JOptionPane.YES_OPTION){
+              insert();
+          }
       } else {
         insert();
       }
@@ -114,7 +118,7 @@ public class Receipt extends DBRecord {
         criteria += " AND  strftime('%Y', buy_date)= '" + Options.YEAR +"'";
       }
       sql = "SELECT r.*,t.description,t.multiplier FROM receipts  r "
-          + "INNER JOIN types t ON r.type_id = t.type_id "+criteria +" ORDER BY buy_date";
+          + "INNER JOIN types t ON r.type_id = t.type_id "+criteria +" ORDER BY buy_date DESC";
           
       rs = Database.stmt.executeQuery(sql);
       collection = new Vector<Object>();
