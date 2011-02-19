@@ -4,6 +4,8 @@
  */
 package components;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,8 +13,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableCellEditor;
-import org.freixas.jcalendar.JCalendarCombo;
 import receipts.Main;
 import tools.options.Options;
 
@@ -26,7 +28,7 @@ public class MyJCalendarCellEditor extends AbstractCellEditor implements TableCe
   /**
    * The date chooser
    */
-  private JCalendarCombo dateChooser = new JCalendarCombo();
+  private JDateChooser dateChooser = new JDateChooser();
   /**
    * The date format
    */
@@ -43,15 +45,16 @@ public class MyJCalendarCellEditor extends AbstractCellEditor implements TableCe
    */
   public Component getTableCellEditorComponent(JTable table, Object value,
           boolean isSelected, int row, int column) {
+    Options.selectedDate = value;
     if (value instanceof Date) {
-      dateChooser.setDateFormat(f);
+      dateChooser.setDateFormatString(Options.DATE_FORMAT);
       dateChooser.setDate((Date) value);
       return dateChooser;
     } else if (value instanceof String) {
       try {
         SimpleDateFormat sdf = new SimpleDateFormat(Options.DATE_FORMAT);
         Date date = sdf.parse((String) value);
-        dateChooser.setDateFormat(f);
+        dateChooser.setDateFormatString(Options.DATE_FORMAT);
         dateChooser.setDate(date);
         return dateChooser;
       } catch (ParseException ex) {
@@ -62,7 +65,7 @@ public class MyJCalendarCellEditor extends AbstractCellEditor implements TableCe
     return null;
   }
 
-  /**
+   /**
    * Get the value of the cell
    * @return The cells value
    */
@@ -76,6 +79,9 @@ public class MyJCalendarCellEditor extends AbstractCellEditor implements TableCe
 
   @Override
   public boolean stopCellEditing() {
+      if(dateChooser.getDate()==null){
+         dateChooser.setDate((Date)Options.selectedDate);
+      }
     return super.stopCellEditing();
   }
 
