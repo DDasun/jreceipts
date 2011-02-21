@@ -28,18 +28,21 @@ public class Info extends MyDraggable {
   private final String message;
   public Object selection = "";
   private DefaultComboBoxModel model;
+  private boolean activatedGlasspane;
 
   /** Creates new form Ask */
   Info(String title, String question, int type) {
-    Main.glassPane.activate(null);
+    if (!Main.glassPane.isActivated()) {
+      Main.glassPane.activate(null);
+    }
     this.title = title;
     this.message = question;
     initComponents();
-    if(type == JOptionPane.INFORMATION_MESSAGE){
+    if (type == JOptionPane.INFORMATION_MESSAGE) {
       jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info.png")));
-    } else if(type == JOptionPane.ERROR_MESSAGE){
+    } else if (type == JOptionPane.ERROR_MESSAGE) {
       jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/error.png")));
-    }else if(type == JOptionPane.WARNING_MESSAGE){
+    } else if (type == JOptionPane.WARNING_MESSAGE) {
       jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/warning.png")));
     }
     setLocationRelativeTo(null);
@@ -177,10 +180,11 @@ public class Info extends MyDraggable {
   }// </editor-fold>//GEN-END:initComponents
 
   private void bt_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelActionPerformed
-    Main.glassPane.deactivate();
+    if (this.activatedGlasspane) {
+      Main.glassPane.deactivate();
+    }
     dispose();
   }//GEN-LAST:event_bt_cancelActionPerformed
-
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton bt_cancel;
   private javax.swing.JLabel jLabel1;

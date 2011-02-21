@@ -29,10 +29,14 @@ public class Ask extends MyDraggable {
   private final Object[] options;
   public Object selection = "";
   private DefaultComboBoxModel model;
+  private boolean activatedGlassPane;
 
   /** Creates new form Ask */
   Ask(String title, String question, Object[] options) {
-    Main.glassPane.activate(null);
+    if (!Main.glassPane.isActivated()) {
+      this.activatedGlassPane = true;
+      Main.glassPane.activate(null);
+    }
     this.title = title;
     this.question = question;
     this.options = options;
@@ -195,7 +199,9 @@ public class Ask extends MyDraggable {
   }// </editor-fold>//GEN-END:initComponents
 
   private void bt_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelActionPerformed
-    Main.glassPane.deactivate();
+    if (this.activatedGlassPane) {
+      Main.glassPane.deactivate();
+    }
     dispose();
   }//GEN-LAST:event_bt_cancelActionPerformed
 
@@ -210,7 +216,9 @@ public class Ask extends MyDraggable {
       }
     } else {
       selection = combo.getSelectedItem();
-      Main.glassPane.deactivate();
+      if (this.activatedGlassPane) {
+        Main.glassPane.deactivate();
+      }
       dispose();
     }
 

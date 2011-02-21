@@ -52,6 +52,8 @@ public class AddReceipt extends MyDraggable {
     textfield_afm.addValidator(new PositiveNumberValidator(textfield_afm.getText(), true, false));
     textfield_afm.addValidator(new LengthValidator(textfield_afm.getText(), 9, 0, 0, false));
     textfield_afm.addValidator(new CustomValidator(textfield_afm.getText(), false));
+    CustomValidator cv = (CustomValidator) textfield_afm.getValidator(SValidator.CUSTOM);
+    cv.setErrorMessage("Η τιμή θα πρέπει να είναι ένας έγκυρος Α.Φ.Μ.");
     textfield_amount.addValidator(new PositiveNumberValidator(textfield_amount.getText(), true, false));
     setLocationRelativeTo(null);
     setVisible(true);
@@ -430,6 +432,7 @@ public class AddReceipt extends MyDraggable {
         Afm a = (Afm) combo_afm.getSelectedItem();
         textfield_afm.setText(a.getAfm());
         setTypeCombo(a.getType());
+        validateAfm();
       } else {
         textfield_afm.setText("");
         setTypeCombo(null);
@@ -441,19 +444,7 @@ public class AddReceipt extends MyDraggable {
     }//GEN-LAST:event_textfield_amountKeyReleased
 
     private void textfield_afmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfield_afmFocusLost
-      String val = textfield_afm.getText().trim();
-      CustomValidator cv = (CustomValidator) textfield_afm.getValidator(SValidator.CUSTOM);
-      cv.setErrorMessage("Ο ΑΦΜ " + val + " δεν είναι έγκυρος");
-      if (Helper.isValidAfm(val)) {
-        cv.setValid(true);
-        Afm a = new Afm(0, val, "");
-        setTypeCombo(a.getType());
-      } else {
-//        Helper.message("Το ΑΦΜ που δώσατε είναι λανθασμένο", "Εισαγωγή απόδειξης", JOptionPane.ERROR_MESSAGE);
-//        textfield_afm.requestFocus();
-        cv.setValid(false);
-      }
-
+      validateAfm();
     }//GEN-LAST:event_textfield_afmFocusLost
 
     private void textfield_afmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfield_afmKeyReleased
@@ -515,5 +506,18 @@ public class AddReceipt extends MyDraggable {
       }
     }
 
+  }
+
+  private void validateAfm() {
+    String val = textfield_afm.getText().trim();
+    CustomValidator cv = (CustomValidator) textfield_afm.getValidator(SValidator.CUSTOM);
+    if (Helper.isValidAfm(val)) {
+      cv.setValid(true);
+      Afm a = new Afm(0, val, "");
+      setTypeCombo(a.getType());
+    } else {
+      cv.setValid(false);
+    }
+    textfield_afm.validate();
   }
 }

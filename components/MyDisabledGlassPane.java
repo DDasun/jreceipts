@@ -26,6 +26,7 @@ public class MyDisabledGlassPane extends JComponent implements KeyListener {
 
   private final static Border MESSAGE_BORDER = new EmptyBorder(10, 10, 10, 10);
   private JLabel message = new JLabel();
+  private static boolean activated;
 
   /**
    * Constructor
@@ -109,6 +110,7 @@ public class MyDisabledGlassPane extends JComponent implements KeyListener {
     } else {
       message.setVisible(false);
     }
+    activated = true;
     setVisible(true);
     //setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
     requestFocusInWindow();
@@ -119,7 +121,14 @@ public class MyDisabledGlassPane extends JComponent implements KeyListener {
    */
   public void deactivate() {
     setCursor(null);
+    activated = false;
     setVisible(false);
   }
-}
 
+  /**
+   * @return the activated
+   */
+  public static boolean isActivated() {
+    return activated;
+  }
+}

@@ -24,10 +24,14 @@ public class Confirm extends MyDraggable {
     private final String title;
     private final String message;
     public int answer = JOptionPane.CANCEL_OPTION;
+  private boolean activatedGlassPane;
 
     /** Creates new form Ask */
     Confirm(String title, String question) {
+      if(!Main.glassPane.isActivated()){
         Main.glassPane.activate(null);
+        this.activatedGlassPane = true;
+      }
         this.title = title;
         this.message = question;
         initComponents();
@@ -178,12 +182,16 @@ public class Confirm extends MyDraggable {
     }// </editor-fold>//GEN-END:initComponents
 
   private void bt_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelActionPerformed
+    if(this.activatedGlassPane){
       Main.glassPane.deactivate();
+    }
       dispose();
   }//GEN-LAST:event_bt_cancelActionPerformed
 
   private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+      if(this.activatedGlassPane){
       Main.glassPane.deactivate();
+    }
       answer = JOptionPane.OK_OPTION;
       dispose();
   }//GEN-LAST:event_button1ActionPerformed
