@@ -410,6 +410,26 @@ public class Helper {
         return true;
     }
 
+  public static boolean isValidAfm(String val) {
+    val = val.trim();
+    if(!isInteger(val) || val.length() != 9){
+      return false;
+    }else{
+      char[] valChar = val.toCharArray();
+      int sum=0;
+      for(int i= 8;i>0 ;i--){
+        char c = valChar[i-1];
+        int cInt = Integer.parseInt(String.valueOf(c));
+        //System.out.println(c +"*" + 2 +"^"+ (9-i));
+        sum += cInt*(Math.pow(2, (9-i)));
+      }
+      if(sum%11==Integer.parseInt(String.valueOf(valChar[8]))){
+        return true;
+      }
+      return false;
+    }
+  }
+
     private Helper() {
     }
 }
