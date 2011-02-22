@@ -16,8 +16,8 @@ import tools.options.Options;
  */
 public abstract class MyTablePanel extends MyStaticTablePanel implements MyTableInterface, TableModelListener {
 
-  private javax.swing.JPopupMenu popup;
-  private javax.swing.JMenuItem popup_delete;
+  protected javax.swing.JPopupMenu popup;
+  protected javax.swing.JMenuItem popup_delete;
 
   @Override
   protected void init() {

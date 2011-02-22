@@ -41,7 +41,7 @@ public class Receipt extends DBRecord {
    * @param type_id
    * @param comments
    */
-  public Receipt(int receipt_id, String afm, double amount, Date date, int type_id, String comments) {
+  public Receipt(int receipt_id, String afm, double amount, Date date, int type_id, String comments, boolean validReceipt) {
     super();
     this.type_id = type_id;
     this.comments = comments;
@@ -49,7 +49,7 @@ public class Receipt extends DBRecord {
     this.afm = afm;
     this.amount = amount;
     this.date = date;
-    this.valid = 1;
+    this.valid = validReceipt ? 1 : 0;
     dateForSQL = Helper.convertDateForSQL(date);
   }
 
@@ -107,16 +107,25 @@ public class Receipt extends DBRecord {
       Main.log(Level.SEVERE, "Σφάλμα στην βάση δεδομένων.\nΗ διαγραφή δεν έγινε", ex);
     }
   }
+  public static void restoreById(int id) {
+    try {
+      sql = "UPDATE receipts SET valid = 1 WHERE receipt_id = " + id;
+      stmt.executeUpdate(sql);
+    } catch (SQLException ex) {
+      Helper.message("Σφάλμα στην βάση δεδομένων.\nΗ επαναφορά δεν έγινε", "SQL σφάλμα", JOptionPane.ERROR_MESSAGE);
+      Main.log(Level.SEVERE, "Σφάλμα στην βάση δεδομένων.\nΗ επαναφορά δεν έγινε", ex);
+    }
+  }
 
   public static Vector<Object> getCollection(boolean addHeader) {
     return getCollection(addHeader, "");
   }
 
   public static Vector<Object> getCollection(boolean addHeader, String criteria) {
-    return getCollection(addHeader, "", 1);
+    return getCollection(addHeader, "", true);
   }
 
-  public static Vector<Object> getCollection(boolean addHeader, String criteria, int valid) {
+  public static Vector<Object> getCollection(boolean addHeader, String criteria, boolean valid) {
     try {
       if (criteria.equals("")) {
         criteria = " WHERE strftime('%Y', buy_date)= '" + Options.YEAR + "'";
@@ -124,7 +133,7 @@ public class Receipt extends DBRecord {
         criteria += " AND  strftime('%Y', buy_date)= '" + Options.YEAR + "'";
       }
       sql = "SELECT r.*,t.description,t.multiplier FROM receipts  r "
-          + "INNER JOIN types t ON r.type_id = t.type_id " + criteria + " AND r.valid = " + valid + " ORDER BY buy_date DESC";
+          + "INNER JOIN types t ON r.type_id = t.type_id " + criteria + " AND r.valid = " + (valid ? 1 : 0) + " ORDER BY buy_date DESC";
 
       rs = Database.stmt.executeQuery(sql);
       collection = new Vector<Object>();

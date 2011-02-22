@@ -385,7 +385,7 @@ public class Importer extends MyDraggable implements ImportConstants {
 
         if (dAmount > 0 && dDate != null) {
           Receipt r = new Receipt(0, afm, dAmount,
-              dDate, type_id, "");
+              dDate, type_id, "", true);
           r.save();
           correct++;
         } else {
