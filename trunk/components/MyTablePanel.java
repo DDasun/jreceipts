@@ -4,6 +4,7 @@
  */
 package components;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.event.TableModelListener;

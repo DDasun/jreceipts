@@ -57,11 +57,12 @@ public class AfmsTablePanel extends MyTablePanel {
 
   public void addColumns() {
     String[] names = {"Α/Α", "Α.Φ.Μ.", "Εταιρεία"};
-    int[] pref = {40, 300, 400};
-    int[] min = {40, 200, 200};
-    int[] max = {60, 400, 1000};
+    int[] pref = {100, 150, 300};
+    int[] min = {100, 150, 300};
+    int[] max = {100, 200, 1500};
     super.addColumns(names, pref, min, max);
-
+    validate();
+    repaint();
   }
 
   public void update() {

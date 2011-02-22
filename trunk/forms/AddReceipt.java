@@ -376,9 +376,9 @@ public class AddReceipt extends MyDraggable {
       String errorMessage = "";
 
       afm = textfield_afm.getText().trim();
-      if (afm.equals("")) {
+      if (afm.equals("") || !Helper.isValidAfm(afm)) {
         error = true;
-        errorMessage += "Το Α.Φ.Μ. δεν πρέπει να είναι κενό\n";
+        errorMessage += "To πεδίο Α.Φ.Μ. θα πρέπει να είναι ένας έγκυρος Α.Φ.Μ.\n";
       }
       String regex = "^\\$?\\d+(\\.(\\d{2}))?$";
       amount = textfield_amount.getText().trim();
@@ -395,9 +395,6 @@ public class AddReceipt extends MyDraggable {
         errorMessage += "Η ημερομηνία πρέπει να είναι στη μορφή ΗΗ/ΜΜ/ΕΕΕΕ\n";
         combo_date.setDate(null);
       }
-
-
-
       if (checkbox_newType.isSelected()) {
         type_id = 0;
         type = textfield_newType.getText().trim();
