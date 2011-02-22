@@ -53,16 +53,16 @@ public class ReceiptsTablePanel extends MyTablePanel {
     addRows();
     tableModel.addTableModelListener(this);
     //HMEROMINIA
-    table.getColumn("Ημ/νία").setCellEditor(new MyJCalendarCellEditor());
-    table.getColumn("Ημ/νία").setCellRenderer(new MyJCalendarCellRenderer());
+    table.getColumn(Receipt.HEADER_BUY_DATE).setCellEditor(new MyJCalendarCellEditor());
+    table.getColumn(Receipt.HEADER_BUY_DATE).setCellRenderer(new MyJCalendarCellRenderer());
 
 
     //POSO
-    table.getColumn("Ποσό").setCellRenderer(new MyAmountCellRenderer());
+    table.getColumn(Receipt.HEADER_AMOUNT).setCellRenderer(new MyAmountCellRenderer());
 
     // EIDOS
     JComboBox types = new JComboBox(Type.getComboBoxModel());
-    table.getColumn("Είδος").setCellEditor(new DefaultCellEditor(types));
+    table.getColumn(Receipt.HEADER_TYPE_ID).setCellEditor(new DefaultCellEditor(types));
 
 
 
@@ -88,7 +88,8 @@ public class ReceiptsTablePanel extends MyTablePanel {
   }
 
   public void addColumns() {
-    String[] names = {"Α/Α", "Α.Φ.Μ.", "Ποσό", "Ημ/νία", "Είδος", "Σχόλια"};
+    String[] names = {Receipt.HEADER_RECEIPT_ID,Receipt.HEADER_AFM,Receipt.HEADER_AMOUNT,
+    Receipt.HEADER_BUY_DATE, Receipt.HEADER_TYPE_ID, Receipt.HEADER_COMMENTS};
     int[] pref = {40, 100, 100, 100, 100, 100};
     int[] min = {40, 60, 60, 100, 100, 100, 100};
     int[] max = {60, 100, 200, 200, 200, 200};
@@ -162,7 +163,7 @@ public class ReceiptsTablePanel extends MyTablePanel {
         //  amount = amount.replaceAll(",", ".");
         //amount = amount.replaceAll("€", "");
 
-        int type_id = Type.getIdByField("types", "description", "type_id", (String) rec[4]);
+        int type_id = Type.getIdByField(Type.TABLE, Type.COLUMN_DESCRIPTION, Type.COLUMN_TYPE_ID, (String) rec[4]);
         Receipt receipt = new Receipt(
             (Integer) rec[0],
             (String) rec[1],

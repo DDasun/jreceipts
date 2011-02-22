@@ -855,7 +855,7 @@ public class Main extends javax.swing.JFrame {
             Type type = new Type(0, a.type, 1, a.multiplier);
             if (!type.exists()) {
               type.save();
-              type_id = Type.getIdByField("types", " description", "type_id", a.type);
+              type_id = Type.getIdByField(Type.TABLE, Type.COLUMN_DESCRIPTION, Type.COLUMN_TYPE_ID, a.type);
             } else {
               type_id = type.getType_id();
             }
@@ -1041,7 +1041,8 @@ public class Main extends javax.swing.JFrame {
     private void menuItem_selectYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_selectYearActionPerformed
       try {
         ArrayList<String> years = new ArrayList<String>();
-        ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', buy_date) AS year FROM receipts");
+        ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', "+Receipt.COLUMN_BUY_DATE+")"
+            + " AS year FROM "+Receipt.TABLE);
         while (rs.next()) {
           years.add(rs.getString("year"));
         }
@@ -1431,7 +1432,7 @@ public class Main extends javax.swing.JFrame {
   private void setYear() {
     try {
       ArrayList<String> years = new ArrayList<String>();
-      ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', buy_date) AS year FROM receipts ORDER BY year DESC LIMIT 1");
+      ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', "+Receipt.COLUMN_BUY_DATE+") AS year FROM "+Receipt.TABLE+" ORDER BY year DESC LIMIT 1");
       while (rs.next()) {
         Options.YEAR = rs.getString("year");
       }

@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import models.Type;
 import panels.ReceiptsTablePanel;
 import receipts.Main;
 import tools.Helper;
@@ -51,7 +52,7 @@ public class MyAmountCellRenderer extends DefaultTableCellRenderer {
       l.setBorder(new CompoundBorder(new EmptyBorder(new Insets(0, 0, 0, 5)), l.getBorder()));
       String kind = (String) table.getValueAt(row, 4);
       try {
-        double multiplier = (Double) models.Type.getFieldByField("types", "multiplier", "description", kind, 1.0);
+        double multiplier = (Double) models.Type.getFieldByField(Type.TABLE, Type.COLUMN_MULTIPLIER, Type.COLUMN_DESCRIPTION, kind, 1.0);
         
         if (multiplier != 1.0) {
           setForeground(Color.BLUE);

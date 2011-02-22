@@ -10,7 +10,6 @@
  */
 package importDb.base;
 
-import importDb.base.ImportConstants;
 import components.Database;
 import components.MyDraggable;
 import java.io.File;
@@ -425,7 +424,7 @@ public class Importer extends MyDraggable implements ImportConstants {
       Type t = new Type(0, type, 1, multiplier);
       if (!t.exists()) {
         t.save();
-        type_id = Type.getIdByField("types", " description", "type_id", type);
+        type_id = Type.getIdByField(Type.TABLE, Type.COLUMN_DESCRIPTION, Type.COLUMN_TYPE_ID, type);
       } else {
         type_id = t.getType_id();
       }

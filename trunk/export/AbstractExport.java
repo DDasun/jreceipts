@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import models.Receipt;
+import models.Type;
 import tools.options.Options;
 
 /**
@@ -29,7 +30,7 @@ public abstract class AbstractExport implements ExportConstants {
   protected abstract void export();
 
   protected Vector<Object> getRecords() {
-    return Receipt.getCollection(false, "WHERE t.valid = 1");
+    return Receipt.getCollection(false, "WHERE t."+Type.COLUMN_VALID+" = 1");
   }
 
   public void setFile() {

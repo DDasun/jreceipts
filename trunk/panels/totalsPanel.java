@@ -186,9 +186,9 @@ public class totalsPanel extends javax.swing.JPanel {
     label_apYear.setText(String.valueOf(totalReceiptsYear));
     float totalAmountYear = Receipt.getAmount("");
     label_posoYear.setText(Helper.convertAmountForViewing(totalAmountYear));
-    int totalReceiptsMonth = Receipt.getCount("strftime('%m', buy_date) = '" + Helper.getThisMonth()+"'" );
+    int totalReceiptsMonth = Receipt.getCount("strftime('%m', "+Receipt.COLUMN_BUY_DATE+") = '" + Helper.getThisMonth()+"'" );
     label_apMonth.setText(String.valueOf(totalReceiptsMonth));
-    float totalAmountMonth = Receipt.getAmount("strftime('%m', buy_date) = '" + Helper.getThisMonth()+"'" );
+    float totalAmountMonth = Receipt.getAmount("strftime('%m', "+Receipt.COLUMN_BUY_DATE+") = '" + Helper.getThisMonth()+"'" );
     label_posoMonth.setText(Helper.convertAmountForViewing(totalAmountMonth));
     label_totalMonthLektiko.setText(Helper.getCurrentGreekMonth() + ":");
   }

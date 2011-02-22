@@ -14,6 +14,9 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import models.Afm;
+import models.Receipt;
+import models.Type;
 import receipts.Main;
 import tools.Helper;
 import tools.options.Options;
@@ -38,15 +41,15 @@ public class Database {
         db = databases[0];
         db = db.replaceAll(".db$", "");
       } else {
-        if(loadDefaultDb() && !ask){
-         db= Options.toString(Options.DEFAULT_DATABASE);
-        }else {
-        db = Helper.ask("Επιλογή Βάσης", "Επιλέξτε τη βάση που θέλετε να χρησιμοποιήσετε", databases);
-        }
-        if(!db.equals("")){
-        db = db.replaceAll(".db$", "");
+        if (loadDefaultDb() && !ask) {
+          db = Options.toString(Options.DEFAULT_DATABASE);
         } else {
-          if(Options.toString(Options.DATABASE).equals("")){
+          db = Helper.ask("Επιλογή Βάσης", "Επιλέξτε τη βάση που θέλετε να χρησιμοποιήσετε", databases);
+        }
+        if (!db.equals("")) {
+          db = db.replaceAll(".db$", "");
+        } else {
+          if (Options.toString(Options.DATABASE).equals("")) {
             System.exit(0);
           } else {
             db = Options.toString(Options.DATABASE);
@@ -87,11 +90,30 @@ public class Database {
       Class.forName("org.sqlite.JDBC");
       conn = DriverManager.getConnection("jdbc:sqlite:" + Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
       stmt = conn.createStatement();
-      String afm = "CREATE TABLE `afm` (`afm_id` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , `afm` VARCHAR DEFAULT 0, `name` VARCHAR NOT NULL )";
+      String afm = "CREATE TABLE `" + Afm.TABLE + "` "
+          + "("
+          + " `" + Afm.COLUMN_AFM_ID + "` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,"
+          + " `" + Afm.COLUMN_AFM + "` VARCHAR DEFAULT 0, "
+          + " `" + Afm.COLUMN_NAME + "` VARCHAR NOT NULL "
+          + ")";
       stmt.executeUpdate(afm);
-      String types = "CREATE  TABLE `types` (`type_id` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , `description` VARCHAR NOT NULL , `valid` BOOL DEFAULT 1, `multiplier` DOUBLE DEFAULT 1.0)";
+      String types = "CREATE  TABLE `" + Type.TABLE + "` "
+          + "("
+          + " `" + Type.COLUMN_TYPE_ID + "` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , "
+          + " `" + Type.COLUMN_DESCRIPTION + "` VARCHAR NOT NULL , "
+          + " `" + Type.COLUMN_VALID + "` BOOL DEFAULT 1, "
+          + " `" + Type.COLUMN_MULTIPLIER + "` DOUBLE DEFAULT 1.0"
+          + ")";
       stmt.executeUpdate(types);
-      String receipts = "CREATE  TABLE `receipts` (`receipt_id` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ," + " `afm` VARCHAR DEFAULT 0, `amount` DOUBLE NOT NULL , `buy_date` DATETIME NOT NULL , `type_id` INTEGER NOT NULL , `comments` TEXT, `valid` INTEGER NOT NULL DEFAULT 1)";
+      String receipts = "CREATE TABLE `" + Receipt.TABLE + "`"
+          + "("
+          + " `" + Receipt.COLUMN_RECEIPT_ID + "` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,"
+          + " `" + Receipt.COLUMN_AFM + "` VARCHAR DEFAULT 0, `amount` DOUBLE NOT NULL , "
+          + " `" + Receipt.COLUMN_BUY_DATE + "` DATETIME NOT NULL , "
+          + " `" + Receipt.COLUMN_TYPE_ID + "` INTEGER NOT NULL , "
+          + " `" + Receipt.COLUMN_COMMENTS + "` TEXT, "
+          + " `" + Receipt.COLUMN_VALID + "` INTEGER NOT NULL DEFAULT 1"
+          + ")";
       stmt.executeUpdate(receipts);
       Options.setOption(Options.DATABASE, db);
       return true;
@@ -136,7 +158,7 @@ public class Database {
 
   public static void connectToDb(String newDb) {
     try {
-      if(!databaseExists(newDb)){
+      if (!databaseExists(newDb)) {
         return;
       }
       db = newDb;
@@ -152,9 +174,9 @@ public class Database {
   }
 
   private static boolean loadDefaultDb() {
-    if(Options.toString(Options.DEFAULT_DATABASE).equals(Options.ASK_FOR_DB)){
+    if (Options.toString(Options.DEFAULT_DATABASE).equals(Options.ASK_FOR_DB)) {
       return false;
-    }else if(Options.toString(Options.DEFAULT_DATABASE).equals("")){
+    } else if (Options.toString(Options.DEFAULT_DATABASE).equals("")) {
       return false;
     }
     return true;

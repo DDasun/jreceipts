@@ -30,13 +30,12 @@ public class TypesTablePanel extends MyTablePanel {
 
   public static final long serialVersionUID = 1L;
   private final Main m;
-  
 
   /** Creates new form TypoesPanel */
   public TypesTablePanel(Main m) {
     setModel();
     super.init();
-     bt_popup.setVisible(false);
+    bt_popup.setVisible(false);
     this.m = m;
     _NUMBER_OF_FIELDS = 4;
     setTitle("Λίστα Καταστημάτων");
@@ -45,8 +44,8 @@ public class TypesTablePanel extends MyTablePanel {
     addColumns();
     addRows();
     tableModel.addTableModelListener(this);
-    table.getColumn("Πολλαπλασιαστής").setCellEditor(new MyPercentCellEditor());
-    table.getColumn("Πολλαπλασιαστής").setCellRenderer(new MyPercentCellRenderer());
+    table.getColumn(Type.HEADER_MULTIPLIER).setCellEditor(new MyPercentCellEditor());
+    table.getColumn(Type.HEADER_MULTIPLIER).setCellRenderer(new MyPercentCellRenderer());
     setVisible(true);
 
   }
@@ -63,10 +62,10 @@ public class TypesTablePanel extends MyTablePanel {
   }
 
   public void addColumns() {
-    String[] names = {"Α/Α", "Είδος", "Εγκυρο","Πολλαπλασιαστής"};
-    int[] pref = {40, 400, 100,100};
-    int[] min = {40, 200, 100,100};
-    int[] max = {60, 2000, 100,100};
+    String[] names = {Type.HEADER_TYPE_ID, Type.HEADER_DESCRIPTION, Type.HEADER_VALID, Type.HEADER_MULTIPLIER};
+    int[] pref = {40, 400, 100, 100};
+    int[] min = {40, 200, 100, 100};
+    int[] max = {60, 2000, 100, 100};
     super.addColumns(names, pref, min, max);
   }
 
@@ -78,8 +77,9 @@ public class TypesTablePanel extends MyTablePanel {
   @Override
   public void delete(int id) {
     try {
-      int r_id = Receipt.getIdByField("receipts", "type_id", "receipt_id", String.valueOf(id));
-      if(r_id > 0){
+      int r_id = Receipt.getIdByField(Receipt.TABLE, Receipt.COLUMN_TYPE_ID,
+          Receipt.COLUMN_RECEIPT_ID, String.valueOf(id));
+      if (r_id > 0) {
         Helper.message("Δεν μπορείτε να διαγράψετε κατηγορία στην οποία υπάρχουν αποδείξεις", "Διαγραφή κατηγορίας", JOptionPane.ERROR_MESSAGE);
         return;
       }
@@ -132,7 +132,7 @@ public class TypesTablePanel extends MyTablePanel {
       for (int i = 0; i < _NUMBER_OF_FIELDS; i++) {
         rec[i] = String.valueOf(model.getValueAt(row, i));
       }
-      Type type = new Type(Integer.parseInt(rec[0]), rec[1], (Boolean.parseBoolean(rec[2]) == true ? 1 : 0), Double.parseDouble(rec[3])/100);
+      Type type = new Type(Integer.parseInt(rec[0]), rec[1], (Boolean.parseBoolean(rec[2]) == true ? 1 : 0), Double.parseDouble(rec[3]) / 100);
       try {
         type.save();
         m.updateTotalsPanel();
@@ -144,4 +144,3 @@ public class TypesTablePanel extends MyTablePanel {
     }
   }
 }
-
