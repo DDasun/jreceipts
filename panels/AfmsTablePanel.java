@@ -56,7 +56,7 @@ public class AfmsTablePanel extends MyTablePanel {
   }
 
   public void addColumns() {
-    String[] names = {"Α/Α", "Α.Φ.Μ.", "Εταιρεία"};
+    String[] names = {Afm.HEADER_AFM_ID, Afm.HEADER_AFM, Afm.HEADER_NAME};
     int[] pref = {100, 150, 300};
     int[] min = {100, 150, 300};
     int[] max = {100, 200, 1500};
@@ -117,7 +117,7 @@ public class AfmsTablePanel extends MyTablePanel {
       try {
         afm.save();
         if(colSelected == 1 && !oldValue.equals(rec[1])){
-          Receipt.updateField("afm",rec[1],oldValue);
+          Receipt.updateField(Afm.COLUMN_AFM,rec[1],oldValue);
           System.out.println("AFM changed from " + oldValue + " to " +rec[1]);
         }
       } catch (SQLException ex) {

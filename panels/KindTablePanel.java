@@ -26,7 +26,7 @@ public class KindTablePanel extends MyStaticTablePanel {
   private static final long serialVersionUID = 4535647567L;
   private final Main m;
   private Vector<Object> collection;
-  String[] names = {"Είδος", "Αποδείξεις", "Ποσό"};
+  String[] names = {Statistics.COLUMN_DESCRIPTION, Statistics.COLUMN_TOTALS, Statistics.COLUMN_AMOUNT};
     
 
   /** Creates new form TypoesPanel */
@@ -42,7 +42,7 @@ public class KindTablePanel extends MyStaticTablePanel {
     addColumns();
     addRows();
     //POSO
-    table.getColumn("Ποσό").setCellRenderer(new MyAmountCellRenderer());
+    table.getColumn(Statistics.COLUMN_AMOUNT).setCellRenderer(new MyAmountCellRenderer());
     setVisible(true);
   }
 

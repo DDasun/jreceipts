@@ -30,6 +30,7 @@ import com.googlecode.svalidators.validators.SValidator;
 import components.Database;
 import java.sql.ResultSet;
 import java.util.Date;
+import models.Receipt;
 import tools.Helper;
 import tools.options.Options;
 
@@ -402,7 +403,7 @@ public class AddReceipt extends MyDraggable {
       if (checkbox_newType.isSelected()) {
         type_id = 0;
         type = textfield_newType.getText().trim();
-        multiplier = Double.parseDouble(String.valueOf(spinner_multiplier.getValue()).replaceAll(",", "."))/100;
+        multiplier = Double.parseDouble(String.valueOf(spinner_multiplier.getValue()).replaceAll(",", ".")) / 100;
       } else {
         type = "";
         Type t = (Type) combo_type.getSelectedItem();
@@ -451,10 +452,10 @@ public class AddReceipt extends MyDraggable {
     private void textfield_afmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfield_afmKeyReleased
       try {
         String tmpAfm = textfield_afm.getText().trim();
-        String sql = "SELECT * from receipts WHERE `afm` LIKE '" + tmpAfm + "%'";
+        String sql = "SELECT * from " + Receipt.TABLE + " WHERE `" + Receipt.COLUMN_AFM + "` LIKE '" + tmpAfm + "%'";
         ResultSet rs = Database.stmt.executeQuery(sql);
         if (rs.next()) {
-          String foundAfm = rs.getString("afm");
+          String foundAfm = rs.getString(Receipt.COLUMN_AFM);
           textfield_afm.setText(foundAfm);
           textfield_afm.setSelectionStart(tmpAfm.length());
           textfield_afm.setSelectionEnd(foundAfm.length());
