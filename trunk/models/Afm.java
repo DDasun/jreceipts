@@ -25,8 +25,15 @@ public class Afm extends DBRecord {
   private String afm;
   private int afm_id;
   private String name;
+  public static final String TABLE = "afm";
+  public static final String COLUMN_AFM_ID = "afm_id";
+  public static final String COLUMN_AFM = "afm";
+  public static final String COLUMN_NAME = "name";
+  public static final String HEADER_AFM_ID = "Α/Α";
+  public static final String HEADER_AFM = "Α.Φ.Μ.";
+  public static final String HEADER_NAME = "Εταιρεία";
 
-  public  Afm(int afm_id, String afm, String name) {
+  public Afm(int afm_id, String afm, String name) {
     super();
     this.afm_id = afm_id;
     this.afm = afm;
@@ -61,7 +68,7 @@ public class Afm extends DBRecord {
   }
 
   private boolean exists() throws SQLException {
-    sql = "SELECT * FROM afm WHERE afm = '" + getAfm() + "'";
+    sql = "SELECT * FROM " + TABLE + " WHERE " + COLUMN_AFM + " = '" + getAfm() + "'";
     rs = stmt.executeQuery(sql);
     if (rs.next()) {
       return true;
@@ -70,25 +77,27 @@ public class Afm extends DBRecord {
   }
 
   private void insert() throws SQLException {
-    sql = "INSERT INTO afm (afm, name) VALUES ( '" + getAfm() + "', '" + getName() + "')";
+    sql = "INSERT INTO " + TABLE + " (" + COLUMN_AFM + ", " + COLUMN_NAME + ") "
+        + "VALUES ( '" + getAfm() + "', '" + getName() + "')";
     stmt.executeUpdate(sql);
   }
 
   private void update() throws SQLException {
-    sql = "UPDATE afm set afm = '" + getAfm() + "', name = '" + getName() + "' WHERE afm_id = " + getAfm_id();
+    sql = "UPDATE " + TABLE + " set " + COLUMN_AFM + " = '" + getAfm() +
+        "', " + COLUMN_NAME + " = '" + getName() + "' WHERE " + COLUMN_AFM_ID + " = " + getAfm_id();
     stmt.executeUpdate(sql);
   }
 
   public static Vector<Object> getCollection(boolean addHeader) {
     try {
-      sql = "SELECT * FROM afm ORDER BY name";
+      sql = "SELECT * FROM " + TABLE + " ORDER BY " + COLUMN_NAME;
       rs = Database.stmt.executeQuery(sql);
       collection = new Vector<Object>();
       if (addHeader) {
-        collection.add(new Afm(0, "Επιλογή ΑΦΜ",""));
+        collection.add(new Afm(0, "Επιλογή ΑΦΜ", ""));
       }
       while (rs.next()) {
-        Afm a = new Afm(rs.getInt("afm_id"), rs.getString("afm"), rs.getString("name"));
+        Afm a = new Afm(rs.getInt(COLUMN_AFM_ID), rs.getString(COLUMN_AFM), rs.getString(COLUMN_NAME));
         collection.add(a);
       }
       return collection;
@@ -98,12 +107,12 @@ public class Afm extends DBRecord {
     }
   }
 
-   public static void deleteById(int id) {
+  public static void deleteById(int id) {
     try {
-      sql = "DELETE FROM afm WHERE afm_id = " + id;
+      sql = "DELETE FROM " + TABLE + " WHERE " + COLUMN_AFM_ID + " = " + id;
       stmt.executeUpdate(sql);
     } catch (SQLException ex) {
-      Helper.message("Σφάλμα στην βάση δεδομένων.\nΗ διαγραφή δεν έγινε","SQL σφάλμα",JOptionPane.ERROR_MESSAGE);
+      Helper.message("Σφάλμα στην βάση δεδομένων.\nΗ διαγραφή δεν έγινε", "SQL σφάλμα", JOptionPane.ERROR_MESSAGE);
       Main.log(Level.SEVERE, "Σφάλμα στην βάση δεδομένων.\nΗ διαγραφή δεν έγινε", ex);
     }
   }
@@ -148,14 +157,18 @@ public class Afm extends DBRecord {
    */
   public Type getType() {
     try {
-      sql = "SELECT t.type_id, t.description, t.valid, t.multiplier FROM types t INNER JOIN receipts r " + "ON t.type_ID = r.type_ID WHERE r.afm = '" + this.afm + "' LIMIT 1";
+      sql = "SELECT t." + Type.COLUMN_TYPE_ID + ", t." + Type.COLUMN_DESCRIPTION +
+          ", t."+Type.COLUMN_VALID+", t."+Type.COLUMN_MULTIPLIER+
+          " FROM "+Type.TABLE+" t INNER JOIN "+Receipt.TABLE+" r " + "ON t." +
+          Type.COLUMN_TYPE_ID + " = r."+Receipt.COLUMN_TYPE_ID+" WHERE r."+Receipt.COLUMN_AFM+
+          " = '" + this.afm + "' LIMIT 1";
       ResultSet result = stmt.executeQuery(sql);
-      while(result.next()){
-        int type_id = result.getInt("type_id");
-        String description = result.getString("description");
-        int valid = result.getInt("valid");
-        Double multiplier = result.getDouble("multiplier");
-        return new Type(type_id, description, valid,multiplier);
+      while (result.next()) {
+        int type_id = result.getInt(Type.COLUMN_TYPE_ID);
+        String description = result.getString(Type.COLUMN_DESCRIPTION);
+        int valid = result.getInt(Type.COLUMN_VALID);
+        Double multiplier = result.getDouble(Type.COLUMN_MULTIPLIER);
+        return new Type(type_id, description, valid, multiplier);
       }
       return null;
     } catch (SQLException ex) {
