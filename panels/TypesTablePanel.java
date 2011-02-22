@@ -4,6 +4,8 @@
  */
 package panels;
 
+import components.MyPercentCellEditor;
+import components.MyPercentCellRenderer;
 import components.MyTableModel;
 import components.MyTablePanel;
 import exceptions.ErrorMessages;
@@ -43,6 +45,8 @@ public class TypesTablePanel extends MyTablePanel {
     addColumns();
     addRows();
     tableModel.addTableModelListener(this);
+    table.getColumn("Πολλαπλασιαστής").setCellEditor(new MyPercentCellEditor());
+    table.getColumn("Πολλαπλασιαστής").setCellRenderer(new MyPercentCellRenderer());
     setVisible(true);
 
   }
@@ -128,7 +132,7 @@ public class TypesTablePanel extends MyTablePanel {
       for (int i = 0; i < _NUMBER_OF_FIELDS; i++) {
         rec[i] = String.valueOf(model.getValueAt(row, i));
       }
-      Type type = new Type(Integer.parseInt(rec[0]), rec[1], (Boolean.parseBoolean(rec[2]) == true ? 1 : 0), Double.parseDouble(rec[3]));
+      Type type = new Type(Integer.parseInt(rec[0]), rec[1], (Boolean.parseBoolean(rec[2]) == true ? 1 : 0), Double.parseDouble(rec[3])/100);
       try {
         type.save();
         m.updateTotalsPanel();

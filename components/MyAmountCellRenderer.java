@@ -57,6 +57,7 @@ public class MyAmountCellRenderer extends DefaultTableCellRenderer {
           setForeground(Color.BLUE);
           String MultValue = Helper.convertAmountForViewing(dValue * multiplier);
           setText(val + "  (" + MultValue + ")");
+          setText(val);
         } else {
           setForeground(Skin.getColor_5());
           setText(val);

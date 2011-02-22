@@ -85,30 +85,18 @@ public class BarsChart extends Chart{
   }
 
   private void createBarsChart(DefaultCategoryDataset dataset) {
-//    chartType = BARS;
-//    barschartPanel.removeAll();
-//    barschartPanel.validate();
-//    barschartPanel.repaint();
-//    if (cpanel != null) {
-//      cpanel = null;
-//    }
-//    JFreeChart chart = null;
-
     chart = ChartFactory.createBarChart3D(
         "Στατιστικά ανά " + (type == Statistics.KIND ? "Είδος" : "Μήνα"), // chart title
         type == Statistics.KIND ? "Είδος" : "Μήνας",
         "Ποσό",
         dataset, // data
-        PlotOrientation.VERTICAL,
+        PlotOrientation.HORIZONTAL,
         false, // include legend
         true,
         false);
 
     customizeChart(chart);
-//    cpanel = new ChartPanel(chart);
-//    cpanel.setSize(piechartPanel.getSize());
-//    barschartPanel.add(cpanel);
-//    barschartPanel.getParent().validate();
+
 
   }
 

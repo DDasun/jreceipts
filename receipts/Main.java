@@ -664,6 +664,8 @@ public class Main extends javax.swing.JFrame {
 
     menuBar.add(databases);
 
+    receipts.setText("Αποδείξεις");
+
     menuItem_addReceipt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addReceipts.png"))); // NOI18N
     menuItem_addReceipt.setText("Εισαγωγή");
     menuItem_addReceipt.addActionListener(new java.awt.event.ActionListener() {
