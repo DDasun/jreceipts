@@ -35,7 +35,7 @@ public class Receipt extends DBRecord {
   public static final String COLUMN_RECEIPT_ID = "receipt_id";
   public static final String COLUMN_AFM = "afm";
   public static final String COLUMN_AMOUNT = "amount";
-  public static final String COLUMN_BUY_DATE = "date";
+  public static final String COLUMN_BUY_DATE = "buy_date";
   public static final String COLUMN_TYPE_ID = "type_id";
   public static final String COLUMN_COMMENTS = "comments";
   public static final String COLUMN_VALID = "valid";
