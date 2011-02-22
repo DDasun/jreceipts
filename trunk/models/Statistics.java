@@ -25,6 +25,10 @@ public class Statistics extends DBRecord {
   public static final String COLUMN_AMOUNT = "amount";
   public static final String COLUMN_ID = "id";
   public static final String COLUMN_DESCRIPTION = "description";
+  public static final String HEADER_DESCRIPTION = "Κατηγορία";
+  public static final String HEADER_MONTH = "Μήνας";
+  public static final String HEADER_TOTALS = "Αποδείξεις";
+  public static final String HEADER_AMOUNT = "Ποσό";
 
   public Vector<Object> getMonthlyCollection() {
     try {

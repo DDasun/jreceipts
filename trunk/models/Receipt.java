@@ -39,13 +39,13 @@ public class Receipt extends DBRecord {
   public static final String COLUMN_TYPE_ID = "type_id";
   public static final String COLUMN_COMMENTS = "comments";
   public static final String COLUMN_VALID = "valid";
-  public static final String HEADER_RECEIPT_ID = "receipt_id";
-  public static final String HEADER_AFM = "afm";
-  public static final String HEADER_AMOUNT = "amount";
-  public static final String HEADER_BUY_DATE = "date";
-  public static final String HEADER_TYPE_ID = "type_id";
-  public static final String HEADER_COMMENTS = "comments";
-  public static final String HEADER_VALID = "valid";
+  public static final String HEADER_RECEIPT_ID = "Α/Α";
+  public static final String HEADER_AFM = "Α.Φ.Μ.";
+  public static final String HEADER_AMOUNT = "Ποσό";
+  public static final String HEADER_BUY_DATE = "Ημερομηνία";
+  public static final String HEADER_TYPE_ID = "Κατηγορία";
+  public static final String HEADER_COMMENTS = "Σχόλια";
+  public static final String HEADER_VALID = "Έγκυρη";
 
   /**
    * 
