@@ -31,6 +31,21 @@ public class Receipt extends DBRecord {
   private String type;
   private String dateForSQL;
   private double multiplier;
+  public static final String TABLE = "receipts";
+  public static final String COLUMN_RECEIPT_ID = "receipt_id";
+  public static final String COLUMN_AFM = "afm";
+  public static final String COLUMN_AMOUNT = "amount";
+  public static final String COLUMN_BUY_DATE = "date";
+  public static final String COLUMN_TYPE_ID = "type_id";
+  public static final String COLUMN_COMMENTS = "comments";
+  public static final String COLUMN_VALID = "valid";
+  public static final String HEADER_RECEIPT_ID = "receipt_id";
+  public static final String HEADER_AFM = "afm";
+  public static final String HEADER_AMOUNT = "amount";
+  public static final String HEADER_BUY_DATE = "date";
+  public static final String HEADER_TYPE_ID = "type_id";
+  public static final String HEADER_COMMENTS = "comments";
+  public static final String HEADER_VALID = "valid";
 
   /**
    * 
@@ -75,22 +90,24 @@ public class Receipt extends DBRecord {
   }
 
   private void insert() throws SQLException {
-    sql = "INSERT INTO receipts (afm, amount, buy_date, type_id, comments, valid) VALUES "
+    sql = "INSERT INTO " + TABLE + " (" + COLUMN_AFM + ", " + COLUMN_AMOUNT
+        + ", " + COLUMN_BUY_DATE + ", " + COLUMN_TYPE_ID + ", " + COLUMN_COMMENTS + ", " + COLUMN_VALID + ") VALUES "
         + "('" + getAfm() + "','" + getAmount() + "','" + dateForSQL + "', " + getType_id() + ", '" + getComments() + "'," + getValid() + ")";
     stmt.executeUpdate(sql);
   }
 
   private void update() throws SQLException {
-    sql = "UPDATE receipts SET afm = '" + getAfm() + "', amount = '" + amount + "',"
-        + " buy_date = '" + dateForSQL + "' , type_id = '" + getType_id() + "', comments = '" + getComments() + "', valid=" + valid
-        + " WHERE receipt_id =" + getReceipt_id();
+    sql = "UPDATE " + TABLE + " SET " + COLUMN_AFM + " = '" + getAfm() + "', " + COLUMN_AMOUNT + " = '" + amount + "',"
+        + " " + COLUMN_BUY_DATE + " = '" + dateForSQL + "' , " + COLUMN_TYPE_ID + " = '" + getType_id()
+        + "', " + COLUMN_COMMENTS + " = '" + getComments() + "', " + COLUMN_VALID + "=" + valid
+        + " WHERE " + COLUMN_RECEIPT_ID + " =" + getReceipt_id();
     stmt.executeUpdate(sql);
   }
 
   private boolean exists() throws SQLException {
-    sql = "SELECT * FROM receipts WHERE afm = '" + getAfm() + "' AND buy_date = '"
+    sql = "SELECT * FROM " + TABLE + " WHERE " + COLUMN_AFM + " = '" + getAfm() + "' AND " + COLUMN_BUY_DATE + " = '"
         + dateForSQL
-        + "' AND amount = '" + getAmount() + "'";
+        + "' AND " + COLUMN_AMOUNT + " = '" + getAmount() + "'";
     rs = stmt.executeQuery(sql);
     if (rs.next()) {
       return true;
@@ -100,16 +117,17 @@ public class Receipt extends DBRecord {
 
   public static void deleteById(int id) {
     try {
-      sql = "UPDATE receipts SET valid = 0 WHERE receipt_id = " + id;
+      sql = "UPDATE " + TABLE + " SET " + COLUMN_VALID + " = 0 WHERE " + COLUMN_RECEIPT_ID + " = " + id;
       stmt.executeUpdate(sql);
     } catch (SQLException ex) {
       Helper.message("Σφάλμα στην βάση δεδομένων.\nΗ διαγραφή δεν έγινε", "SQL σφάλμα", JOptionPane.ERROR_MESSAGE);
       Main.log(Level.SEVERE, "Σφάλμα στην βάση δεδομένων.\nΗ διαγραφή δεν έγινε", ex);
     }
   }
+
   public static void restoreById(int id) {
     try {
-      sql = "UPDATE receipts SET valid = 1 WHERE receipt_id = " + id;
+      sql = "UPDATE " + TABLE + " SET " + COLUMN_VALID + " = 1 WHERE " + COLUMN_RECEIPT_ID + " = " + id;
       stmt.executeUpdate(sql);
     } catch (SQLException ex) {
       Helper.message("Σφάλμα στην βάση δεδομένων.\nΗ επαναφορά δεν έγινε", "SQL σφάλμα", JOptionPane.ERROR_MESSAGE);
@@ -128,12 +146,14 @@ public class Receipt extends DBRecord {
   public static Vector<Object> getCollection(boolean addHeader, String criteria, boolean valid) {
     try {
       if (criteria.equals("")) {
-        criteria = " WHERE strftime('%Y', buy_date)= '" + Options.YEAR + "'";
+        criteria = " WHERE strftime('%Y', " + COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'";
       } else {
-        criteria += " AND  strftime('%Y', buy_date)= '" + Options.YEAR + "'";
+        criteria += " AND  strftime('%Y', " + COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'";
       }
-      sql = "SELECT r.*,t.description,t.multiplier FROM receipts  r "
-          + "INNER JOIN types t ON r.type_id = t.type_id " + criteria + " AND r.valid = " + (valid ? 1 : 0) + " ORDER BY buy_date DESC";
+      sql = "SELECT r.*,t." + Type.COLUMN_DESCRIPTION + ",t." + Type.COLUMN_MULTIPLIER
+          + " FROM " + TABLE + "  r "
+          + "INNER JOIN " + Type.TABLE + " t ON r." + COLUMN_TYPE_ID + " = t." + Type.COLUMN_TYPE_ID + " "
+          + criteria + " AND r." + COLUMN_VALID + " = " + (valid ? 1 : 0) + " ORDER BY " + COLUMN_BUY_DATE + " DESC";
 
       rs = Database.stmt.executeQuery(sql);
       collection = new Vector<Object>();
@@ -141,15 +161,15 @@ public class Receipt extends DBRecord {
         //collection.add(new Receipt(0, "Επιλογή Απόδειξης"));
       }
       while (rs.next()) {
-        Receipt r = new Receipt(rs.getInt("receipt_id"));
-        r.setAfm(rs.getString("afm"));
-        r.setAmount(rs.getDouble("amount"));
-        r.setDate(Helper.convertStringFromSqlToDate(rs.getString("buy_date")));
-        r.setType_id(rs.getInt("type_id"));
-        r.setType(rs.getString("description"));
-        r.setComments(rs.getString("comments"));
-        r.setMultiplier(rs.getDouble("multiplier"));
-        r.setValid(rs.getInt("valid"));
+        Receipt r = new Receipt(rs.getInt(COLUMN_RECEIPT_ID));
+        r.setAfm(rs.getString(COLUMN_AFM));
+        r.setAmount(rs.getDouble(COLUMN_AMOUNT));
+        r.setDate(Helper.convertStringFromSqlToDate(rs.getString(COLUMN_BUY_DATE)));
+        r.setType_id(rs.getInt(COLUMN_TYPE_ID));
+        r.setType(rs.getString(Type.COLUMN_DESCRIPTION));
+        r.setComments(rs.getString(COLUMN_COMMENTS));
+        r.setMultiplier(rs.getDouble(Type.COLUMN_MULTIPLIER));
+        r.setValid(rs.getInt(COLUMN_VALID));
         collection.add(r);
       }
       return collection;
@@ -161,13 +181,15 @@ public class Receipt extends DBRecord {
 
   public static int getCount(String where) {
     if (where.equals("")) {
-      sql = "SELECT count(*) AS totals FROM receipts LEFT JOIN types "
-          + "ON receipts.type_id = types.type_id WHERE types.valid = 1 AND receipts.valid = 1"
-          + " AND  strftime('%Y', buy_date)= '" + Options.YEAR + "'";
+      sql = "SELECT count(*) AS totals FROM " + TABLE + " r LEFT JOIN " + Type.TABLE + " t "
+          + "ON r." + COLUMN_TYPE_ID + " = t." + Type.COLUMN_TYPE_ID + " "
+          + "WHERE t." + Type.COLUMN_VALID + " = 1 AND r." + COLUMN_VALID + " = 1"
+          + " AND  strftime('%Y', " + COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'";
     } else {
-      sql = "SELECT count(*) AS totals FROM receipts LEFT JOIN types "
-          + "ON receipts.type_id = types.type_id WHERE types.valid = 1 AND receipts.valid = 1 AND " + where
-          + " AND  strftime('%Y', buy_date)= '" + Options.YEAR + "'";
+      sql = "SELECT count(*) AS totals FROM " + TABLE + " r LEFT JOIN " + Type.TABLE + " t "
+          + "ON r." + COLUMN_TYPE_ID + " = t." + Type.COLUMN_TYPE_ID + " "
+          + "WHERE t." + Type.COLUMN_VALID + " = 1 AND r." + COLUMN_VALID + " = 1 AND " + where
+          + " AND  strftime('%Y', " + COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'";
     }
     try {
       rs = Database.stmt.executeQuery(sql);
@@ -184,13 +206,17 @@ public class Receipt extends DBRecord {
 
   public static float getAmount(String where) {
     if (where.equals("")) {
-      sql = "SELECT SUM(amount*multiplier) AS totals FROM receipts LEFT JOIN types "
-          + "ON receipts.type_id = types.type_id WHERE types.valid = 1 AND receipts.valid = 1"
-          + " AND  strftime('%Y', buy_date)= '" + Options.YEAR + "'";
+      sql = "SELECT SUM(" + COLUMN_AMOUNT + " * " + Type.COLUMN_MULTIPLIER + ") AS totals "
+          + "FROM " + TABLE + " r LEFT JOIN " + Type.TABLE + " t "
+          + "ON r." + COLUMN_TYPE_ID + " = t." + Type.COLUMN_TYPE_ID + " "
+          + "WHERE t." + Type.COLUMN_VALID + " = 1 AND r." + COLUMN_VALID + " = 1"
+          + " AND  strftime('%Y', " + COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'";
     } else {
-      sql = "SELECT SUM(amount*multiplier) AS totals FROM receipts LEFT JOIN types "
-          + "ON receipts.type_id = types.type_id WHERE types.valid = 1 AND receipts.valid = 1 AND " + where
-          + " AND  strftime('%Y', buy_date)= '" + Options.YEAR + "'";
+      sql = "SELECT SUM(" + COLUMN_AMOUNT + " * " + Type.COLUMN_MULTIPLIER + ") AS totals "
+          + "FROM " + TABLE + " r LEFT JOIN " + Type.TABLE + " t "
+          + "ON r." + COLUMN_TYPE_ID + " = t." + Type.COLUMN_TYPE_ID + " "
+          + "WHERE t." + Type.COLUMN_VALID + " = 1 AND r." + COLUMN_VALID + " = 1 AND " + where
+          + " AND  strftime('%Y', " + COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'";
     }
     try {
       rs = Database.stmt.executeQuery(sql);
@@ -206,7 +232,7 @@ public class Receipt extends DBRecord {
   }
 
   public static void updateField(String field, String newValue, String oldValue) throws SQLException {
-    sql = "UPDATE receipts SET " + field + " = '" + newValue + "' WHERE " + field + " = '" + oldValue + "'";
+    sql = "UPDATE " + TABLE + " SET " + field + " = '" + newValue + "' WHERE " + field + " = '" + oldValue + "'";
     Database.stmt.executeUpdate(sql);
   }
 
@@ -299,7 +325,7 @@ public class Receipt extends DBRecord {
    */
   public String getType() {
     try {
-      return Type.getFieldById("type_id", type_id, "description", "types");
+      return Type.getFieldById(Type.COLUMN_TYPE_ID, type_id, Type.COLUMN_DESCRIPTION, Type.TABLE);
     } catch (SQLException ex) {
       Main.log(Level.SEVERE, null, ex);
       return "";

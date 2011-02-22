@@ -27,6 +27,15 @@ public class Type extends DBRecord {
   private String description;
   private int valid;
   private double multiplier;
+  public static final String TABLE = "types";
+  public static final String COLUMN_TYPE_ID = "type_id";
+  public static final String COLUMN_DESCRIPTION = "description";
+  public static final String COLUMN_VALID = "valid";
+  public static final String COLUMN_MULTIPLIER = "multiplier";
+  public static final String HEADER_TYPE_ID = "Α/Α";
+  public static final String HEADER_DESCRIPTION = "Κατηγορία";
+  public static final String HEADER_VALID = "Έγκυρη";
+  public static final String HEADER_MULTIPLIER = "Ποσοστό";
 
   public Type(int type_id, String description, int valid, double multiplier) {
     super();
@@ -59,31 +68,34 @@ public class Type extends DBRecord {
   }
 
   public boolean exists() throws SQLException {
-    sql = "SELECT * FROM types WHERE description = '" + getDescription() + "'";
+    sql = "SELECT * FROM " + TABLE + " WHERE " + COLUMN_DESCRIPTION + " = '" + getDescription() + "'";
     rs = stmt.executeQuery(sql);
     if (rs.next()) {
-      type_id = rs.getInt("type_id");
-      description = rs.getString("description");
-      valid = rs.getInt("valid");
-      multiplier = rs.getDouble("multiplier");
+      type_id = rs.getInt(COLUMN_TYPE_ID);
+      description = rs.getString(COLUMN_DESCRIPTION);
+      valid = rs.getInt(COLUMN_VALID);
+      multiplier = rs.getDouble(COLUMN_MULTIPLIER);
       return true;
     }
     return false;
   }
 
   private void insert() throws SQLException {
-    sql = "INSERT INTO types (description, valid, multiplier) VALUES ('" + getDescription() + "'," + valid + ","+multiplier+")";
+    sql = "INSERT INTO " + TABLE + " (" + COLUMN_DESCRIPTION + ", " + COLUMN_VALID
+        + ", " + COLUMN_MULTIPLIER + ") VALUES ('" + getDescription() + "'," + valid + "," + multiplier + ")";
     stmt.executeUpdate(sql);
   }
 
   private void update() throws SQLException {
-    sql = "UPDATE types set description = '" + getDescription() + "', valid = " + valid +", multiplier ="+multiplier+"  WHERE type_id = " + getType_id();
+    sql = "UPDATE " + TABLE + " set " + COLUMN_DESCRIPTION + " = '" + getDescription()
+        + "', " + COLUMN_VALID + " = " + valid
+        + ", " + COLUMN_MULTIPLIER + " =" + multiplier + "  WHERE " + COLUMN_TYPE_ID + " = " + getType_id();
     stmt.executeUpdate(sql);
   }
 
   public static void deleteById(int id) {
     try {
-      sql = "DELETE FROM types WHERE type_id = " + id;
+      sql = "DELETE FROM " + TABLE + " WHERE " + COLUMN_TYPE_ID + " = " + id;
       stmt.executeUpdate(sql);
     } catch (SQLException ex) {
       Helper.message("Σφάλμα στην βάση δεδομένων.\nΗ διαγραφή δεν έγινε", "SQL σφάλμα", JOptionPane.ERROR_MESSAGE);
@@ -121,14 +133,17 @@ public class Type extends DBRecord {
 
   public static Vector<Object> getCollection(boolean addHeader) {
     try {
-      sql = "SELECT * FROM types ORDER BY description";
+      sql = "SELECT * FROM " + TABLE + " ORDER BY " + COLUMN_DESCRIPTION;
       rs = Database.stmt.executeQuery(sql);
       collection = new Vector<Object>();
       if (addHeader) {
-        collection.add(new Type(0, "Επιλογή Είδους", 1,1.0));
+        collection.add(new Type(0, "Επιλογή Είδους", 1, 1.0));
       }
       while (rs.next()) {
-        Type t = new Type(rs.getInt("type_id"), rs.getString("description"), rs.getInt("valid"), rs.getDouble("multiplier"));
+        Type t = new Type(rs.getInt(COLUMN_TYPE_ID),
+            rs.getString(COLUMN_DESCRIPTION),
+            rs.getInt(COLUMN_VALID),
+            rs.getDouble(COLUMN_MULTIPLIER));
         collection.add(t);
       }
       return collection;
@@ -138,13 +153,13 @@ public class Type extends DBRecord {
     }
   }
 
-  public static String[] getComboBoxModel(){
+  public static String[] getComboBoxModel() {
     Vector<Object> col = getCollection(false);
     Iterator<Object> it = col.iterator();
     String[] mod = new String[col.size()];
-    int i=0;
+    int i = 0;
     while (it.hasNext()) {
-      Type type = (Type)it.next();
+      Type type = (Type) it.next();
       mod[i] = type.toString();
       i++;
     }
