@@ -24,7 +24,7 @@ public class Statistics extends DBRecord {
     try {
       sql = "SELECT strftime('%m', buy_date) AS month, count(r.receipt_id) AS totals, SUM(amount * t.multiplier) AS amount "
               + " FROM receipts r LEFT JOIN types t"
-              + " ON r.type_id = t.type_id  WHERE valid = 1 "
+              + " ON r.type_id = t.type_id  WHERE t.valid = 1 AND r.valid = 1 "
               +  " AND  strftime('%Y', buy_date)= '" + Options.YEAR +"'"
               + " GROUP BY strftime('%m', buy_date)";
       rs = Database.stmt.executeQuery(sql);
@@ -48,7 +48,7 @@ public class Statistics extends DBRecord {
       sql = "SELECT t.type_id AS id, t.description AS description, count(t.type_id) AS totals, "
           + "SUM(amount * t.multiplier) AS amount "
               + " FROM receipts r LEFT JOIN types t"
-              + " ON r.type_id = t.type_id  WHERE valid = 1 "
+              + " ON r.type_id = t.type_id  WHERE t.valid = 1 AND r.valid=1 "
               + " AND  strftime('%Y', buy_date)= '" + Options.YEAR +"'"
               + " GROUP BY r.type_id";
       rs = Database.stmt.executeQuery(sql);

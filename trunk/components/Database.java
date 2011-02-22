@@ -91,7 +91,7 @@ public class Database {
       stmt.executeUpdate(afm);
       String types = "CREATE  TABLE `types` (`type_id` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , `description` VARCHAR NOT NULL , `valid` BOOL DEFAULT 1, `multiplier` DOUBLE DEFAULT 1.0)";
       stmt.executeUpdate(types);
-      String receipts = "CREATE  TABLE `receipts` (`receipt_id` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ," + " `afm` VARCHAR DEFAULT 0, `amount` DOUBLE NOT NULL , `buy_date` DATETIME NOT NULL , `type_id` INTEGER NOT NULL , `comments` TEXT)";
+      String receipts = "CREATE  TABLE `receipts` (`receipt_id` INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ," + " `afm` VARCHAR DEFAULT 0, `amount` DOUBLE NOT NULL , `buy_date` DATETIME NOT NULL , `type_id` INTEGER NOT NULL , `comments` TEXT, `valid` INTEGER NOT NULL DEFAULT 1)";
       stmt.executeUpdate(receipts);
       Options.setOption(Options.DATABASE, db);
       return true;
