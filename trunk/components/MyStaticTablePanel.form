@@ -24,7 +24,10 @@
                           <Component id="label_hint" alignment="0" pref="261" max="32767" attributes="2"/>
                           <Component id="scrollPane_table" alignment="0" pref="261" max="32767" attributes="2"/>
                           <Component id="label_hint2" alignment="0" pref="261" max="32767" attributes="2"/>
-                          <Component id="label_title" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="label_title" pref="236" max="32767" attributes="0"/>
+                              <EmptySpace min="25" pref="25" max="25" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>

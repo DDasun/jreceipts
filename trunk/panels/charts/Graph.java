@@ -89,6 +89,7 @@ public class Graph extends MyDraggable {
     addCharts();
     setLocationRelativeTo(null);
     setVisible(true);
+    
   }
 
   /** This method is called from within the constructor to
@@ -146,11 +147,11 @@ public class Graph extends MyDraggable {
     piechartPanel.setLayout(piechartPanelLayout);
     piechartPanelLayout.setHorizontalGroup(
       piechartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 636, Short.MAX_VALUE)
+      .addGap(0, 783, Short.MAX_VALUE)
     );
     piechartPanelLayout.setVerticalGroup(
       piechartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 380, Short.MAX_VALUE)
+      .addGap(0, 442, Short.MAX_VALUE)
     );
 
     tabs.addTab("Γράφημα πίτας", new javax.swing.ImageIcon(getClass().getResource("/images/pie_chart.png")), piechartPanel); // NOI18N
@@ -161,11 +162,11 @@ public class Graph extends MyDraggable {
     barschartPanel.setLayout(barschartPanelLayout);
     barschartPanelLayout.setHorizontalGroup(
       barschartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 636, Short.MAX_VALUE)
+      .addGap(0, 783, Short.MAX_VALUE)
     );
     barschartPanelLayout.setVerticalGroup(
       barschartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 380, Short.MAX_VALUE)
+      .addGap(0, 442, Short.MAX_VALUE)
     );
 
     tabs.addTab("Γράφημα μπάρας", new javax.swing.ImageIcon(getClass().getResource("/images/chart.png")), barschartPanel); // NOI18N
@@ -214,19 +215,18 @@ public class Graph extends MyDraggable {
         .addContainerGap()
         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-            .addComponent(cb_sort)
-            .addContainerGap())
-          .addGroup(panelLayout.createSequentialGroup()
-            .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(14, Short.MAX_VALUE))
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bt_print, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bt_save, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(bt_close, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(bt_close, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+              .addComponent(tabs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+              .addComponent(cb_sort))
+            .addContainerGap())))
     );
     panelLayout.setVerticalGroup(
       panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +241,7 @@ public class Graph extends MyDraggable {
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(cb_sort)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 416, Short.MAX_VALUE)
+        .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
         .addContainerGap())
     );
 

@@ -174,7 +174,7 @@ public class AddReceipt extends MyDraggable {
       }
     });
 
-    spinner_multiplier.setModel(new javax.swing.SpinnerNumberModel(1.0d, 1.0d, 3.0d, 0.5d));
+    spinner_multiplier.setModel(new javax.swing.SpinnerNumberModel(100, 1, 500, 10));
 
     javax.swing.GroupLayout panel_leftLayout = new javax.swing.GroupLayout(panel_left);
     panel_left.setLayout(panel_leftLayout);
@@ -267,8 +267,12 @@ public class AddReceipt extends MyDraggable {
           .addGroup(panelLayout.createSequentialGroup()
             .addGap(10, 10, 10)
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(label_comment, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+                .addContainerGap())
+              .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(label_comment, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(288, 288, 288))))))
     );
     panelLayout.setVerticalGroup(
       panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +402,7 @@ public class AddReceipt extends MyDraggable {
       if (checkbox_newType.isSelected()) {
         type_id = 0;
         type = textfield_newType.getText().trim();
-        multiplier = Double.parseDouble(String.valueOf(spinner_multiplier.getValue()).replaceAll(",", "."));
+        multiplier = Double.parseDouble(String.valueOf(spinner_multiplier.getValue()).replaceAll(",", "."))/100;
       } else {
         type = "";
         Type t = (Type) combo_type.getSelectedItem();

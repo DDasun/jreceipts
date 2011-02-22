@@ -98,7 +98,9 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
               .addComponent(label_hint, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
               .addComponent(scrollPane_table, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
               .addComponent(label_hint2, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-              .addComponent(label_title, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(label_title, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addGap(25, 25, 25)))
             .addContainerGap())
           .addComponent(bt_popup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
     );
