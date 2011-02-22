@@ -153,6 +153,7 @@ public class Main extends javax.swing.JFrame {
     jSeparator9 = new javax.swing.JToolBar.Separator();
     toolbar_button_addReceipt = new javax.swing.JButton();
     toolbar_button_listReceipts = new javax.swing.JButton();
+    toolbar_button_deletedReceipts = new javax.swing.JButton();
     jSeparator1 = new javax.swing.JToolBar.Separator();
     toolbar_button_addType = new javax.swing.JButton();
     toolbar_button_typeList = new javax.swing.JButton();
@@ -193,6 +194,7 @@ public class Main extends javax.swing.JFrame {
     receipts = new javax.swing.JMenu();
     menuItem_addReceipt = new javax.swing.JMenuItem();
     menuItem_receiptList = new javax.swing.JMenuItem();
+    menuItem_deletedReceipts = new javax.swing.JMenuItem();
     types = new javax.swing.JMenu();
     menuItem_addType = new javax.swing.JMenuItem();
     menuItem_editType = new javax.swing.JMenuItem();
@@ -322,6 +324,18 @@ public class Main extends javax.swing.JFrame {
       }
     });
     toolbar.add(toolbar_button_listReceipts);
+
+    toolbar_button_deletedReceipts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash.png"))); // NOI18N
+    toolbar_button_deletedReceipts.setToolTipText("Διεγραμμένες αποδείξεις");
+    toolbar_button_deletedReceipts.setFocusable(false);
+    toolbar_button_deletedReceipts.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_deletedReceipts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+    toolbar_button_deletedReceipts.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        toolbar_button_deletedReceiptsActionPerformed(evt);
+      }
+    });
+    toolbar.add(toolbar_button_deletedReceipts);
     toolbar.add(jSeparator1);
 
     toolbar_button_addType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addShop.png"))); // NOI18N
@@ -650,8 +664,6 @@ public class Main extends javax.swing.JFrame {
 
     menuBar.add(databases);
 
-    receipts.setText("Αποδείξεις");
-
     menuItem_addReceipt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addReceipts.png"))); // NOI18N
     menuItem_addReceipt.setText("Εισαγωγή");
     menuItem_addReceipt.addActionListener(new java.awt.event.ActionListener() {
@@ -669,6 +681,15 @@ public class Main extends javax.swing.JFrame {
       }
     });
     receipts.add(menuItem_receiptList);
+
+    menuItem_deletedReceipts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash.png"))); // NOI18N
+    menuItem_deletedReceipts.setText("Διεγραμμένες αποδείξεις");
+    menuItem_deletedReceipts.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_deletedReceiptsActionPerformed(evt);
+      }
+    });
+    receipts.add(menuItem_deletedReceipts);
 
     menuBar.add(receipts);
 
@@ -842,7 +863,7 @@ public class Main extends javax.swing.JFrame {
           }
         }
         try {
-          Receipt r = new Receipt(0, a.afm, Double.parseDouble(a.amount), Helper.convertStringToDate(a.date), type_id, a.comments);
+          Receipt r = new Receipt(0, a.afm, Double.parseDouble(a.amount), Helper.convertStringToDate(a.date), type_id, a.comments,true);
           r.save();
           updateReceiptPanel();
           updateTotalsPanel();
@@ -1196,6 +1217,21 @@ public class Main extends javax.swing.JFrame {
       menuItem_optionsActionPerformed(evt);
     }//GEN-LAST:event_toolbal_button_settingsActionPerformed
 
+    private void toolbar_button_deletedReceiptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbar_button_deletedReceiptsActionPerformed
+      menuItem_deletedReceiptsActionPerformed(evt);
+    }//GEN-LAST:event_toolbar_button_deletedReceiptsActionPerformed
+
+    private void menuItem_deletedReceiptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_deletedReceiptsActionPerformed
+      updateDeletedReceiptsPanel();
+    }//GEN-LAST:event_menuItem_deletedReceiptsActionPerformed
+
+  public void updateDeletedReceiptsPanel() {
+    ReceiptsTablePanel a = new ReceiptsTablePanel(this,false);
+    panel_main.removeAll();
+    panel_main.add(a);
+    panel_main.validate();
+  }
+
   public void updateKindPanel() {
     KindTablePanel aPanel = new KindTablePanel(this);
     panel_main.removeAll();
@@ -1222,7 +1258,7 @@ public class Main extends javax.swing.JFrame {
   }
 
   private void _updateReceiptPanel() {
-    ReceiptsTablePanel a = new ReceiptsTablePanel(this);
+    ReceiptsTablePanel a = new ReceiptsTablePanel(this, true);
     panel_main.removeAll();
     panel_main.add(a);
     panel_main.validate();
@@ -1292,6 +1328,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenuItem menuItem_contact;
   private javax.swing.JMenuItem menuItem_csv;
   private javax.swing.JMenuItem menuItem_deleteDatabase;
+  private javax.swing.JMenuItem menuItem_deletedReceipts;
   private javax.swing.JMenuItem menuItem_editAfm;
   private javax.swing.JMenuItem menuItem_editType;
   private javax.swing.JMenuItem menuItem_excel;
@@ -1326,6 +1363,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JButton toolbar_button_addReceipt;
   private javax.swing.JButton toolbar_button_addType;
   private javax.swing.JButton toolbar_button_deleteDatabase;
+  private javax.swing.JButton toolbar_button_deletedReceipts;
   private javax.swing.JButton toolbar_button_kindStats;
   private javax.swing.JButton toolbar_button_listAfm;
   private javax.swing.JButton toolbar_button_listReceipts;
