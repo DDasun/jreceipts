@@ -28,7 +28,7 @@ public class MonthlyTablePanel extends MyStaticTablePanel {
 
   private final Main m;
   private Vector<Object> collection;
-   String[] names = {Statistics.COLUMN_MONTH, Statistics.COLUMN_TOTALS, Statistics.COLUMN_AMOUNT};
+   String[] names = {Statistics.HEADER_MONTH, Statistics.HEADER_TOTALS, Statistics.HEADER_AMOUNT};
 
   /** Creates new form TypoesPanel */
   public MonthlyTablePanel(Main m) {
@@ -43,8 +43,8 @@ public class MonthlyTablePanel extends MyStaticTablePanel {
     addColumns();
     addRows();
      //POSO
-    table.getColumn(Statistics.COLUMN_AMOUNT).setCellRenderer(new MyAmountCellRenderer());
-    table.getColumn(Statistics.COLUMN_MONTH).setCellRenderer(new MyMonthCellRenderer());
+    table.getColumn(Statistics.HEADER_AMOUNT).setCellRenderer(new MyAmountCellRenderer());
+    table.getColumn(Statistics.HEADER_MONTH).setCellRenderer(new MyMonthCellRenderer());
     setVisible(true);
   }
 
