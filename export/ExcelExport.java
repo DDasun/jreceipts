@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import models.Receipt;
+import org.apache.commons.collections.functors.ForClosure;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -37,6 +38,7 @@ public class ExcelExport extends AbstractExport {
   private HSSFCellStyle cellStyle;
   private HSSFCellStyle dateCellStyle;
   private HSSFCellStyle amountCellStyle;
+  private HSSFCellStyle percentCellStyle;
 
   public ExcelExport() {
     this.type = ExportConstants.EXCEL;
@@ -55,7 +57,7 @@ public class ExcelExport extends AbstractExport {
       HSSFRow headerRow = sheet.createRow(rows);
 
       for (int i = 0; i < HEADERS.length; i++) {
-        HSSFCell headerCell = headerRow.createCell( i);
+        HSSFCell headerCell = headerRow.createCell(i);
         headerCell.setCellValue(new HSSFRichTextString(HEADERS[i]));
         headerCell.setCellStyle(headerStyle);
       }
@@ -96,15 +98,15 @@ public class ExcelExport extends AbstractExport {
 
         //MULTIPLIER
         cell = row.createCell(5);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue(receipt.getMultiplier());
+        cell.setCellStyle(percentCellStyle);
+        cell.setCellValue((int) (receipt.getMultiplier()));
 
         //AMOUNT
         cell = row.createCell(6);
         cell.setCellStyle(amountCellStyle);
-        cell.setCellValue(receipt.getAmount()*receipt.getMultiplier());
+        cell.setCellValue(receipt.getAmount() * receipt.getMultiplier());
 
-        totalAmount += receipt.getAmount()*receipt.getMultiplier();
+        totalAmount += receipt.getAmount() * receipt.getMultiplier();
       }
       //BODY
       //TRAILER
@@ -121,7 +123,7 @@ public class ExcelExport extends AbstractExport {
       sheet.autoSizeColumn(4);
       sheet.autoSizeColumn(5);
       sheet.autoSizeColumn(6);
-      
+
       out = new FileOutputStream(getExportFile());
       wb.write(out);
       out.close();
@@ -176,5 +178,10 @@ public class ExcelExport extends AbstractExport {
     amountCellStyle = wb.createCellStyle();
     amountCellStyle.cloneStyleFrom(cellStyle);
     amountCellStyle.setDataFormat(format.getFormat(Options._DECIMAL_FORMAT.replaceAll("'", "")));
+
+    //PERCENT
+    percentCellStyle = wb.createCellStyle();
+    percentCellStyle.cloneStyleFrom(cellStyle);
+    percentCellStyle.setDataFormat(wb.createDataFormat().getFormat("0%"));
   }
 }

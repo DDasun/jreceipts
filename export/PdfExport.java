@@ -160,7 +160,7 @@ public class PdfExport extends AbstractExport {
       c.setHorizontalAlignment(Cell.ALIGN_RIGHT);
       t.addCell(c);
       //MULT
-      ph = new Phrase(String.valueOf(receipt.getMultiplier()), plainFont);
+      ph = new Phrase(String.valueOf((int)(receipt.getMultiplier()*100)) + "%", plainFont);
       c = new Cell(ph);
       c.setHorizontalAlignment(Cell.ALIGN_RIGHT);
       t.addCell(c);

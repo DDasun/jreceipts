@@ -43,7 +43,7 @@ public class CsvExport extends AbstractExport {
             + r.getType() + "\";"
             + r.getAfm() + ";"
             + Helper.convertAmountForViewing(r.getAmount())+";"
-            + r.getMultiplier() + ";"
+            + ((int)(r.getMultiplier() * 100)) + "%" + ";"
             + Helper.convertAmountForViewing(r.getAmount()*r.getMultiplier())+";");
         totalAmount += r.getAmount()*r.getMultiplier();
       }
