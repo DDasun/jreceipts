@@ -8,6 +8,7 @@ import components.MyPercentCellEditor;
 import components.MyPercentCellRenderer;
 import components.MyTableModel;
 import components.MyTablePanel;
+import components.MyValidCellRenderer;
 import exceptions.ErrorMessages;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -46,6 +47,7 @@ public class TypesTablePanel extends MyTablePanel {
     tableModel.addTableModelListener(this);
     table.getColumn(Type.HEADER_MULTIPLIER).setCellEditor(new MyPercentCellEditor());
     table.getColumn(Type.HEADER_MULTIPLIER).setCellRenderer(new MyPercentCellRenderer());
+    table.getColumn(Type.HEADER_VALID).setCellRenderer(new MyValidCellRenderer());
     setVisible(true);
 
   }
@@ -132,7 +134,7 @@ public class TypesTablePanel extends MyTablePanel {
       for (int i = 0; i < _NUMBER_OF_FIELDS; i++) {
         rec[i] = String.valueOf(model.getValueAt(row, i));
       }
-      Type type = new Type(Integer.parseInt(rec[0]), rec[1], (Boolean.parseBoolean(rec[2]) == true ? 1 : 0), Double.parseDouble(rec[3]) / 100);
+      Type type = new Type(Integer.parseInt(rec[0]), rec[1], (Boolean.parseBoolean(rec[2]) == true ? 1 : 0), Double.parseDouble(rec[3]));
       try {
         type.save();
         m.updateTotalsPanel();
