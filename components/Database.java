@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -60,6 +61,7 @@ public class Database {
       conn = DriverManager.getConnection("jdbc:sqlite:" + Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
       stmt = conn.createStatement();
       Options.setOption(Options.DATABASE, db);
+      updateDb();
     } catch (SQLException ex) {
       Main.log(Level.SEVERE, "Could not connect to the SQLite database", ex);
     } catch (ClassNotFoundException ex) {
@@ -166,6 +168,7 @@ public class Database {
       Class.forName("org.sqlite.JDBC");
       conn = DriverManager.getConnection("jdbc:sqlite:" + Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
       stmt = conn.createStatement();
+      updateDb();
     } catch (SQLException ex) {
       Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
     } catch (ClassNotFoundException ex) {
@@ -180,6 +183,29 @@ public class Database {
       return false;
     }
     return true;
+  }
+
+  private static void updateDb() {
+    try {
+      String recSql = "PRAGMA table_info(receipts)";
+      ResultSet rsReceipt;
+      boolean validReceipt = false;
+      rsReceipt = stmt.executeQuery(recSql);
+       while (rsReceipt.next()) {
+        if (rsReceipt.getString(2).equals("valid")) {
+          validReceipt = true;
+        }
+      }
+      if(validReceipt){
+        return;
+      }
+      Helper.message("Η βάση που χρησιμοποιείτε είναι παλαιότερης έκδοσης και χρειάζεται ενημέρωση", "Ενημέρωση βάσης", JOptionPane.INFORMATION_MESSAGE);
+      stmt.executeUpdate("ALTER TABLE receipts ADD COLUMN valid INTEGER DEFAULT 1");
+      Helper.message("Η ενημέρωση της βάσης έγινε", "Ενημέρωση βάσης", JOptionPane.INFORMATION_MESSAGE);
+    } catch (SQLException ex) {
+      Helper.message("Η ενημέρωση της βάσης δεν έγινε", "Ενημέρωση βάσης", JOptionPane.ERROR_MESSAGE);
+      Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 
   private Database() {
