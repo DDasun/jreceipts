@@ -64,7 +64,7 @@ public abstract class MyTablePanel extends MyStaticTablePanel implements MyTable
   }
 
   private void popup_deleteActionPerformed(java.awt.event.ActionEvent evt) {
-    int id = Integer.parseInt(String.valueOf(tableModel.getValueAt(rowSelected, 0)));
+    int id = Integer.parseInt(String.valueOf(table.getValueAt(rowSelected, 0)));
     delete(id);
   }
 
