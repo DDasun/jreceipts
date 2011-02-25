@@ -22,6 +22,7 @@ public abstract class MyTablePanel extends MyStaticTablePanel implements MyTable
   @Override
   protected void init() {
     super.init();
+    table.getTableHeader().setReorderingAllowed(false);
     initPopUp();
   }
 

@@ -69,6 +69,7 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     table.setModel(tableModel);
     table.setOpaque(false);
     table.setRowHeight(20);
+    table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
     scrollPane_table.setViewportView(table);
 
     label_title.setFont(label_title.getFont().deriveFont(label_title.getFont().getStyle() | java.awt.Font.BOLD, label_title.getFont().getSize()+2));
