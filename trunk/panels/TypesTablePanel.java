@@ -90,7 +90,7 @@ public class TypesTablePanel extends MyTablePanel {
       Main.log(Level.SEVERE, null, ex);
       return;
     }
-    if (Helper.confirm("Διαγραφή καταστήματος", "Θέλετε να διαγραφεί το κατάστημα;") == JOptionPane.YES_OPTION) {
+    if (Helper.confirm("Διαγραφή καταστήματος", "Θέλετε να διαγραφεί την κατηγορία;") == JOptionPane.YES_OPTION) {
       Type.deleteById(id);
       update();
     }

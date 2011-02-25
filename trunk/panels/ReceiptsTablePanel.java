@@ -47,7 +47,7 @@ public class ReceiptsTablePanel extends MyTablePanel {
     _TABLE_NAME_ = _RECEIPTS_;
     setTitle("Λίστα " + (validReceipt ? "" : " Διεγραμμένων ") + " Αποδείξεων");
     setHint("Κάντε κλικ ή διπλό κλικ σε κάποιο πεδίο για να το μετατρέψετε και δεξί κλικ για να το διαγράψετε");
-    setSecondHint("Με μπλε χρώμα εμφανίζονται οι αποδείξεις με πολλαπλασιαστή διαφορετικό του 1");
+    setSecondHint("Με μπλε χρώμα εμφανίζονται οι αποδείξεις με ποσοστό διαφορετικό του 100%");
     object = Receipt.class;
     addColumns();
     addRows();
@@ -105,7 +105,7 @@ public class ReceiptsTablePanel extends MyTablePanel {
   @Override
   public void delete(int id) {
     if (validReceipt) {
-      if (Helper.confirm("Διαγραφή απόδειξης", "Θέλετε να διαγραφεί η απόδειξη;") == JOptionPane.YES_OPTION) {
+      if (Helper.confirm("Διαγραφή απόδειξης", "Θέλετε να διαγραφεί η απόδειξη με Α/Α " + id +  ";") == JOptionPane.YES_OPTION) {
         Receipt.deleteById(id);
       }
     } else {
