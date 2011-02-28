@@ -434,11 +434,12 @@ public class AddReceipt extends MyDraggable {
         Afm a = (Afm) combo_afm.getSelectedItem();
         textfield_afm.setText(a.getAfm());
         setTypeCombo(a.getType());
-        validateAfm();
+        
       } else {
         textfield_afm.setText("");
         setTypeCombo(null);
       }
+      textfield_afmFocusLost(null);
     }//GEN-LAST:event_combo_afmActionPerformed
 
     private void textfield_amountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfield_amountKeyReleased
