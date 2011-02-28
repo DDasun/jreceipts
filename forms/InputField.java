@@ -58,7 +58,7 @@ public class InputField extends MyDraggable {
       JLabel l = new JLabel(labelName);
       l.setPreferredSize(new Dimension(100, 20));
       labels[i] = l;
-      STextField j = new STextField(validators[i]);
+      STextField j = new STextField(validators[i], validators[i].getValue());
       group.addComponent(j);
       j.setPreferredSize(new Dimension(200, 20));
       j.setName(labelName);

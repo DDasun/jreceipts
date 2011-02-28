@@ -10,6 +10,7 @@
  */
 package receipts;
 
+import com.googlecode.svalidators.validators.IntegerValidator;
 import com.googlecode.svalidators.validators.NumericValidator;
 import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
@@ -76,6 +77,7 @@ public class Main extends javax.swing.JFrame {
   public static String revision = "1";
   public static String date = "17/02/2010";
   public static String TITLE = "Αποδείξεις";
+  private static String tmpCompany = "";
 
   /** Creates new form Main */
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
@@ -327,6 +329,7 @@ public class Main extends javax.swing.JFrame {
 
     toolbar_button_deletedReceipts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash.png"))); // NOI18N
     toolbar_button_deletedReceipts.setToolTipText("Διεγραμμένες αποδείξεις");
+    toolbar_button_deletedReceipts.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_deletedReceipts.setFocusable(false);
     toolbar_button_deletedReceipts.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     toolbar_button_deletedReceipts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -865,7 +868,7 @@ public class Main extends javax.swing.JFrame {
           }
         }
         try {
-          Receipt r = new Receipt(0, a.afm, Double.parseDouble(a.amount), Helper.convertStringToDate(a.date), type_id, a.comments,true);
+          Receipt r = new Receipt(0, a.afm, Double.parseDouble(a.amount), Helper.convertStringToDate(a.date), type_id, a.comments, true);
           r.save();
           updateReceiptPanel();
           updateTotalsPanel();
@@ -882,11 +885,12 @@ public class Main extends javax.swing.JFrame {
 
     private void menuItem_addTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_addTypeActionPerformed
       glassPane.activate(null);
-      String[] fieldNames = {"Είδος", "Πολλαπλασιαστής"};
-      SValidator[] validators = {new RequiredValidator(), new NumericValidator("", false)};
+      String[] fieldNames = {"Είδος", "Ποσοστό απαλλαγής"};
+      SValidator[] validators = {new RequiredValidator(), new PositiveNumberValidator("", false, false)};
       InputField addType = new InputField("Εισαγωγή Είδους", fieldNames, validators);
       if (!addType.cancel) {
-        Type type = new Type(0, addType.fields[0].getText().trim(), 1, Double.parseDouble(addType.fields[1].getText()));
+        Double d = Double.parseDouble(addType.fields[1].getText());
+        Type type = new Type(0, addType.fields[0].getText().trim(), 1, d / 100);
         try {
           type.save();
           updateTypesPanel();
@@ -911,17 +915,28 @@ public class Main extends javax.swing.JFrame {
     private void menuItem_addAfmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_addAfmActionPerformed
       glassPane.activate(null);
       String[] fieldNames = {"Α.Φ.Μ.", "Εταιρεία"};
-      SValidator[] validators = {new PositiveNumberValidator("", false, false), new RequiredValidator()};
+      SValidator[] validators = {new PositiveNumberValidator("", false, false),
+      new RequiredValidator(Main.tmpCompany)};
       InputField addAfm = new InputField("Εισαγωγή Α.Φ.Μ.", fieldNames, validators);
       if (!addAfm.cancel) {
-        Afm afm = new Afm(0, addAfm.fields[0].getText(), addAfm.fields[1].getText());
         try {
-          afm.save();
-          updateAfmPanel();
+          if (Helper.isValidAfm(addAfm.fields[0].getText())) {
+            Afm afm = new Afm(0, addAfm.fields[0].getText(), addAfm.fields[1].getText());
+            afm.save();
+            updateAfmPanel();
+            Main.tmpCompany = "";
+          } else {
+            Helper.message("Ο Α.Φ.Μ. δεν είναι σωστός", "Εΐσαγωγή νέου Α.Φ.Μ", JOptionPane.ERROR_MESSAGE);
+            Main.tmpCompany = addAfm.fields[1].getText();
+            menuItem_addAfmActionPerformed(evt);
+
+          }
         } catch (SQLException ex) {
           Helper.message(ErrorMessages.SQL_EXCEPTION, "SQL Σφάλμα", JOptionPane.ERROR_MESSAGE);
           log(Level.SEVERE, ErrorMessages.SQL_EXCEPTION, ex);
         }
+      } else {
+        Main.tmpCompany = "";
       }
     }//GEN-LAST:event_menuItem_addAfmActionPerformed
 
@@ -1041,8 +1056,8 @@ public class Main extends javax.swing.JFrame {
     private void menuItem_selectYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_selectYearActionPerformed
       try {
         ArrayList<String> years = new ArrayList<String>();
-        ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', "+Receipt.COLUMN_BUY_DATE+")"
-            + " AS year FROM "+Receipt.TABLE);
+        ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', " + Receipt.COLUMN_BUY_DATE + ")"
+            + " AS year FROM " + Receipt.TABLE);
         while (rs.next()) {
           years.add(rs.getString("year"));
         }
@@ -1229,7 +1244,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItem_deletedReceiptsActionPerformed
 
   public void updateDeletedReceiptsPanel() {
-    ReceiptsTablePanel a = new ReceiptsTablePanel(this,false);
+    ReceiptsTablePanel a = new ReceiptsTablePanel(this, false);
     panel_main.removeAll();
     panel_main.add(a);
     panel_main.validate();
@@ -1432,7 +1447,7 @@ public class Main extends javax.swing.JFrame {
   private void setYear() {
     try {
       ArrayList<String> years = new ArrayList<String>();
-      ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', "+Receipt.COLUMN_BUY_DATE+") AS year FROM "+Receipt.TABLE+" ORDER BY year DESC LIMIT 1");
+      ResultSet rs = Database.stmt.executeQuery("SELECT DISTINCT  strftime('%Y', " + Receipt.COLUMN_BUY_DATE + ") AS year FROM " + Receipt.TABLE + " ORDER BY year DESC LIMIT 1");
       while (rs.next()) {
         Options.YEAR = rs.getString("year");
       }
