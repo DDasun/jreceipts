@@ -14,6 +14,7 @@ import com.googlecode.svalidators.formcomponents.ValidationGroup;
 import com.googlecode.svalidators.validators.NumericValidator;
 import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import components.MyDraggable;
+import javax.swing.JOptionPane;
 import models.Receipt;
 import receipts.Main;
 import tools.Helper;
@@ -231,7 +232,8 @@ public class EarnForm extends MyDraggable {
         dispose();
         Main.glassPane.deactivate();
       } else {
-        group.errorMessage(true);
+        String er = group.getErrorMessage();
+        Helper.message(er, "Υπολογισμός φόρου", JOptionPane.ERROR_MESSAGE);
       }
     }//GEN-LAST:event_bt_okActionPerformed
 
