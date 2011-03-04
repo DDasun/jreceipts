@@ -10,8 +10,6 @@
  */
 package receipts;
 
-import com.googlecode.svalidators.validators.IntegerValidator;
-import com.googlecode.svalidators.validators.NumericValidator;
 import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
 import com.googlecode.svalidators.validators.SValidator;
@@ -41,7 +39,6 @@ import java.util.logging.SimpleFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import models.Afm;
 import models.Receipt;
@@ -53,9 +50,7 @@ import panels.ReceiptsTablePanel;
 import panels.TypesTablePanel;
 import panels.totalsPanel;
 import forms.EarnForm;
-import java.awt.Desktop;
 import java.net.URI;
-import javax.swing.LookAndFeel;
 import tools.About;
 import tools.CalcTaxes;
 import tools.CheckUpdate;
