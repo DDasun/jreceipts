@@ -63,13 +63,10 @@ public class ReceiptsTablePanel extends MyTablePanel {
     // EIDOS
     JComboBox types = new JComboBox(Type.getComboBoxModel());
     table.getColumn(Receipt.HEADER_TYPE_ID).setCellEditor(new DefaultCellEditor(types));
-
-
-
     setVisible(true);
   }
 
-  public void addRows() {
+  public final void addRows() {
     Vector<Object> col = Receipt.getCollection(false, "", validReceipt);
     Iterator<Object> it = col.iterator();
     while (it.hasNext()) {
@@ -87,7 +84,7 @@ public class ReceiptsTablePanel extends MyTablePanel {
 
   }
 
-  public void addColumns() {
+  public final void addColumns() {
     String[] names = {Receipt.HEADER_RECEIPT_ID,Receipt.HEADER_AFM,Receipt.HEADER_AMOUNT,
     Receipt.HEADER_BUY_DATE, Receipt.HEADER_TYPE_ID, Receipt.HEADER_COMMENTS};
     int[] pref = {40, 100, 100, 100, 100, 100};

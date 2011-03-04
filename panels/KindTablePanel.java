@@ -33,6 +33,7 @@ public class KindTablePanel extends MyStaticTablePanel {
   public KindTablePanel(Main m) {
     setModel();
     super.init();
+    panel_filter.setVisible(false);
     bt_popup.addActionListener(new KindStatsActionListener());
     this.m = m;
     _NUMBER_OF_FIELDS = 3;

@@ -34,6 +34,7 @@ public class MonthlyTablePanel extends MyStaticTablePanel {
   public MonthlyTablePanel(Main m) {
     setModel();
     super.init();
+    panel_filter.setVisible(false);
     bt_popup.addActionListener(new MonthlyStatsActionListener());
     this.m = m;
     _NUMBER_OF_FIELDS = 3;
