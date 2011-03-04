@@ -423,7 +423,8 @@ public class Helper {
         //System.out.println(c +"*" + 2 +"^"+ (9-i));
         sum += cInt*(Math.pow(2, (9-i)));
       }
-      if(sum%11==Integer.parseInt(String.valueOf(valChar[8]))){
+          int cd = sum%11 != 10 ? sum%11 : 0;
+      if(cd==Integer.parseInt(String.valueOf(valChar[8]))){
         return true;
       }
       return false;
