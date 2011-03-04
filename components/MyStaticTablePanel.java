@@ -170,7 +170,7 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     if (text.length() == 0) {
       sorter.setRowFilter(null);
     } else {
-      sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+      sorter.setRowFilter(RowFilter.regexFilter("(?iu)" + text));
     }
   }//GEN-LAST:event_tf_filterKeyReleased
 
