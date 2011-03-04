@@ -12,6 +12,9 @@ package components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -31,7 +34,6 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
   protected String _KIND_STATISTICS_ = "Kind statistics";
   protected String _MONTHLY_STATISTICS_ = "Monthly statistics";
   protected String _RECEIPTS_ = "Receipts";
-
 
   public MyStaticTablePanel() {
     //initComponents();
@@ -64,6 +66,9 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     label_hint = new javax.swing.JLabel();
     label_hint2 = new javax.swing.JLabel();
     bt_popup = new javax.swing.JButton();
+    panel_filter = new javax.swing.JPanel();
+    jLabel1 = new javax.swing.JLabel();
+    tf_filter = new javax.swing.JTextField();
 
     table.setAutoCreateRowSorter(true);
     table.setModel(tableModel);
@@ -87,6 +92,36 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     bt_popup.setContentAreaFilled(false);
     bt_popup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+    jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel1.setText("Φίλτρο:");
+
+    tf_filter.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        tf_filterKeyReleased(evt);
+      }
+    });
+
+    javax.swing.GroupLayout panel_filterLayout = new javax.swing.GroupLayout(panel_filter);
+    panel_filter.setLayout(panel_filterLayout);
+    panel_filterLayout.setHorizontalGroup(
+      panel_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panel_filterLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(tf_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(35, Short.MAX_VALUE))
+    );
+    panel_filterLayout.setVerticalGroup(
+      panel_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panel_filterLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panel_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel1)
+          .addComponent(tf_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap())
+    );
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
@@ -95,15 +130,18 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(label_hint, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-              .addComponent(scrollPane_table, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-              .addComponent(label_hint2, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-              .addGroup(layout.createSequentialGroup()
+            .addComponent(panel_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addComponent(bt_popup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+              .addComponent(scrollPane_table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+              .addComponent(label_hint, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+              .addComponent(label_hint2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+              .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addComponent(label_title, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                 .addGap(25, 25, 25)))
-            .addContainerGap())
-          .addComponent(bt_popup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap())))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +151,10 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
           .addGroup(layout.createSequentialGroup()
             .addGap(11, 11, 11)
             .addComponent(label_title)))
-        .addGap(10, 10, 10)
-        .addComponent(scrollPane_table, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(panel_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(scrollPane_table, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(label_hint)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,6 +162,17 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
         .addContainerGap())
     );
   }// </editor-fold>//GEN-END:initComponents
+
+  private void tf_filterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_filterKeyReleased
+    String text = tf_filter.getText().trim();
+    final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
+   table.setRowSorter(sorter);
+    if (text.length() == 0) {
+      sorter.setRowFilter(null);
+    } else {
+      sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+    }
+  }//GEN-LAST:event_tf_filterKeyReleased
 
   protected void addColumns(String[] names, int[] pref, int[] min, int[] max) {
 
@@ -137,13 +188,15 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
   }
   // Variables declaration - do not modify//GEN-BEGIN:variables
   protected javax.swing.JButton bt_popup;
+  private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel label_hint;
   private javax.swing.JLabel label_hint2;
   private javax.swing.JLabel label_title;
+  protected javax.swing.JPanel panel_filter;
   private javax.swing.JScrollPane scrollPane_table;
   protected javax.swing.JTable table;
+  private javax.swing.JTextField tf_filter;
   // End of variables declaration//GEN-END:variables
-
 
   /**
    * @param secondHint the secondHint to set
@@ -152,5 +205,3 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     label_hint2.setText(secondHint);
   }
 }
-
-

@@ -74,7 +74,7 @@ public class Main extends javax.swing.JFrame {
   public static final long serialVersionUID = 13456457457L;
   public static Logger logger;
   public static String version = "1.0 beta";
-  public static String revision = "1";
+  public static String revision = "42";
   public static String date = "17/02/2010";
   public static String TITLE = "Αποδείξεις";
   private static String tmpCompany = "";

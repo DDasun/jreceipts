@@ -37,8 +37,8 @@ public class Options {
   public static final String DATE_SQL_FORMAT = "yyyy-MM-dd";
   public static final String _DECIMAL_FORMAT = "###,##0.00 '€'";
   public static final String _DECIMAL_EDITING_FORMAT = "##0.00";
-  public static final Color DISABLED_COLOR = Color.BLACK;
-  public static final int DISABLED_COLOR_ALPHA = 192;
+  public static final Color DISABLED_COLOR = Color.GRAY;
+  public static final int DISABLED_COLOR_ALPHA = 127;
   
 
   public static final String DEFAULT_DATABASE = "DEFAULT_DATABASE";
