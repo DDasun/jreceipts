@@ -50,6 +50,7 @@ import panels.ReceiptsTablePanel;
 import panels.TypesTablePanel;
 import panels.totalsPanel;
 import forms.EarnForm;
+import java.io.FilenameFilter;
 import java.net.URI;
 import tools.About;
 import tools.CalcTaxes;
@@ -57,6 +58,7 @@ import tools.CheckUpdate;
 import tools.Helper;
 import tools.options.Options;
 import tools.Skin;
+import tools.myLogger;
 import tools.options.OptionsForm;
 
 /**
@@ -77,11 +79,12 @@ public class Main extends javax.swing.JFrame {
   /** Creates new form Main */
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
     setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
-    createDirs();
+
     // if (Options.toBoolean(Options.DEBUG)) {
     createLogger();
     // }
     Options.getOptions();
+    createDirs();
     Skin skin = new Skin(Options.COLOR);
     //Skin.applySkin();
     new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
@@ -94,7 +97,9 @@ public class Main extends javax.swing.JFrame {
     logger.log(Level.FINE, "Components initialized");
     logger.log(Level.INFO, "Creating connection to database");
     Database.createConnection(false);
-    backUpDb();
+    if (Options.toBoolean(Options.START_UP_BACKUP)) {
+      backUpDb();
+    }
     logger.log(Level.FINE, "Connected to database: {0}", Options.toString(Options.DATABASE));
     logger.log(Level.INFO, "Setting the year");
     setYear();
@@ -117,19 +122,16 @@ public class Main extends javax.swing.JFrame {
   }
 
   private static void createLogger() {
-    //Create the JVM logger
-    try {
-      // Create an appending file handler
-      boolean append = true;
-      int limit = 1000000; // 1 Mb
-      int numLogFiles = 5;
-      FileHandler fh = new FileHandler(Options.LOG_PATH + "Receipts_%g.log", limit, numLogFiles, true);
-      fh.setFormatter(new SimpleFormatter());
-      // Add to the desired logger
-      logger = Logger.getLogger("Receipts");
-      logger.addHandler(fh);
-    } catch (IOException e) {
-    }
+    // Create an appending file handler
+    logger = myLogger.createHtmlLogger("JRECEIPTS", Options.LOG_PATH + "Receipts", 262144, true, 1);
+//      boolean append = true;
+//      int limit = 1000000; // 1 Mb
+//      int numLogFiles = 5;
+//      FileHandler fh = new FileHandler(Options.LOG_PATH + "Receipts_%g.html", limit, numLogFiles, true);
+//      fh.setFormatter(new SimpleFormatter());
+//      // Add to the desired logger
+//      logger = Logger.getLogger("Receipts");
+//      logger.addHandler(fh);
   }
 
   /** This method is called from within the constructor to
@@ -144,6 +146,7 @@ public class Main extends javax.swing.JFrame {
     toolbar = new javax.swing.JToolBar();
     toolbar_button_addDatabase = new javax.swing.JButton();
     toolbar_button_loadDatabase = new javax.swing.JButton();
+    toolbal_button_renameDatabase = new javax.swing.JButton();
     toolbar_button_deleteDatabase = new javax.swing.JButton();
     toolbar_button_restoreBackup = new javax.swing.JButton();
     toolbar_button_selectYear = new javax.swing.JButton();
@@ -172,10 +175,12 @@ public class Main extends javax.swing.JFrame {
     panel_main = new javax.swing.JPanel();
     menuBar = new javax.swing.JMenuBar();
     databases = new javax.swing.JMenu();
+    menu_edit = new javax.swing.JMenu();
     menuItem_addDatabase = new javax.swing.JMenuItem();
     menuItem_loadDatabase = new javax.swing.JMenuItem();
     menuItem_deleteDatabase = new javax.swing.JMenuItem();
     menuItem_restoreBackup = new javax.swing.JMenuItem();
+    menuItem_renameDatabase = new javax.swing.JMenuItem();
     menu_importDatabase = new javax.swing.JMenu();
     menuItem_importAscii = new javax.swing.JMenuItem();
     menuItem_importXls = new javax.swing.JMenuItem();
@@ -253,6 +258,18 @@ public class Main extends javax.swing.JFrame {
       }
     });
     toolbar.add(toolbar_button_loadDatabase);
+
+    toolbal_button_renameDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rename.png"))); // NOI18N
+    toolbal_button_renameDatabase.setToolTipText("Μετονομασία βάσης");
+    toolbal_button_renameDatabase.setFocusable(false);
+    toolbal_button_renameDatabase.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbal_button_renameDatabase.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+    toolbal_button_renameDatabase.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        toolbal_button_renameDatabaseActionPerformed(evt);
+      }
+    });
+    toolbar.add(toolbal_button_renameDatabase);
 
     toolbar_button_deleteDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database_delete.png"))); // NOI18N
     toolbar_button_deleteDatabase.setToolTipText("Διαγραφή βάσης");
@@ -530,6 +547,9 @@ public class Main extends javax.swing.JFrame {
 
     databases.setText("Βάσεις");
 
+    menu_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database.png"))); // NOI18N
+    menu_edit.setText("Επεξεργασία...");
+
     menuItem_addDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database_save.png"))); // NOI18N
     menuItem_addDatabase.setText("Δημιουργία Βάσης");
     menuItem_addDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -537,7 +557,7 @@ public class Main extends javax.swing.JFrame {
         menuItem_addDatabaseActionPerformed(evt);
       }
     });
-    databases.add(menuItem_addDatabase);
+    menu_edit.add(menuItem_addDatabase);
 
     menuItem_loadDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/load_database.png"))); // NOI18N
     menuItem_loadDatabase.setText("Επιλογή Βάσης");
@@ -547,7 +567,7 @@ public class Main extends javax.swing.JFrame {
         menuItem_loadDatabaseActionPerformed(evt);
       }
     });
-    databases.add(menuItem_loadDatabase);
+    menu_edit.add(menuItem_loadDatabase);
 
     menuItem_deleteDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database_delete.png"))); // NOI18N
     menuItem_deleteDatabase.setText("Διαγραφή Βάσης");
@@ -557,7 +577,7 @@ public class Main extends javax.swing.JFrame {
         menuItem_deleteDatabaseActionPerformed(evt);
       }
     });
-    databases.add(menuItem_deleteDatabase);
+    menu_edit.add(menuItem_deleteDatabase);
 
     menuItem_restoreBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/restore_backup.png"))); // NOI18N
     menuItem_restoreBackup.setText("Άνοιγμα backup βάσης");
@@ -566,7 +586,18 @@ public class Main extends javax.swing.JFrame {
         menuItem_restoreBackupActionPerformed(evt);
       }
     });
-    databases.add(menuItem_restoreBackup);
+    menu_edit.add(menuItem_restoreBackup);
+
+    menuItem_renameDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rename.png"))); // NOI18N
+    menuItem_renameDatabase.setText("Μετονομασία βάσης");
+    menuItem_renameDatabase.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_renameDatabaseActionPerformed(evt);
+      }
+    });
+    menu_edit.add(menuItem_renameDatabase);
+
+    databases.add(menu_edit);
 
     menu_importDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/import_database.png"))); // NOI18N
     menu_importDatabase.setText("Εισαγωγή από ...");
@@ -911,7 +942,7 @@ public class Main extends javax.swing.JFrame {
       glassPane.activate(null);
       String[] fieldNames = {"Α.Φ.Μ.", "Εταιρεία"};
       SValidator[] validators = {new PositiveNumberValidator("", false, false),
-      new RequiredValidator(Main.tmpCompany)};
+        new RequiredValidator(Main.tmpCompany)};
       InputField addAfm = new InputField("Εισαγωγή Α.Φ.Μ.", fieldNames, validators);
       if (!addAfm.cancel) {
         try {
@@ -984,13 +1015,13 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_toolbar_button_kindStatsActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-      try {
-        backUpDb();
-      } catch (FileNotFoundException ex) {
-        logger.log(Level.SEVERE, ErrorMessages.DB_FILE_NOT_FOUND, ex);
-      } catch (IOException ex) {
-        logger.log(Level.SEVERE, ErrorMessages.DB_IO_ERROR, ex);
-      }
+//      try {
+//        backUpDb();
+//      } catch (FileNotFoundException ex) {
+//        logger.log(Level.SEVERE, ErrorMessages.DB_FILE_NOT_FOUND, ex);
+//      } catch (IOException ex) {
+//        logger.log(Level.SEVERE, ErrorMessages.DB_IO_ERROR, ex);
+//      }
     }//GEN-LAST:event_formWindowClosing
 
     private void menuItem_csvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_csvActionPerformed
@@ -1109,10 +1140,16 @@ public class Main extends javax.swing.JFrame {
 
     private void menuItem_addDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_addDatabaseActionPerformed
       try {
-        if (Database.createDb()) {
+        int res = Database.createDb();
+        if (res == Database.OK) {
           Helper.message("Η βάση δημιουργήθηκε", "Δημιουργία Βάσης", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+          setAppTitle();
+          updateReceiptPanel();
+          updateTotalsPanel();
+        } else if (res == Database.ERROR) {
           Helper.message(ErrorMessages.CREATE_DB_ERROR, "Δημιουργία βάσης", JOptionPane.ERROR_MESSAGE);
+        } else {
+          Helper.message(ErrorMessages.CANCEL_DATABASE, "Δημιουργία βάσης", JOptionPane.ERROR_MESSAGE);
         }
       } catch (ClassNotFoundException ex) {
         Helper.message(ErrorMessages.CREATE_DB_ERROR, "Δημιουργία βάσης", JOptionPane.ERROR_MESSAGE);
@@ -1146,13 +1183,21 @@ public class Main extends javax.swing.JFrame {
       String[] dbs = Database.getBackUpDatabases();
       String dbName = Helper.ask("Άνοιγμα backup βάσης", "Επιλέξτε την βάση που θέλετε να ανοίξετε", dbs);
       if (!dbName.equals("")) {
-        String newDb = dbName.replaceAll(".bak", "_bu.db");
-        File source = new File(Options.USER_DIR + Options.DB_PATH + dbName);
+        String newDb = dbName.replaceAll(".bak", ".db");
+        File source = new File(Options.USER_DIR + Options.BACKUP_PATH + dbName);
         File target = new File(Options.USER_DIR + Options.DB_PATH + newDb);
+        if (target.exists()) {
+          if (Helper.confirm("Επαναφορά βάσης", "Αν επαναφέρετε το backup η αρχική βάση θα διαγραφεί\n"
+              + "Είστε σίγουροι;") != JOptionPane.YES_OPTION) {
+            return;
+          }
+        }
         if (Helper.copyFile(source, target)) {
-          source.renameTo(new File(Options.USER_DIR + Options.DB_PATH + dbName.replaceAll(".bak", "_bu.bak")));
-          Database.connectToDb(newDb);
+          //source.delete();
+          Database.connectToDb(newDb.replaceAll(".db", ""));
           setAppTitle();
+          updateReceiptPanel();
+          updateTotalsPanel();
           Helper.message("Η βάση δημιουργήθηκε", "Δημιουργία βάσης από backup", JOptionPane.INFORMATION_MESSAGE);
         } else {
           Helper.message(ErrorMessages.CREATE_DB_ERROR, "Δημιουργία βάσης από backup", JOptionPane.ERROR_MESSAGE);
@@ -1223,7 +1268,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItem_checkUpdateActionPerformed
 
     private void menuItem_optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_optionsActionPerformed
-      OptionsForm op = new OptionsForm();
+      OptionsForm op = new OptionsForm(this);
     }//GEN-LAST:event_menuItem_optionsActionPerformed
 
     private void toolbal_button_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbal_button_settingsActionPerformed
@@ -1237,6 +1282,14 @@ public class Main extends javax.swing.JFrame {
     private void menuItem_deletedReceiptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_deletedReceiptsActionPerformed
       updateDeletedReceiptsPanel();
     }//GEN-LAST:event_menuItem_deletedReceiptsActionPerformed
+
+    private void menuItem_renameDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_renameDatabaseActionPerformed
+      renameDatabase();
+    }//GEN-LAST:event_menuItem_renameDatabaseActionPerformed
+
+    private void toolbal_button_renameDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbal_button_renameDatabaseActionPerformed
+      menuItem_renameDatabaseActionPerformed(evt);
+    }//GEN-LAST:event_toolbal_button_renameDatabaseActionPerformed
 
   public void updateDeletedReceiptsPanel() {
     ReceiptsTablePanel a = new ReceiptsTablePanel(this, false);
@@ -1358,10 +1411,12 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenuItem menuItem_options;
   private javax.swing.JMenuItem menuItem_pdf;
   private javax.swing.JMenuItem menuItem_receiptList;
+  private javax.swing.JMenuItem menuItem_renameDatabase;
   private javax.swing.JMenuItem menuItem_restoreBackup;
   private javax.swing.JMenuItem menuItem_selectYear;
   private javax.swing.JCheckBoxMenuItem menuItem_toolbar;
   private javax.swing.JMenuItem menuItem_website;
+  private javax.swing.JMenu menu_edit;
   private javax.swing.JMenu menu_importDatabase;
   private javax.swing.JPanel panel_body;
   private javax.swing.JPanel panel_leftTop;
@@ -1369,6 +1424,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenu receipts;
   private javax.swing.JSplitPane splitPane;
   private javax.swing.JMenu stats;
+  private javax.swing.JButton toolbal_button_renameDatabase;
   private javax.swing.JButton toolbal_button_settings;
   private javax.swing.JToolBar toolbar;
   private javax.swing.JButton toolbar_button_addAfm;
@@ -1396,7 +1452,7 @@ public class Main extends javax.swing.JFrame {
     log(Level.INFO, "Δημιουργία backup βάσης", null);
     File sourceFile = new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
     if (sourceFile.isFile()) {
-      File targetFile = new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + Options.toString(Options.DATABASE) + ".bak");
+      File targetFile = new File(Options.USER_DIR + "/" + Options.BACKUP_PATH + "/" + Options.toString(Options.DATABASE) + ".bak");
       if (Helper.copyFile(sourceFile, targetFile)) {
         log(Level.FINE, "Το backup της βάσης δημιουργήθηκε", null);
       } else {
@@ -1408,15 +1464,44 @@ public class Main extends javax.swing.JFrame {
   private void createDirs() {
     new File(Options.USER_DIR + "/" + Options.LOG_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.DB_PATH).mkdir();
+    new File(Options.USER_DIR + "/" + Options.BACKUP_PATH).mkdir();
+    try {
+      //move backup files
+      moveBackupFiles();
+    } catch (IOException ex) {
+      log(Level.SEVERE, null, ex);
+    }
     new File(Options.USER_DIR + "/" + Options.EXPORTS_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.DOCS_PATH).mkdir();
+  }
+
+  private void moveBackupFiles() throws IOException {
+    File dbpath = new File(Options.USER_DIR + "/" + Options.DB_PATH);
+    File bu = new File(Options.USER_DIR + "/" + Options.BACKUP_PATH);
+    File[] files = dbpath.listFiles(new FilenameFilter() {
+
+      public boolean accept(File dir, String name) {
+        if (name.endsWith(".bak")) {
+          return true;
+        }
+        return false;
+      }
+    });
+    for (int i = 0; i < files.length; i++) {
+      File source = files[i];
+      File target = new File(bu.getCanonicalPath() + source.getName());
+      if (Helper.copyFile(source, target)) {
+        source.delete();
+        log(Level.INFO, "Το αρχείο " + source + " μεταφέρθηκε στον backup φάκελο", null);
+      }
+    }
   }
 
   private boolean deleteDb(String db) {
     try {
       log(Level.INFO, "Διαγραφή βάσης", null);
       backUpDb(db);
-      Helper.message("Ένα αντίγραφο της βάσης δημιουργήθηκε:\n" + new File(Options.USER_DIR).getCanonicalPath() + "/" + Options.DB_PATH + db + ".bak", "Διαγραφή βάσης", JOptionPane.INFORMATION_MESSAGE);
+      Helper.message("Ένα αντίγραφο της βάσης δημιουργήθηκε:\n" + new File(Options.USER_DIR).getCanonicalPath() + "/" + Options.BACKUP_PATH + db + ".bak", "Διαγραφή βάσης", JOptionPane.INFORMATION_MESSAGE);
       if (new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db").delete()) {
         log(Level.FINE, "Η βαση διεγράφη", null);
         Helper.message("Η βάση διεγράφη", "Διαγραφή βάσης", JOptionPane.INFORMATION_MESSAGE);
@@ -1450,5 +1535,41 @@ public class Main extends javax.swing.JFrame {
       log(Level.WARNING, ErrorMessages.SQL_EXCEPTION, ex);
     }
 
+  }
+
+  private void renameDatabase() {
+    String[] dbs = Database.getDatabases();
+    String oldName = Helper.ask("Μετονομασία βάσης", "Διαλέξτε τη βάση που θέλετε να μετονομάσετε", dbs);
+    if (oldName.equals(Options.toString(Options.DATABASE)+".db")) {
+      Helper.message("Δεν μπορείτε να μετονομάσετε την βάση που χρησιμοποιείτε", "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    if (oldName.equals("")) {
+      Helper.message(ErrorMessages.CANCEL_RENAME, "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    String newName = Helper.ask("Μετονομασία βάσης", "Δώστε το νέο όνομα");
+    if (newName.equals("")) {
+      Helper.message(ErrorMessages.CANCEL_RENAME, "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    newName = newName.endsWith(".db") ? newName : newName + ".db";
+    if (oldName.toLowerCase().equals(newName.toLowerCase())) {
+      Helper.message("Το παλιό και το νέο όνομα είναι ίδια", "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    if (Helper.isInArray(dbs, newName)) {
+      Helper.message("Η βάση υπάρχει ήδη, δεν μπορεί να γίνει μετονομασία", "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
+      //if (Helper.confirm("Μετονομασία βάσης", "Η βάση υπάρχει.Θέλετε να γίνει οverwrite;") != JOptionPane.OK_OPTION) {
+        return;
+      //}
+    }
+    File oldFile = new File(Options.USER_DIR + Options.DB_PATH + oldName);
+    File newFile = new File(Options.USER_DIR + Options.DB_PATH + newName);
+    if (oldFile.renameTo(newFile)) {
+      Helper.message("Η μετονομασία έγινε", "Μετονομασία βάσης", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+      Helper.message("Κάποιο σφάλμα προέκυψε στην μετονομασία", "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
+    }
   }
 }

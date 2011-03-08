@@ -9,52 +9,73 @@
             <Property name="text" type="java.lang.String" value="&#x392;&#x3ac;&#x3c3;&#x3b5;&#x3b9;&#x3c2;"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem_addDatabase">
+            <Menu class="javax.swing.JMenu" name="menu_edit">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/database_save.png"/>
+                  <Image iconType="3" name="/images/database.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x394;&#x3b7;&#x3bc;&#x3b9;&#x3bf;&#x3c5;&#x3c1;&#x3b3;&#x3af;&#x3b1; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                <Property name="text" type="java.lang.String" value="&#x395;&#x3c0;&#x3b5;&#x3be;&#x3b5;&#x3c1;&#x3b3;&#x3b1;&#x3c3;&#x3af;&#x3b1;..."/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_addDatabaseActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem_loadDatabase">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/load_database.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="&#x395;&#x3c0;&#x3b9;&#x3bb;&#x3bf;&#x3b3;&#x3ae; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
-                <Property name="toolTipText" type="java.lang.String" value="&#x395;&#x3c0;&#x3b9;&#x3bb;&#x3bf;&#x3b3;&#x3ae; &#x3ac;&#x3bb;&#x3bb;&#x3b7;&#x3c2;  &#x3b2;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_loadDatabaseActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem_deleteDatabase">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/database_delete.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="&#x394;&#x3b9;&#x3b1;&#x3b3;&#x3c1;&#x3b1;&#x3c6;&#x3ae; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
-                <Property name="toolTipText" type="java.lang.String" value="&#x394;&#x3b9;&#x3b1;&#x3b3;&#x3c1;&#x3b1;&#x3c6;&#x3ae; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_deleteDatabaseActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem_restoreBackup">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/restore_backup.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="&#x386;&#x3bd;&#x3bf;&#x3b9;&#x3b3;&#x3bc;&#x3b1; backup &#x3b2;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_restoreBackupActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_addDatabase">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/database_save.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x394;&#x3b7;&#x3bc;&#x3b9;&#x3bf;&#x3c5;&#x3c1;&#x3b3;&#x3af;&#x3b1; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_addDatabaseActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_loadDatabase">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/load_database.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x395;&#x3c0;&#x3b9;&#x3bb;&#x3bf;&#x3b3;&#x3ae; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&#x395;&#x3c0;&#x3b9;&#x3bb;&#x3bf;&#x3b3;&#x3ae; &#x3ac;&#x3bb;&#x3bb;&#x3b7;&#x3c2;  &#x3b2;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_loadDatabaseActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_deleteDatabase">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/database_delete.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x394;&#x3b9;&#x3b1;&#x3b3;&#x3c1;&#x3b1;&#x3c6;&#x3ae; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&#x394;&#x3b9;&#x3b1;&#x3b3;&#x3c1;&#x3b1;&#x3c6;&#x3ae; &#x392;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_deleteDatabaseActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_restoreBackup">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/restore_backup.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x386;&#x3bd;&#x3bf;&#x3b9;&#x3b3;&#x3bc;&#x3b1; backup &#x3b2;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_restoreBackupActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItem_renameDatabase">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/rename.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x39c;&#x3b5;&#x3c4;&#x3bf;&#x3bd;&#x3bf;&#x3bc;&#x3b1;&#x3c3;&#x3af;&#x3b1; &#x3b2;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_renameDatabaseActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <Menu class="javax.swing.JMenu" name="menu_importDatabase">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -489,6 +510,20 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toolbar_button_loadDatabaseActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="toolbal_button_renameDatabase">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/rename.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x39c;&#x3b5;&#x3c4;&#x3bf;&#x3bd;&#x3bf;&#x3bc;&#x3b1;&#x3c3;&#x3af;&#x3b1; &#x3b2;&#x3ac;&#x3c3;&#x3b7;&#x3c2;"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toolbal_button_renameDatabaseActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="toolbar_button_deleteDatabase">
