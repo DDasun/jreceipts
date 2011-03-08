@@ -10,18 +10,17 @@
  */
 package tools;
 
-import com.googlecode.svalidators.validators.RequiredValidator;
+import components.MyDisabledGlassPane;
 import components.MyDraggable;
+import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import receipts.Main;
 
 /**
  *
  * @author ssoldatos
  */
-public class Ask extends MyDraggable {
+public class MultiAsk extends MyDraggable {
 
   private static final long serialVersionUID = 2352345345L;
   private final String title;
@@ -32,30 +31,18 @@ public class Ask extends MyDraggable {
   private boolean activatedGlassPane;
 
   /** Creates new form Ask */
-  Ask(String title, String question, Object[] options) {
-    if (!Main.glassPane.isActivated()) {
+  MultiAsk(String title, String question, Object[] options) {
+    if (!MyDisabledGlassPane.isActivated()) {
       this.activatedGlassPane = true;
       Main.glassPane.activate(null);
     }
     this.title = title;
     this.question = question;
     this.options = options;
-    if (options == null) {
-      model = new DefaultComboBoxModel();
-    } else {
-      model = new DefaultComboBoxModel(options);
-    }
+    model = new DefaultComboBoxModel(options);
     initComponents();
-    combo.setVisible(false);
-    tf.setVisible(false);
-    if (options == null) {
-      tf.setVisible(true);
-      tf.addValidator(new RequiredValidator());
-      tf.requestFocus();
-    } else {
-      combo.setVisible(true);
-      combo.requestFocus();
-    }
+    combo.setVisible(true);
+    combo.requestFocus();
     setLocationRelativeTo(null);
     setVisible(true);
 
@@ -76,9 +63,11 @@ public class Ask extends MyDraggable {
     bt_ok = new javax.swing.JButton();
     jPanel1 = new javax.swing.JPanel();
     jLabel2 = new javax.swing.JLabel();
-    combo = new javax.swing.JComboBox();
-    tf = new com.googlecode.svalidators.formcomponents.STextField();
     jLabel3 = new javax.swing.JLabel();
+    tf_filter = new javax.swing.JTextField();
+    jLabel4 = new javax.swing.JLabel();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    combo = new javax.swing.JList();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -117,39 +106,54 @@ public class Ask extends MyDraggable {
 
     jLabel2.setText(question);
 
-    combo.setModel(model);
-
     jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/question.png"))); // NOI18N
     jLabel3.setText("jLabel3");
+
+    tf_filter.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        tf_filterKeyReleased(evt);
+      }
+    });
+
+    jLabel4.setText("Φίλτρο");
+
+    combo.setModel(model);
+    jScrollPane1.setViewportView(combo);
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
-        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addComponent(combo, 0, 126, Short.MAX_VALUE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGap(68, 68, 68)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(tf_filter, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+              .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+              .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(10, 10, 10)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
         .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
-        .addGap(11, 11, 11)
+        .addContainerGap()
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(jLabel3)
           .addGroup(jPanel1Layout.createSequentialGroup()
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(3, 3, 3)))
+            .addComponent(jLabel2)
+            .addGap(33, 33, 33)
+            .addComponent(jLabel4)
+            .addGap(5, 5, 5)
+            .addComponent(tf_filter)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(52, 52, 52)))
         .addContainerGap())
     );
 
@@ -160,15 +164,13 @@ public class Ask extends MyDraggable {
       .addGroup(jPanel2Layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-              .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                  .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                  .addGap(36, 36, 36)))
-              .addContainerGap())
-            .addComponent(bt_cancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(jPanel2Layout.createSequentialGroup()
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addContainerGap())
+          .addGroup(jPanel2Layout.createSequentialGroup()
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+            .addGap(46, 46, 46))
+          .addComponent(bt_cancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(bt_ok, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
     );
     jPanel2Layout.setVerticalGroup(
@@ -179,9 +181,9 @@ public class Ask extends MyDraggable {
             .addGap(11, 11, 11)
             .addComponent(jLabel1))
           .addComponent(bt_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(17, 17, 17)
         .addComponent(bt_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
@@ -189,11 +191,11 @@ public class Ask extends MyDraggable {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
 
     pack();
@@ -207,32 +209,37 @@ public class Ask extends MyDraggable {
   }//GEN-LAST:event_bt_cancelActionPerformed
 
   private void bt_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_okActionPerformed
-    if (options == null) {
-      if (tf.getText().trim().equals("")) {
-        Helper.message("Παρακαλώ συμπληρώστε το πεδίο", title, JOptionPane.ERROR_MESSAGE);
-      } else {
-        selection = tf.getText().trim();
-        Main.glassPane.deactivate();
-        dispose();
-      }
-    } else {
-      selection = combo.getSelectedItem();
-      if (this.activatedGlassPane) {
-        Main.glassPane.deactivate();
-      }
+
+    selection = combo.getSelectedValue();
+    if (this.activatedGlassPane) {
+      Main.glassPane.deactivate();
       dispose();
     }
 
   }//GEN-LAST:event_bt_okActionPerformed
+
+  private void tf_filterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_filterKeyReleased
+    model = new DefaultComboBoxModel();
+    for (Object op : options) {
+      String option = (String) op;
+      if(option.toLowerCase().indexOf(tf_filter.getText().trim().toLowerCase()) > -1){
+        model.addElement(op);
+      }
+    }
+    combo.setModel(model);
+  }//GEN-LAST:event_tf_filterKeyReleased
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton bt_cancel;
   private javax.swing.JButton bt_ok;
-  private javax.swing.JComboBox combo;
+  private javax.swing.JList combo;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel2;
-  private com.googlecode.svalidators.formcomponents.STextField tf;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JTextField tf_filter;
   // End of variables declaration//GEN-END:variables
 }
