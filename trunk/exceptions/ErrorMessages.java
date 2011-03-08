@@ -16,7 +16,11 @@ public class ErrorMessages {
   public static String DB_IO_ERROR = "Σφάλμα εγγραφής/ανάγνωσης στο αρχείο της βάσης";
   public static String ONLY_ONE_DB ="Δεν υπάρχουν περισσότερες από 1 βάσεις για να διαλέξετε";
   public static String EMPTY_DATABASE = "Δεν υπάρχουν αποδείξεις στη βάση";
+  public static String CANCEL_DATABASE = "Ακύρωση δημιουργίας βάσης";
+  public static String EMPTY_DATABASE_NAME = "Το όνομα της βάσης δεν μπορεί να είναι κενό";
+  public static String CANCEL_RENAME = "Ακύρωση μετονομασίας";
   public static String NO_DB_TO_DELETE = "Δεν υπάρχει κάποια βάση για  να διαγράψετε";
+  public static String DB_EXISTS = "Η βάση υπάρχει ήδη";
   public static String DELETE_ACTIVE_DB = "Δεν μπορείτε να διαγράψετε την βάση που χρησιμοποιείτε";
   public static String CREATE_DB_ERROR = "Κάποιο πρόβλημα υπήρξε στην δημιουργία της βάσης";
   public static String CREATE_DB_BACKUP_ERROR = "Το backup της βάσης δεν δημιουργήθηκε";
