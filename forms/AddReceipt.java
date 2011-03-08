@@ -309,6 +309,7 @@ public class AddReceipt extends MyDraggable {
     button_cancel.setBorderPainted(false);
     button_cancel.setContentAreaFilled(false);
     button_cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    button_cancel.setFocusPainted(false);
     button_cancel.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         button_cancelActionPerformed(evt);
