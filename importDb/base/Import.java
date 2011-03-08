@@ -122,7 +122,7 @@ public abstract class Import extends AbstractImport implements ImportConstants {
   @Override
   public boolean createDb() {
     try {
-      return Database.createDb(database);
+      return Database.createDb(database)==Database.OK;
     } catch (ClassNotFoundException ex) {
       errorMessage="Δεν ήταν δυνατή η δημιουργία της βάσης";
       Main.log(Level.SEVERE, null, ex);
