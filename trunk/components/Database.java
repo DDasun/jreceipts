@@ -31,6 +31,9 @@ public class Database {
   public static Connection conn;
   public static Statement stmt;
   public static String db;
+  public static int OK = 0;
+  public static int ERROR = 1;
+  public static int CANCEL = 2;
 
   public static void createConnection(boolean ask) {
     String[] databases = getDatabases();
@@ -69,21 +72,21 @@ public class Database {
     }
   }
 
-  public static boolean createDb() throws ClassNotFoundException {
+  public static int createDb() throws ClassNotFoundException {
     db = Helper.ask("Δημιουργία Βάσης", "Πληκτρολογήστε το όνομα της βάσης που θέλετε να δημιουργήσετε");
     if (!db.equals("")) {
       if (new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db").exists()) {
         Helper.message("Η βάση " + db + " υπάρχει ήδη", "Δημιουργία βάσης", JOptionPane.ERROR_MESSAGE);
-        createDb();
+          return createDb();
       }
       db = db.replaceAll(".db$", "");
       return createDb(db);
     }
-    return false;
+    return CANCEL;
 
   }
 
-  public static boolean createDb(String db) throws ClassNotFoundException {
+  public static int createDb(String db) throws ClassNotFoundException {
     try {
       if (new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db").exists()) {
         Helper.message("Η βάση " + db + " υπάρχει ήδη", "Δημιουργία βάσης", JOptionPane.ERROR_MESSAGE);
@@ -118,15 +121,16 @@ public class Database {
           + ")";
       stmt.executeUpdate(receipts);
       Options.setOption(Options.DATABASE, db);
-      return true;
+      return OK;
     } catch (SQLException ex) {
       Main.log(Level.SEVERE, ErrorMessages.CREATE_DB_ERROR, ex);
-      return false;
+      return ERROR;
     }
   }
 
   private static boolean databaseExists(String db) {
-    File dbFile = new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
+    File dbFile = new File(Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + 
+        (db.endsWith(".db") ? "" :".db"));
     if (dbFile.exists()) {
       return true;
     } else {
@@ -147,7 +151,7 @@ public class Database {
   }
 
   public static String[] getBackUpDatabases() {
-    return (new File(Options.USER_DIR + "/" + Options.DB_PATH)).list(new FilenameFilter() {
+    return (new File(Options.USER_DIR + "/" + Options.BACKUP_PATH)).list(new FilenameFilter() {
 
       public boolean accept(File dir, String name) {
         if (name.endsWith(".bak")) {
@@ -169,6 +173,7 @@ public class Database {
       conn = DriverManager.getConnection("jdbc:sqlite:" + Options.USER_DIR + "/" + Options.DB_PATH + "/" + db + ".db");
       stmt = conn.createStatement();
       updateDb();
+      
     } catch (SQLException ex) {
       Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
     } catch (ClassNotFoundException ex) {

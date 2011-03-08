@@ -19,7 +19,8 @@ public class MyDraggable extends JDialog {
   public MyDraggable() {
     this.setUndecorated(true);
     this.setModal(true);
-    this.setBackground(Skin.getSkinColor());
+    //this.setBackground(Skin.getSkinColor());
+
     this.addMouseListener(new MouseAdapter() {
 
       @Override
@@ -38,6 +39,7 @@ public class MyDraggable extends JDialog {
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
       }
     });
+
     this.addMouseMotionListener(new MouseMotionAdapter() {
 
       @Override
