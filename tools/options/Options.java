@@ -29,6 +29,7 @@ public class Options {
   public static final String USER_DIR = "./";
   public static final String LOG_PATH = "logs/";
   public static final String DB_PATH = "databases/";
+  public static final String BACKUP_PATH = DB_PATH + "backup/";
   public static final String EXPORTS_PATH = "exports/";
   public static final String DOCS_PATH = "docs/";
   public static final String WEBSITE = "http://code.google.com/p/jreceipts/";
@@ -49,6 +50,7 @@ public class Options {
   public static final String AUTO_UPDATE = "AUTO_UPDATE";
   public static final String DEBUG = "DEBUG";
   public static final String LOOK_FEEL = "LOOK_FEEL";
+  public static final String START_UP_BACKUP = "START_UP_BACKUP";
 
 
 
@@ -270,6 +272,7 @@ public class Options {
     out.println(Options.AUTO_UPDATE + " =true");
     out.println(Options.DEBUG + "=true");
     out.println(Options.LOOK_FEEL + "="+LookAndFeel.SYSTEM);
+    out.println(Options.START_UP_BACKUP + "=true");
     out.close();
   }
 
@@ -281,6 +284,7 @@ public class Options {
     options.put(Options.AUTO_UPDATE, true);
     options.put(Options.DEBUG, true);
     options.put(Options.LOOK_FEEL, LookAndFeel.SYSTEM);
+    options.put(Options.START_UP_BACKUP, true);
   }
 
   private Options() {
