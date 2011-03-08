@@ -122,8 +122,11 @@ public class CheckUpdate extends MyDraggable {
   private boolean check() {
     isConected = Helper.hasInternetConnection(MYSERIESPROJECT_URL);
     if (!isConected) {
+
       Main.log(Level.WARNING, "Δεν ήταν δυνατή η σύνδεση στο Internet", null);
-      Helper.message("Δεν ήταν δυνατή η σύνδεση στο Internet", "Έλεγχος έκδοσης", JOptionPane.WARNING_MESSAGE);
+      if(!onStartUp){
+        Helper.message("Δεν ήταν δυνατή η σύνδεση στο Internet", "Έλεγχος έκδοσης", JOptionPane.WARNING_MESSAGE);
+      }
       return false;
     }
     return true;
