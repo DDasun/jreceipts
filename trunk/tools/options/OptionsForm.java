@@ -15,8 +15,11 @@ import components.buttons.Button;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import receipts.Main;
+import tools.Helper;
 
 /**
  *
@@ -31,14 +34,17 @@ public class OptionsForm extends MyDraggable {
   private JPanel generalPanel = new GeneralPanel();
   private JPanel dbPanel = new DBPanel();
   private JPanel internetPanel = new InternetPanel();
+  private Main m;
 
   /** Creates new form OptionsForm */
-  public OptionsForm() {
+  public OptionsForm(Main m) {
+    this.m = m;
     Main.glassPane.activate(null);
     initComponents();
     tree.setSelectionRow(1);
     setLocationRelativeTo(null);
     setVisible(true);
+
   }
 
   /** This method is called from within the constructor to
@@ -176,7 +182,15 @@ public class OptionsForm extends MyDraggable {
     private void bt_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_okActionPerformed
       Main.glassPane.deactivate();
       try {
-        new OptionsParser(new JPanel[]{dbPanel, internetPanel,generalPanel});
+        String oldLook = Options.toString(Options.LOOK_FEEL);
+        new OptionsParser(new JPanel[]{dbPanel, internetPanel, generalPanel});
+        String newLook = Options.toString(Options.LOOK_FEEL);
+        if (!oldLook.equals(newLook)) {
+          new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
+          SwingUtilities.updateComponentTreeUI(m);
+          m.pack();
+
+        }
       } catch (IOException ex) {
         Main.log(Level.SEVERE, null, ex);
       } catch (ParseException ex) {

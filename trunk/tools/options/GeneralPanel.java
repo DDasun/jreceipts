@@ -44,7 +44,7 @@ public class GeneralPanel extends javax.swing.JPanel {
     jCheckBox1 = new javax.swing.JCheckBox();
     jLabel2 = new javax.swing.JLabel();
     combo_laf = new javax.swing.JComboBox();
-    jLabel3 = new javax.swing.JLabel();
+    cb_backup = new javax.swing.JCheckBox();
 
     setBackground(new java.awt.Color(255, 255, 255));
 
@@ -68,7 +68,10 @@ public class GeneralPanel extends javax.swing.JPanel {
     combo_laf.setSelectedItem(Options.toString(Options.LOOK_FEEL));
     combo_laf.setName(Options.LOOK_FEEL);
 
-    jLabel3.setText("(Απαιτείτε επανεκίνηση της εφαρμογής)");
+    cb_backup.setSelected(Options.toBoolean(Options.START_UP_BACKUP));
+    cb_backup.setText("Backup βάσης στην έναρξη");
+    cb_backup.setName(Options.START_UP_BACKUP);
+    cb_backup.setOpaque(false);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
@@ -77,12 +80,12 @@ public class GeneralPanel extends javax.swing.JPanel {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(cb_backup)
           .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(layout.createSequentialGroup()
             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(combo_laf, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addComponent(jLabel3)
           .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(cb_autoUpdate))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -96,9 +99,9 @@ public class GeneralPanel extends javax.swing.JPanel {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel2)
           .addComponent(combo_laf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(15, 15, 15)
+        .addComponent(cb_backup)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(jLabel3)
-        .addGap(18, 18, 18)
         .addComponent(jCheckBox1)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(cb_autoUpdate)
@@ -107,10 +110,10 @@ public class GeneralPanel extends javax.swing.JPanel {
   }// </editor-fold>//GEN-END:initComponents
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox cb_autoUpdate;
+  private javax.swing.JCheckBox cb_backup;
   private javax.swing.JComboBox combo_laf;
   private javax.swing.JCheckBox jCheckBox1;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
-  private javax.swing.JLabel jLabel3;
   // End of variables declaration//GEN-END:variables
 }
