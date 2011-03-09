@@ -4,7 +4,7 @@
  */
 package panels;
 
-import components.MyAfmCellEditor;
+import components.editors.MyAfmCellEditor;
 import components.MyTableModel;
 import components.MyTablePanel;
 import java.sql.SQLException;

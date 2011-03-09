@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package components;
+package models;
 
 import exceptions.ErrorMessages;
 import java.io.File;

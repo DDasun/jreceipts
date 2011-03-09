@@ -4,11 +4,11 @@
  */
 package panels;
 
-import components.MyAfmCellEditor;
-import components.MyAmountCellEditor;
-import components.MyAmountCellRenderer;
-import components.MyJCalendarCellEditor;
-import components.MyJCalendarCellRenderer;
+import components.editors.MyAfmCellEditor;
+import components.editors.MyAmountCellEditor;
+import components.renderers.MyAmountCellRenderer;
+import components.editors.MyJCalendarCellEditor;
+import components.renderers.MyJCalendarCellRenderer;
 import components.MyTableModel;
 import components.MyTablePanel;
 import java.sql.SQLException;

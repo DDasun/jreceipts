@@ -8,7 +8,7 @@
  *
  * Created on 16 Φεβ 2011, 12:06:34 μμ
  */
-package tools;
+package tools.messages;
 
 import com.googlecode.svalidators.validators.RequiredValidator;
 import components.MyDraggable;
@@ -31,7 +31,7 @@ public class Info extends MyDraggable {
   private boolean activatedGlasspane;
 
   /** Creates new form Ask */
-  Info(String title, String question, int type) {
+  public Info(String title, String question, int type) {
     if (!Main.glassPane.isActivated()) {
       activatedGlasspane = true;
       Main.glassPane.activate(null);

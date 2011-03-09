@@ -27,7 +27,7 @@ import com.googlecode.svalidators.validators.LengthValidator;
 import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
 import com.googlecode.svalidators.validators.SValidator;
-import components.Database;
+import models.Database;
 import java.sql.ResultSet;
 import java.util.Date;
 import models.Receipt;

@@ -13,7 +13,7 @@ package receipts;
 import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
 import com.googlecode.svalidators.validators.SValidator;
-import components.Database;
+import models.Database;
 import components.MyDisabledGlassPane;
 import exceptions.ErrorMessages;
 import export.CsvExport;
@@ -58,7 +58,7 @@ import tools.CheckUpdate;
 import tools.Helper;
 import tools.options.Options;
 import tools.Skin;
-import tools.myLogger;
+import tools.log.myLogger;
 import tools.options.OptionsForm;
 
 /**

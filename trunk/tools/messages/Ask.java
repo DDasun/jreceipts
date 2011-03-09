@@ -8,7 +8,7 @@
  *
  * Created on 16 Φεβ 2011, 12:06:34 μμ
  */
-package tools;
+package tools.messages;
 
 import com.googlecode.svalidators.validators.RequiredValidator;
 import components.MyDraggable;
@@ -16,6 +16,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import receipts.Main;
+import tools.Helper;
 
 /**
  *
@@ -32,7 +33,7 @@ public class Ask extends MyDraggable {
   private boolean activatedGlassPane;
 
   /** Creates new form Ask */
-  Ask(String title, String question, Object[] options) {
+  public Ask(String title, String question, Object[] options) {
     if (!Main.glassPane.isActivated()) {
       this.activatedGlassPane = true;
       Main.glassPane.activate(null);

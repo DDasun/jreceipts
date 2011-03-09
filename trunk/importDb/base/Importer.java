@@ -10,7 +10,7 @@
  */
 package importDb.base;
 
-import components.Database;
+import models.Database;
 import components.MyDraggable;
 import java.io.File;
 import java.io.IOException;
