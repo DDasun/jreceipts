@@ -4,6 +4,8 @@
  */
 package panels;
 
+import components.MyAfmCellEditor;
+import components.MyAmountCellEditor;
 import components.MyAmountCellRenderer;
 import components.MyJCalendarCellEditor;
 import components.MyJCalendarCellRenderer;
@@ -52,14 +54,14 @@ public class ReceiptsTablePanel extends MyTablePanel {
     addColumns();
     addRows();
     tableModel.addTableModelListener(this);
+    //AFM
+    table.getColumn(Receipt.HEADER_AFM).setCellEditor(new MyAfmCellEditor());
+    //POSO
+    table.getColumn(Receipt.HEADER_AMOUNT).setCellRenderer(new MyAmountCellRenderer());
+    table.getColumn(Receipt.HEADER_AMOUNT).setCellEditor(new MyAmountCellEditor());
     //HMEROMINIA
     table.getColumn(Receipt.HEADER_BUY_DATE).setCellEditor(new MyJCalendarCellEditor());
     table.getColumn(Receipt.HEADER_BUY_DATE).setCellRenderer(new MyJCalendarCellRenderer());
-
-
-    //POSO
-    table.getColumn(Receipt.HEADER_AMOUNT).setCellRenderer(new MyAmountCellRenderer());
-
     // EIDOS
     JComboBox types = new JComboBox(Type.getComboBoxModel());
     table.getColumn(Receipt.HEADER_TYPE_ID).setCellEditor(new DefaultCellEditor(types));
@@ -85,8 +87,8 @@ public class ReceiptsTablePanel extends MyTablePanel {
   }
 
   public final void addColumns() {
-    String[] names = {Receipt.HEADER_RECEIPT_ID,Receipt.HEADER_AFM,Receipt.HEADER_AMOUNT,
-    Receipt.HEADER_BUY_DATE, Receipt.HEADER_TYPE_ID, Receipt.HEADER_COMMENTS};
+    String[] names = {Receipt.HEADER_RECEIPT_ID, Receipt.HEADER_AFM, Receipt.HEADER_AMOUNT,
+      Receipt.HEADER_BUY_DATE, Receipt.HEADER_TYPE_ID, Receipt.HEADER_COMMENTS};
     int[] pref = {40, 100, 100, 100, 100, 100};
     int[] min = {40, 60, 60, 100, 100, 100, 100};
     int[] max = {60, 100, 200, 200, 200, 200};
@@ -102,7 +104,7 @@ public class ReceiptsTablePanel extends MyTablePanel {
   @Override
   public void delete(int id) {
     if (validReceipt) {
-      if (Helper.confirm("Διαγραφή απόδειξης", "Θέλετε να διαγραφεί η απόδειξη με Α/Α " + id +  ";") == JOptionPane.YES_OPTION) {
+      if (Helper.confirm("Διαγραφή απόδειξης", "Θέλετε να διαγραφεί η απόδειξη με Α/Α " + id + ";") == JOptionPane.YES_OPTION) {
         Receipt.deleteById(id);
       }
     } else {
@@ -151,14 +153,9 @@ public class ReceiptsTablePanel extends MyTablePanel {
 
       }
       Date date = (Date) rec[3];
-      if (!Helper.isValidDate(Helper.convertDateForView(date))) {
-        date = (Date) Options.selectedDate;
 
-      }
       try {
         double amount = (Double) rec[2];
-        //  amount = amount.replaceAll(",", ".");
-        //amount = amount.replaceAll("€", "");
 
         int type_id = Type.getIdByField(Type.TABLE, Type.COLUMN_DESCRIPTION, Type.COLUMN_TYPE_ID, (String) rec[4]);
         Receipt receipt = new Receipt(

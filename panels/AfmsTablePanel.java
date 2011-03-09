@@ -104,7 +104,7 @@ public class AfmsTablePanel extends MyTablePanel {
   }
 
   public void tableChanged(TableModelEvent e) {
-    String oldValue = (String) Options.selectedValue;
+    //String oldValue = (String) Options.selectedValue;
     String rec[] = new String[_NUMBER_OF_FIELDS];
     if (e.getType() == TableModelEvent.UPDATE) {
       int row = e.getFirstRow();
@@ -116,10 +116,10 @@ public class AfmsTablePanel extends MyTablePanel {
       Afm afm = new Afm(Integer.parseInt(rec[0]), rec[1], rec[2]);
       try {
         afm.save();
-        if(colSelected == 1 && !oldValue.equals(rec[1])){
-          Receipt.updateField(Afm.COLUMN_AFM,rec[1],oldValue);
-          System.out.println("AFM changed from " + oldValue + " to " +rec[1]);
-        }
+//        if(colSelected == 1 && !oldValue.equals(rec[1])){
+//          Receipt.updateField(Afm.COLUMN_AFM,rec[1],oldValue);
+//          System.out.println("AFM changed from " + oldValue + " to " +rec[1]);
+//        }
       } catch (SQLException ex) {
         Helper.message("Κάποιο λάθος δημιουργήθηκε στη βάση.\n Η εγγραφη δεν αποθηκεύθηκε.", "SQL σφάλμα", JOptionPane.ERROR_MESSAGE);
         Main.log(Level.SEVERE, "Κάποιο λάθος δημιουργήθηκε στη βάση.\n Η εγγραφη δεν αποθηκεύθηκε.", ex);
