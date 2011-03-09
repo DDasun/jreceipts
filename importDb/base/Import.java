@@ -4,7 +4,7 @@
  */
 package importDb.base;
 
-import components.Database;
+import models.Database;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -4,7 +4,6 @@
  */
 package models;
 
-import components.Database;
 import exceptions.ErrorMessages;
 import java.sql.ResultSet;
 import java.sql.SQLException;

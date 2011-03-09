@@ -10,7 +10,7 @@
  */
 package tools.options;
 
-import components.Database;
+import models.Database;
 import javax.swing.DefaultComboBoxModel;
 
 /**

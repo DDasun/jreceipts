@@ -4,6 +4,10 @@
  */
 package tools;
 
+import tools.messages.Ask;
+import tools.messages.Info;
+import tools.messages.MultiAsk;
+import tools.messages.Confirm;
 import tools.options.Options;
 import exceptions.ErrorMessages;
 import java.awt.Desktop;

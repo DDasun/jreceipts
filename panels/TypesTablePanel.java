@@ -4,11 +4,11 @@
  */
 package panels;
 
-import components.MyPercentCellEditor;
-import components.MyPercentCellRenderer;
+import components.editors.MyPercentCellEditor;
+import components.renderers.MyPercentCellRenderer;
 import components.MyTableModel;
 import components.MyTablePanel;
-import components.MyValidCellRenderer;
+import components.renderers.MyValidCellRenderer;
 import exceptions.ErrorMessages;
 import java.sql.SQLException;
 import java.util.Iterator;

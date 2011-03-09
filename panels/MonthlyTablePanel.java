@@ -5,8 +5,8 @@
 package panels;
 
 import panels.charts.Graph;
-import components.MyAmountCellRenderer;
-import components.MyMonthCellRenderer;
+import components.renderers.MyAmountCellRenderer;
+import components.renderers.MyMonthCellRenderer;
 import components.MyStaticTablePanel;
 import components.MyTableModel;
 import components.MyTablePanel;

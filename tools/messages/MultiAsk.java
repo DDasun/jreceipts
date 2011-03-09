@@ -8,7 +8,7 @@
  *
  * Created on 16 Φεβ 2011, 12:06:34 μμ
  */
-package tools;
+package tools.messages;
 
 import components.MyDisabledGlassPane;
 import components.MyDraggable;
@@ -31,7 +31,7 @@ public class MultiAsk extends MyDraggable {
   private boolean activatedGlassPane;
 
   /** Creates new form Ask */
-  MultiAsk(String title, String question, Object[] options) {
+  public MultiAsk(String title, String question, Object[] options) {
     if (!MyDisabledGlassPane.isActivated()) {
       this.activatedGlassPane = true;
       Main.glassPane.activate(null);
@@ -222,13 +222,12 @@ public class MultiAsk extends MyDraggable {
     model = new DefaultComboBoxModel();
     for (Object op : options) {
       String option = (String) op;
-      if(option.toLowerCase().indexOf(tf_filter.getText().trim().toLowerCase()) > -1){
+      if (option.toLowerCase().indexOf(tf_filter.getText().trim().toLowerCase()) > -1) {
         model.addElement(op);
       }
     }
     combo.setModel(model);
   }//GEN-LAST:event_tf_filterKeyReleased
-
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton bt_cancel;
   private javax.swing.JButton bt_ok;

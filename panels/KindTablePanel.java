@@ -5,7 +5,7 @@
 package panels;
 
 import panels.charts.Graph;
-import components.MyAmountCellRenderer;
+import components.renderers.MyAmountCellRenderer;
 import components.MyStaticTablePanel;
 import components.MyTableModel;
 import java.awt.event.ActionEvent;
