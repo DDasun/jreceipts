@@ -10,7 +10,6 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -21,7 +20,6 @@ import models.Type;
 import panels.ReceiptsTablePanel;
 import receipts.Main;
 import tools.Helper;
-import tools.Skin;
 
 /**
  *
@@ -61,7 +59,7 @@ public class MyAmountCellRenderer extends DefaultTableCellRenderer {
           setText(val + "  (" + MultValue + ")");
           setText(val);
         } else {
-          setForeground(Skin.getColor_5());
+          setForeground(Color.BLACK);
           setText(val);
         }
       } catch (SQLException ex) {

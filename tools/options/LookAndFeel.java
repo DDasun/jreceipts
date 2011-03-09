@@ -20,7 +20,8 @@ public class LookAndFeel {
   public static final String NIMBUS = "Nimbus";
   public static final String WINDOWS = "Windows";
   public static final String MOTIF = "Motif";
-  public static final String[] LOOK_AND_FEELS = new String[]{SYSTEM, CROSS, NIMBUS, WINDOWS, MOTIF};
+  public static final String LIQUID = "Liquid";
+  public static final String[] LOOK_AND_FEELS = new String[]{SYSTEM, LIQUID, CROSS, NIMBUS, WINDOWS, MOTIF};
 
   public LookAndFeel(String laf) {
     try {
@@ -34,7 +35,10 @@ public class LookAndFeel {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       } else if (laf.equals(MOTIF)) {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+      } else if (laf.equals(LIQUID)) {
+        UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
       } else {
+
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       }
     } catch (ClassNotFoundException ex) {

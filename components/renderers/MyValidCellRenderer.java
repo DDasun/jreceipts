@@ -4,22 +4,11 @@
  */
 package components.renderers;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Insets;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import panels.ReceiptsTablePanel;
-import receipts.Main;
-import tools.Helper;
-import tools.Skin;
 
 /**
  *

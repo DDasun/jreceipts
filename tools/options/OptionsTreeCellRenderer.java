@@ -35,7 +35,7 @@ public class OptionsTreeCellRenderer extends DefaultTreeCellRenderer implements 
     if (selected) {
       setForeground(Color.BLACK);
       setBackground(Color.LIGHT_GRAY);
-      setBorder(BorderFactory.createLineBorder(Skin.getColor_5(), 1));
+      setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
     } else {
       setForeground(Color.BLACK);
       setBackground(null);
