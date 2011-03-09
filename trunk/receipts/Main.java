@@ -13,6 +13,7 @@ package receipts;
 import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
 import com.googlecode.svalidators.validators.SValidator;
+import components.JarFileLoader;
 import models.Database;
 import components.MyDisabledGlassPane;
 import exceptions.ErrorMessages;
@@ -50,14 +51,19 @@ import panels.ReceiptsTablePanel;
 import panels.TypesTablePanel;
 import panels.totalsPanel;
 import forms.EarnForm;
+import java.awt.Color;
 import java.io.FilenameFilter;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLClassLoader;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
 import tools.About;
 import tools.CalcTaxes;
 import tools.CheckUpdate;
 import tools.Helper;
-import tools.options.Options;
 import tools.Skin;
+import tools.options.Options;
 import tools.log.myLogger;
 import tools.options.OptionsForm;
 
@@ -85,9 +91,25 @@ public class Main extends javax.swing.JFrame {
     // }
     Options.getOptions();
     createDirs();
-    Skin skin = new Skin(Options.COLOR);
+    //Skin skin = new Skin(Color.yellow);
     //Skin.applySkin();
-    new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
+     new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
+      try {
+      URL urls[] = {};
+
+      JarFileLoader cl = new JarFileLoader(urls);
+      String path = new File(Options.USER_DIR).getCanonicalPath();
+      //cl.addFile(path + "/databases/liquidlnf.jar");
+      //Class laf = cl.loadClass("com.jtattoo.plaf.smart.SmartLookAndFeel");
+      //Class laf = cl.loadClass("com.birosoft.liquid.LiquidLookAndFeel");
+      //LookAndFeel liq =  (LookAndFeel) laf.newInstance();
+
+    //  UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+    
+
 
     logger.log(Level.INFO, "Initializing components");
     initComponents();
@@ -222,7 +244,6 @@ public class Main extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Αποδείξεις (Βάση:"+Options.toString(Options.DATABASE)+")");
-    setBackground(Skin.getColor_1());
     setMinimumSize(new java.awt.Dimension(800, 600));
     addWindowListener(new java.awt.event.WindowAdapter() {
       public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -239,6 +260,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_addDatabase.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_addDatabase.setFocusable(false);
     toolbar_button_addDatabase.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_addDatabase.setOpaque(false);
     toolbar_button_addDatabase.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_addDatabase.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,6 +274,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_loadDatabase.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_loadDatabase.setFocusable(false);
     toolbar_button_loadDatabase.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_loadDatabase.setOpaque(false);
     toolbar_button_loadDatabase.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_loadDatabase.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,6 +287,7 @@ public class Main extends javax.swing.JFrame {
     toolbal_button_renameDatabase.setToolTipText("Μετονομασία βάσης");
     toolbal_button_renameDatabase.setFocusable(false);
     toolbal_button_renameDatabase.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbal_button_renameDatabase.setOpaque(false);
     toolbal_button_renameDatabase.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbal_button_renameDatabase.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,6 +301,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_deleteDatabase.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_deleteDatabase.setFocusable(false);
     toolbar_button_deleteDatabase.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_deleteDatabase.setOpaque(false);
     toolbar_button_deleteDatabase.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_deleteDatabase.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,6 +315,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_restoreBackup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_restoreBackup.setFocusable(false);
     toolbar_button_restoreBackup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_restoreBackup.setOpaque(false);
     toolbar_button_restoreBackup.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_restoreBackup.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,6 +329,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_selectYear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_selectYear.setFocusable(false);
     toolbar_button_selectYear.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_selectYear.setOpaque(false);
     toolbar_button_selectYear.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_selectYear.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,6 +345,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_addReceipt.setFocusable(false);
     toolbar_button_addReceipt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     toolbar_button_addReceipt.setMargin(new java.awt.Insets(2, 2, 2, 2));
+    toolbar_button_addReceipt.setOpaque(false);
     toolbar_button_addReceipt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_addReceipt.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,6 +360,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_listReceipts.setFocusable(false);
     toolbar_button_listReceipts.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     toolbar_button_listReceipts.setMargin(new java.awt.Insets(2, 2, 2, 2));
+    toolbar_button_listReceipts.setOpaque(false);
     toolbar_button_listReceipts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_listReceipts.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,6 +374,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_deletedReceipts.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_deletedReceipts.setFocusable(false);
     toolbar_button_deletedReceipts.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_deletedReceipts.setOpaque(false);
     toolbar_button_deletedReceipts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_deletedReceipts.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +390,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_addType.setFocusable(false);
     toolbar_button_addType.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     toolbar_button_addType.setMargin(new java.awt.Insets(2, 2, 2, 2));
+    toolbar_button_addType.setOpaque(false);
     toolbar_button_addType.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_addType.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,6 +405,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_typeList.setFocusable(false);
     toolbar_button_typeList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     toolbar_button_typeList.setMargin(new java.awt.Insets(2, 2, 2, 2));
+    toolbar_button_typeList.setOpaque(false);
     toolbar_button_typeList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_typeList.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -389,6 +421,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_addAfm.setFocusable(false);
     toolbar_button_addAfm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     toolbar_button_addAfm.setMargin(new java.awt.Insets(2, 2, 2, 2));
+    toolbar_button_addAfm.setOpaque(false);
     toolbar_button_addAfm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_addAfm.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,6 +436,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_listAfm.setFocusable(false);
     toolbar_button_listAfm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     toolbar_button_listAfm.setMargin(new java.awt.Insets(2, 2, 2, 2));
+    toolbar_button_listAfm.setOpaque(false);
     toolbar_button_listAfm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_listAfm.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -417,6 +451,7 @@ public class Main extends javax.swing.JFrame {
     bt_calcTaxes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     bt_calcTaxes.setFocusable(false);
     bt_calcTaxes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    bt_calcTaxes.setOpaque(false);
     bt_calcTaxes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     bt_calcTaxes.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,6 +465,7 @@ public class Main extends javax.swing.JFrame {
     toolbal_button_settings.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbal_button_settings.setFocusable(false);
     toolbal_button_settings.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbal_button_settings.setOpaque(false);
     toolbal_button_settings.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbal_button_settings.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -443,6 +479,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_monthlyStats.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_monthlyStats.setFocusable(false);
     toolbar_button_monthlyStats.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_monthlyStats.setOpaque(false);
     toolbar_button_monthlyStats.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_monthlyStats.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,6 +493,7 @@ public class Main extends javax.swing.JFrame {
     toolbar_button_kindStats.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     toolbar_button_kindStats.setFocusable(false);
     toolbar_button_kindStats.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    toolbar_button_kindStats.setOpaque(false);
     toolbar_button_kindStats.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     toolbar_button_kindStats.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,6 +508,7 @@ public class Main extends javax.swing.JFrame {
     button_excel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     button_excel.setFocusable(false);
     button_excel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    button_excel.setOpaque(false);
     button_excel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     button_excel.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,6 +522,7 @@ public class Main extends javax.swing.JFrame {
     button_csv.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     button_csv.setFocusable(false);
     button_csv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    button_csv.setOpaque(false);
     button_csv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     button_csv.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,6 +536,7 @@ public class Main extends javax.swing.JFrame {
     button_pdf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     button_pdf.setFocusable(false);
     button_pdf.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    button_pdf.setOpaque(false);
     button_pdf.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     button_pdf.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -507,6 +548,7 @@ public class Main extends javax.swing.JFrame {
     getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
     panel_body.setMinimumSize(new java.awt.Dimension(800, 500));
+    panel_body.setOpaque(false);
     panel_body.setPreferredSize(new java.awt.Dimension(800, 500));
 
     splitPane.setDividerLocation(200);
@@ -518,6 +560,7 @@ public class Main extends javax.swing.JFrame {
     panel_leftTop.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
     panel_leftTop.setMaximumSize(new java.awt.Dimension(400, 500));
     panel_leftTop.setMinimumSize(new java.awt.Dimension(200, 500));
+    panel_leftTop.setOpaque(false);
     panel_leftTop.setPreferredSize(new java.awt.Dimension(200, 500));
     panel_leftTop.setLayout(new javax.swing.BoxLayout(panel_leftTop, javax.swing.BoxLayout.PAGE_AXIS));
     splitPane.setLeftComponent(panel_leftTop);
@@ -525,6 +568,7 @@ public class Main extends javax.swing.JFrame {
     panel_main.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
     panel_main.setMaximumSize(new java.awt.Dimension(2000, 2000));
     panel_main.setMinimumSize(new java.awt.Dimension(500, 500));
+    panel_main.setOpaque(false);
     panel_main.setLayout(new java.awt.BorderLayout());
     splitPane.setRightComponent(panel_main);
 
@@ -1303,12 +1347,12 @@ public class Main extends javax.swing.JFrame {
 
     private void menuItem_logFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_logFileActionPerformed
       String path = "";
-    try {
-      path = new File(Options.USER_DIR).getCanonicalPath();
-    } catch (IOException ex) {
-      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-    }
-      File log = new File(path +"/"+ Options.LOG_PATH + "Receipts.html");
+      try {
+        path = new File(Options.USER_DIR).getCanonicalPath();
+      } catch (IOException ex) {
+        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      File log = new File(path + "/" + Options.LOG_PATH + "Receipts.html");
       Helper.openFile(log);
     }//GEN-LAST:event_menuItem_logFileActionPerformed
 
@@ -1562,7 +1606,7 @@ public class Main extends javax.swing.JFrame {
   private void renameDatabase() {
     String[] dbs = Database.getDatabases();
     String oldName = Helper.ask("Μετονομασία βάσης", "Διαλέξτε τη βάση που θέλετε να μετονομάσετε", dbs);
-    if (oldName.equals(Options.toString(Options.DATABASE)+".db")) {
+    if (oldName.equals(Options.toString(Options.DATABASE) + ".db")) {
       Helper.message("Δεν μπορείτε να μετονομάσετε την βάση που χρησιμοποιείτε", "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -1583,7 +1627,7 @@ public class Main extends javax.swing.JFrame {
     if (Helper.isInArray(dbs, newName)) {
       Helper.message("Η βάση υπάρχει ήδη, δεν μπορεί να γίνει μετονομασία", "Μετονομασία βάσης", JOptionPane.ERROR_MESSAGE);
       //if (Helper.confirm("Μετονομασία βάσης", "Η βάση υπάρχει.Θέλετε να γίνει οverwrite;") != JOptionPane.OK_OPTION) {
-        return;
+      return;
       //}
     }
     File oldFile = new File(Options.USER_DIR + Options.DB_PATH + oldName);

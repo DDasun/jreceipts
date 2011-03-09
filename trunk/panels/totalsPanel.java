@@ -57,6 +57,10 @@ public class totalsPanel extends javax.swing.JPanel {
 
     jLabel1.setText("jLabel1");
 
+    setOpaque(false);
+
+    jPanel1.setOpaque(false);
+
     label_titleYear.setFont(label_titleYear.getFont().deriveFont(label_titleYear.getFont().getStyle() | java.awt.Font.BOLD, label_titleYear.getFont().getSize()+2));
     label_titleYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     label_titleYear.setText("Σύνολα Έτους");
@@ -132,7 +136,7 @@ public class totalsPanel extends javax.swing.JPanel {
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(jPanel1Layout.createSequentialGroup()
             .addComponent(label_apYear_lektiko)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
             .addComponent(label_posoYear_lektiko)
             .addGap(2, 2, 2))
           .addGroup(jPanel1Layout.createSequentialGroup()
@@ -161,9 +165,7 @@ public class totalsPanel extends javax.swing.JPanel {
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(layout.createSequentialGroup()
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap())
+      .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
   }// </editor-fold>//GEN-END:initComponents
   // Variables declaration - do not modify//GEN-BEGIN:variables
