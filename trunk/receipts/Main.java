@@ -218,6 +218,7 @@ public class Main extends javax.swing.JFrame {
     jSeparator11 = new javax.swing.JPopupMenu.Separator();
     menuItem_info = new javax.swing.JMenuItem();
     MenuItem_checkUpdate = new javax.swing.JMenuItem();
+    menuItem_logFile = new javax.swing.JMenuItem();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Αποδείξεις (Βάση:"+Options.toString(Options.DATABASE)+")");
@@ -867,6 +868,15 @@ public class Main extends javax.swing.JFrame {
     });
     help.add(MenuItem_checkUpdate);
 
+    menuItem_logFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/log.png"))); // NOI18N
+    menuItem_logFile.setText("Αρχείο γεγονότων");
+    menuItem_logFile.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItem_logFileActionPerformed(evt);
+      }
+    });
+    help.add(menuItem_logFile);
+
     menuBar.add(help);
 
     setJMenuBar(menuBar);
@@ -1291,6 +1301,17 @@ public class Main extends javax.swing.JFrame {
       menuItem_renameDatabaseActionPerformed(evt);
     }//GEN-LAST:event_toolbal_button_renameDatabaseActionPerformed
 
+    private void menuItem_logFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_logFileActionPerformed
+      String path = "";
+    try {
+      path = new File(Options.USER_DIR).getCanonicalPath();
+    } catch (IOException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+      File log = new File(path +"/"+ Options.LOG_PATH + "Receipts.html");
+      Helper.openFile(log);
+    }//GEN-LAST:event_menuItem_logFileActionPerformed
+
   public void updateDeletedReceiptsPanel() {
     ReceiptsTablePanel a = new ReceiptsTablePanel(this, false);
     panel_main.removeAll();
@@ -1407,6 +1428,7 @@ public class Main extends javax.swing.JFrame {
   private javax.swing.JMenuItem menuItem_info;
   private javax.swing.JMenuItem menuItem_kindStats;
   private javax.swing.JMenuItem menuItem_loadDatabase;
+  private javax.swing.JMenuItem menuItem_logFile;
   private javax.swing.JMenuItem menuItem_monthlyStats;
   private javax.swing.JMenuItem menuItem_options;
   private javax.swing.JMenuItem menuItem_pdf;
