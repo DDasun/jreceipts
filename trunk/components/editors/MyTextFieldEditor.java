@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package components;
+package components.editors;
 
 import java.awt.Color;
 import java.awt.Component;
