@@ -95,14 +95,12 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     bt_popup.setBorderPainted(false);
     bt_popup.setContentAreaFilled(false);
     bt_popup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    bt_popup.setOpaque(false);
 
     panel_filter.setOpaque(false);
 
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     jLabel1.setText("Φίλτρο:");
 
-    tf_filter.setOpaque(false);
     tf_filter.addKeyListener(new java.awt.event.KeyAdapter() {
       public void keyReleased(java.awt.event.KeyEvent evt) {
         tf_filterKeyReleased(evt);
