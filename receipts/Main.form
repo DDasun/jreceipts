@@ -423,6 +423,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_checkUpdateActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItem_logFile">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/log.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&#x391;&#x3c1;&#x3c7;&#x3b5;&#x3af;&#x3bf; &#x3b3;&#x3b5;&#x3b3;&#x3bf;&#x3bd;&#x3cc;&#x3c4;&#x3c9;&#x3bd;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem_logFileActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

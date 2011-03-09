@@ -4,6 +4,7 @@
  */
 package panels;
 
+import components.MyAfmCellEditor;
 import components.MyTableModel;
 import components.MyTablePanel;
 import java.sql.SQLException;
@@ -41,6 +42,7 @@ public class AfmsTablePanel extends MyTablePanel {
     addColumns();
     addRows();
     tableModel.addTableModelListener(this);
+    table.getColumn(Receipt.HEADER_AFM).setCellEditor(new MyAfmCellEditor());
     setVisible(true);
   }
 

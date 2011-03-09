@@ -17,11 +17,10 @@ import tools.options.Options;
  * The cell editor for the datechooser
  * @author lordovol
  */
-public class MyPercentCellEditor extends AbstractCellEditor implements TableCellEditor {
+public class MyPercentCellEditor extends MyTextFieldEditor implements TableCellEditor {
 
   private static final long serialVersionUID = 917881575221755609L;
-  JTextField amount = new JTextField();
-  Double originalValue;
+  
 
   /**
    * Get the cell component
@@ -32,13 +31,12 @@ public class MyPercentCellEditor extends AbstractCellEditor implements TableCell
    * @param column The column number
    * @return The date Chooser object
    */
+  @Override
   public Component getTableCellEditorComponent(JTable table, Object value,
       boolean isSelected, int row, int column) {
-    originalValue = (Double) value;
     int percent = (int) (((Double) value) * 100);
-    amount.setText(String.valueOf(percent));
-    return amount;
-
+    textfield.setText(String.valueOf(percent));
+    return textfield;
   }
 
   /**
@@ -46,19 +44,17 @@ public class MyPercentCellEditor extends AbstractCellEditor implements TableCell
    * @return The cells value
    */
   public Double getCellEditorValue() {
-    return Double.parseDouble(amount.getText()) / 100;
+    return Double.parseDouble(textfield.getText()) / 100;
 
   }
 
   @Override
-  public boolean stopCellEditing() {
+  protected boolean isValidValue() {
     try {
-      Double dAmount = Double.parseDouble(amount.getText()) / 100;
+      Double dAmount = Double.parseDouble(textfield.getText()) / 100;
+      return true;
     } catch (NumberFormatException ex) {
-      Helper.message("Λάθος φορμάτ ποσοστού επι τοις εκατό\nΤο φορμάτ πρέπει να είναι ακέραιος αριθμός ", "Λάθος ποσοστό", JOptionPane.ERROR_MESSAGE);
-      amount.setText(String.valueOf((int)(originalValue*100)));
       return false;
     }
-    return super.stopCellEditing();
   }
 }
