@@ -58,7 +58,7 @@ public abstract class MyTablePanel extends MyStaticTablePanel implements MyTable
       if (evt.getButton() == MouseEvent.BUTTON3) {
         popup.show(evt.getComponent(), evt.getX(), evt.getY());
       } else if (evt.getButton() == MouseEvent.BUTTON1) {
-        Options.selectedValue = table.getModel().getValueAt(rowSelected, colSelected);
+       // Options.selectedValue = table.getModel().getValueAt(rowSelected, colSelected);
       }
 
     }

@@ -33,6 +33,7 @@ public class MyJCalendarCellEditor extends AbstractCellEditor implements TableCe
    * The date format
    */
   private SimpleDateFormat f = new SimpleDateFormat(Options.DATE_FORMAT);
+  Date originalValue;
 
   /**
    * Get the cell component
@@ -45,7 +46,7 @@ public class MyJCalendarCellEditor extends AbstractCellEditor implements TableCe
    */
   public Component getTableCellEditorComponent(JTable table, Object value,
           boolean isSelected, int row, int column) {
-    Options.selectedDate = value;
+    originalValue =(Date) value;
     if (value instanceof Date) {
       dateChooser.setDateFormatString(Options.DATE_FORMAT);
       dateChooser.setDate((Date) value);
@@ -80,7 +81,7 @@ public class MyJCalendarCellEditor extends AbstractCellEditor implements TableCe
   @Override
   public boolean stopCellEditing() {
       if(dateChooser.getDate()==null){
-         dateChooser.setDate((Date)Options.selectedDate);
+         dateChooser.setDate(originalValue);
       }
     return super.stopCellEditing();
   }

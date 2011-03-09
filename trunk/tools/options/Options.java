@@ -58,8 +58,6 @@ public class Options {
   public static String[] _COMBO_OPTIONS_ = {DEFAULT_DATABASE, LOOK_FEEL};
   public static Color COLOR = new Color(255, 255, 153);
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-  public static Object selectedValue;
-  public static Object selectedDate;
   private static HashMap<String, Object> options;
   
 
