@@ -14,6 +14,7 @@ import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
 import com.googlecode.svalidators.validators.SValidator;
 import components.JarFileLoader;
+import java.net.MalformedURLException;
 import models.Database;
 import components.MyDisabledGlassPane;
 import exceptions.ErrorMessages;
@@ -94,23 +95,6 @@ public class Main extends javax.swing.JFrame {
     //Skin skin = new Skin(Color.yellow);
     //Skin.applySkin();
      new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
-      try {
-      URL urls[] = {};
-
-      JarFileLoader cl = new JarFileLoader(urls);
-      String path = new File(Options.USER_DIR).getCanonicalPath();
-      //cl.addFile(path + "/databases/liquidlnf.jar");
-      //Class laf = cl.loadClass("com.jtattoo.plaf.smart.SmartLookAndFeel");
-      //Class laf = cl.loadClass("com.birosoft.liquid.LiquidLookAndFeel");
-      //LookAndFeel liq =  (LookAndFeel) laf.newInstance();
-
-    //  UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-    
-
-
     logger.log(Level.INFO, "Initializing components");
     initComponents();
     glassPane = new MyDisabledGlassPane();
