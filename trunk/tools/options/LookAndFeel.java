@@ -16,9 +16,6 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class LookAndFeel {
 
-
-
-
   public LookAndFeel(String laf) {
     try {
       UIManager.setLookAndFeel(getLookAndFeelClass(laf));
@@ -51,10 +48,22 @@ public class LookAndFeel {
     return UIManager.getCrossPlatformLookAndFeelClassName();
   }
 
-   private static LookAndFeelInfo[] getAuxiliaryLookAndFeels() {
-    LookAndFeelInfo[] l = new LookAndFeelInfo[2];
-    l[0] = new LookAndFeelInfo("Liquid", "com.birosoft.liquid.LiquidLookAndFeel");
-    l[1] = new LookAndFeelInfo("Smart", "com.jtattoo.plaf.smart.SmartLookAndFeel");
+  private static LookAndFeelInfo[] getAuxiliaryLookAndFeels() {
+    LookAndFeelInfo[] l = {
+      new LookAndFeelInfo("Liquid", "com.birosoft.liquid.LiquidLookAndFeel"),
+//      new LookAndFeelInfo("Smart", "com.jtattoo.plaf.smart.SmartLookAndFeel"),
+//      new LookAndFeelInfo("Acryl", "com.jtattoo.plaf.acryl.AcrylLookAndFeel"),
+//      new LookAndFeelInfo("Aero", "com.jtattoo.plaf.aero.AeroLookAndFeel"),
+//      new LookAndFeelInfo("Aluminium", "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel"),
+//      new LookAndFeelInfo("Bernstein", "com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"),
+//      new LookAndFeelInfo("Fast", "com.jtattoo.plaf.fast.FastLookAndFeel"),
+//      new LookAndFeelInfo("Graphite", "com.jtattoo.plaf.graphite.GraphiteLookAndFeel"),
+//      new LookAndFeelInfo("HiFi", "com.jtattoo.plaf.hifi.HiFiLookAndFeel"),
+//      new LookAndFeelInfo("Luna", "com.jtattoo.plaf.luna.LunaLookAndFeel"),
+//      new LookAndFeelInfo("McWin", "com.jtattoo.plaf.mcwin.McWinLookAndFeel"),
+//      new LookAndFeelInfo("Mint", "com.jtattoo.plaf.mint.MintLookAndFeel"),
+//      new LookAndFeelInfo("Noire", "com.jtattoo.plaf.noire.NoireLookAndFeel"),
+      };
     return l;
   }
 
@@ -68,7 +77,7 @@ public class LookAndFeel {
     }
     for (int i = 0; i < lafsEx.length; i++) {
       LookAndFeelInfo laf = lafsEx[i];
-      names[lafs.length+i] = laf.getName();
+      names[lafs.length + i] = laf.getName();
     }
     return names;
   }
