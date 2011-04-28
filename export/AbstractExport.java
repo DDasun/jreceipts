@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import models.Receipt;
 import models.Type;
+import receipts.Main;
 import tools.options.Options;
 
 /**
@@ -30,10 +31,11 @@ public abstract class AbstractExport implements ExportConstants {
   protected abstract void export();
 
   protected Vector<Object> getRecords() {
-    return Receipt.getCollection(false, "WHERE t."+Type.COLUMN_VALID+" = 1");
+    return Receipt.getCollection(false, "WHERE t."+Type.COLUMN_VALID+" = 1",true,"ASC");
   }
 
   public void setFile() {
+     Main.logger.log(Level.INFO, "Showing file chooser");
     JFileChooser c = new JFileChooser();
     c.setDialogTitle("Εξαγωγή λίστας αποδείξεων");
     try {
@@ -49,8 +51,10 @@ public abstract class AbstractExport implements ExportConstants {
     c.setMultiSelectionEnabled(false);
     int res = c.showDialog(null, "Εξαγωγή");
     if (res == JFileChooser.APPROVE_OPTION) {
+       Main.logger.log(Level.INFO, "Setting export file");
       setExportFile(c.getSelectedFile());
       if (getExportFile() != null) {
+         Main.logger.log(Level.INFO, "Exporting");
         export();
       }
     }

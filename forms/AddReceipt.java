@@ -58,6 +58,7 @@ public class AddReceipt extends MyDraggable {
     textfield_amount.addValidator(new PositiveNumberValidator(textfield_amount.getText(), true, false));
     setLocationRelativeTo(null);
     setVisible(true);
+    textfield_afm.requestFocusInWindow();
     getRootPane().setDefaultButton(button_ok);
   }
 

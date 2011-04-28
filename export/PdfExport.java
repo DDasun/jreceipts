@@ -15,17 +15,13 @@ import com.lowagie.text.Table;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
-import java.awt.GraphicsEnvironment;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Receipt;
 import receipts.Main;
-import sun.font.FontManager;
 import tools.Helper;
 import tools.options.Options;
 
@@ -45,17 +41,13 @@ public class PdfExport extends AbstractExport {
     try {
       this.type = ExportConstants.PDF;
       records = getRecords();
-      GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-      java.awt.Font[] fonts = e.getAllFonts(); // Get the fonts
-      String fontFilePath = FontManager.getFontPath(true) + "/" + FontManager.getFileNameForFontName(DEFAULT_FONT);
-      bf = BaseFont.createFont(fontFilePath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+      Main.logger.log(Level.INFO, "Getting fonts");
+      bf = BaseFont.createFont(Options.USER_DIR+Options.FONTS_PATH +"arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
       titleFont = new Font(bf, TITLE_FONT_SIZE, Font.BOLD);
       headersFont = new Font(bf, HEADERS_FONT_SIZE, Font.BOLD);
       plainFont = new Font(bf, PLAIN_FONT_SIZE);
-    } catch (DocumentException ex) {
-      Main.log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
-      Main.log(Level.SEVERE, null, ex);
+    } catch (Exception ex) {
+      Main.logger.log(Level.SEVERE, null, ex);
     }
 
   }
@@ -63,6 +55,7 @@ public class PdfExport extends AbstractExport {
   @Override
   protected void export() {
     try {
+      Main.logger.log(Level.INFO, "Creating document");
       Document document = new Document();
       PdfWriter.getInstance(document, new FileOutputStream(getExportFile()));
       addMetaData(document);
@@ -81,7 +74,7 @@ public class PdfExport extends AbstractExport {
   }
 
   private static void addMetaData(Document document) {
-    document.addTitle("Αποδείξεις έτους " +Options.YEAR);
+    document.addTitle("Αποδείξεις έτους " + Options.YEAR);
     document.addSubject("Λίστα αποδείξεων");
     document.addAuthor("Spyros Soldatos");
     document.addCreator("Receipts v" + Main.version);
@@ -160,17 +153,17 @@ public class PdfExport extends AbstractExport {
       c.setHorizontalAlignment(Cell.ALIGN_RIGHT);
       t.addCell(c);
       //MULT
-      ph = new Phrase(String.valueOf((int)(receipt.getMultiplier()*100)) + "%", plainFont);
+      ph = new Phrase(String.valueOf((int) (receipt.getMultiplier() * 100)) + "%", plainFont);
       c = new Cell(ph);
       c.setHorizontalAlignment(Cell.ALIGN_RIGHT);
       t.addCell(c);
-       //AMOUNT
-      ph = new Phrase(Helper.convertAmountForViewing(receipt.getAmount()*receipt.getMultiplier()), plainFont);
+      //AMOUNT
+      ph = new Phrase(Helper.convertAmountForViewing(receipt.getAmount() * receipt.getMultiplier()), plainFont);
       c = new Cell(ph);
       c.setHorizontalAlignment(Cell.ALIGN_RIGHT);
       t.addCell(c);
 
-      totalAmount += receipt.getAmount()*receipt.getMultiplier();
+      totalAmount += receipt.getAmount() * receipt.getMultiplier();
     }
   }
 }

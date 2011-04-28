@@ -21,5 +21,5 @@ public interface ExportConstants {
   public final static int HEADERS_FONT_SIZE = 10;
   public final static int PLAIN_FONT_SIZE = 9;
   public final static String DEFAULT_FONT = "Verdana";
-  public static final String[] HEADERS = {"ΑΑ", "ΗΜΕΡΟΜΗΝΙΑ", "ΕΙΔΟΣ", "Α.Φ.Μ.", "ΠΟΣΟ ΑΠΟΔ.","ΠΟΛΛ.","ΠΟΣΟ"};
+  public static final String[] HEADERS = {"ΑΑ", "ΗΜΕΡΟΜΗΝΙΑ", "ΕΙΔΟΣ", "Α.Φ.Μ.", "ΠΟΣΟ ΑΠΟΔ.","ΠΟΣ.","ΠΟΣΟ"};
 }
