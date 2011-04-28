@@ -86,12 +86,12 @@ public class Main extends javax.swing.JFrame {
   /** Creates new form Main */
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
     setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
-
+    createDirs();
     // if (Options.toBoolean(Options.DEBUG)) {
     createLogger();
     // }
     Options.getOptions();
-    createDirs();
+    
     //Skin skin = new Skin(Color.yellow);
     //Skin.applySkin();
      new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
@@ -1073,7 +1073,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItem_excelActionPerformed
 
     private void menuItem_pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_pdfActionPerformed
+      logger.log(Level.INFO, "Starting pdf export");
       PdfExport exp = new PdfExport();
+       Main.logger.log(Level.INFO, "Setting the export file");
       exp.setFile();
     }//GEN-LAST:event_menuItem_pdfActionPerformed
 
@@ -1519,10 +1521,11 @@ public class Main extends javax.swing.JFrame {
       //move backup files
       moveBackupFiles();
     } catch (IOException ex) {
-      log(Level.SEVERE, null, ex);
+     // log(Level.SEVERE, null, ex);
     }
     new File(Options.USER_DIR + "/" + Options.EXPORTS_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.DOCS_PATH).mkdir();
+    new File(Options.USER_DIR + "/" + Options.FONTS_PATH).mkdir();
   }
 
   private void moveBackupFiles() throws IOException {

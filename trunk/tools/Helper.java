@@ -148,8 +148,9 @@ public class Helper {
 
   public static String getCurrentGreekMonth() {
     Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM");
-    return dateFormat.format(calendar.getTime());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("M");
+    int month = Integer.parseInt(dateFormat.format(calendar.getTime()));
+    return getGreekMonth(month);
   }
 
   public static boolean isInteger(String val) {

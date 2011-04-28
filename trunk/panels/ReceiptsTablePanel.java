@@ -69,7 +69,7 @@ public class ReceiptsTablePanel extends MyTablePanel {
   }
 
   public final void addRows() {
-    Vector<Object> col = Receipt.getCollection(false, "", validReceipt);
+    Vector<Object> col = Receipt.getCollection(false, "", validReceipt,"DESC");
     Iterator<Object> it = col.iterator();
     while (it.hasNext()) {
       Receipt rec = (Receipt) it.next();

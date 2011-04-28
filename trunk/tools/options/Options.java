@@ -32,6 +32,7 @@ public class Options {
   public static final String BACKUP_PATH = DB_PATH + "backup/";
   public static final String EXPORTS_PATH = "exports/";
   public static final String DOCS_PATH = "docs/";
+  public static final String FONTS_PATH = "fonts/";
   public static final String WEBSITE = "http://code.google.com/p/jreceipts/";
   public static final String EMAIL = "lordovol@hotmail.com";
   public static final String DATE_FORMAT = "dd/MM/yyyy";
@@ -59,6 +60,7 @@ public class Options {
   public static Color COLOR = new Color(255, 255, 153);
   public static String YEAR = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
   private static HashMap<String, Object> options;
+  
   
 
   public static void getOptions() throws FileNotFoundException, IOException {

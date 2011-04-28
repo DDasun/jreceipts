@@ -15,22 +15,24 @@ import models.Receipt;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import tools.Helper;
+import tools.options.Options;
 
 /**
  *
  * @author lordovol
  */
 public class totalsPanel extends javax.swing.JPanel {
+
   private ChartPanel cpanel;
   private JFreeChart pieChart;
   private Vector<Object> collection;
 
   /** Creates new form totalsPanel */
   public totalsPanel() {
-   
+
     initComponents();
     getTotals();
-  
+
   }
 
   /** This method is called from within the constructor to
@@ -63,7 +65,7 @@ public class totalsPanel extends javax.swing.JPanel {
 
     label_titleYear.setFont(label_titleYear.getFont().deriveFont(label_titleYear.getFont().getStyle() | java.awt.Font.BOLD, label_titleYear.getFont().getSize()+2));
     label_titleYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    label_titleYear.setText("Σύνολα Έτους");
+    label_titleYear.setText("Σύνολα Έτους " + Options.YEAR);
 
     label_apYear_lektiko.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     label_apYear_lektiko.setText("Αποδείξεις:");
@@ -188,12 +190,12 @@ public class totalsPanel extends javax.swing.JPanel {
     label_apYear.setText(String.valueOf(totalReceiptsYear));
     float totalAmountYear = Receipt.getAmount("");
     label_posoYear.setText(Helper.convertAmountForViewing(totalAmountYear));
-    int totalReceiptsMonth = Receipt.getCount("strftime('%m', "+Receipt.COLUMN_BUY_DATE+") = '" + Helper.getThisMonth()+"'" );
+    int totalReceiptsMonth = Receipt.getCount("strftime('%m', " + Receipt.COLUMN_BUY_DATE + ") = '" + Helper.getThisMonth()
+        + "' AND  strftime('%Y', " + Receipt.COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'");
     label_apMonth.setText(String.valueOf(totalReceiptsMonth));
-    float totalAmountMonth = Receipt.getAmount("strftime('%m', "+Receipt.COLUMN_BUY_DATE+") = '" + Helper.getThisMonth()+"'" );
+    float totalAmountMonth = Receipt.getAmount("strftime('%m', " + Receipt.COLUMN_BUY_DATE + ") = '" + Helper.getThisMonth()
+        + "' AND  strftime('%Y', " + Receipt.COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'");
     label_posoMonth.setText(Helper.convertAmountForViewing(totalAmountMonth));
-    label_totalMonthLektiko.setText(Helper.getCurrentGreekMonth() + ":");
+    label_totalMonthLektiko.setText(Helper.getCurrentGreekMonth() + " " + Options.YEAR + ":");
   }
-
- 
 }

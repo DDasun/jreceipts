@@ -148,10 +148,10 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lb_totalEarn" alignment="0" pref="165" max="32767" attributes="1"/>
-                                  <Component id="lb_total_owner" alignment="1" pref="165" max="32767" attributes="1"/>
-                                  <Component id="lb_total_married" alignment="0" pref="165" max="32767" attributes="1"/>
-                                  <Component id="lb_totalEarn3" pref="165" max="32767" attributes="1"/>
+                                  <Component id="lb_totalEarn" alignment="0" pref="734" max="32767" attributes="1"/>
+                                  <Component id="lb_total_owner" alignment="1" pref="734" max="32767" attributes="1"/>
+                                  <Component id="lb_total_married" alignment="0" pref="734" max="32767" attributes="1"/>
+                                  <Component id="lb_totalEarn3" pref="734" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                           </Group>
@@ -267,34 +267,31 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="21" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel3" max="32767" attributes="1"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel4" pref="22" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="lb_totalEarn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="lb_total_owner" pref="23" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lb_total_married" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lb_totalEarn3" min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jLabel2" alignment="2" min="-2" pref="21" max="-2" attributes="0"/>
+                          <Component id="lb_totalEarn" alignment="2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jLabel3" alignment="2" pref="23" max="32767" attributes="1"/>
+                          <Component id="lb_total_owner" alignment="2" pref="23" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jLabel4" alignment="2" pref="25" max="32767" attributes="0"/>
+                          <Component id="lb_total_married" alignment="2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jLabel5" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="lb_totalEarn3" alignment="2" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel7" min="-2" pref="14" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="lb_owner_needed" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jLabel7" alignment="2" min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lb_owner_needed" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lb_owner_neededExp" min="-2" pref="14" max="-2" attributes="0"/>

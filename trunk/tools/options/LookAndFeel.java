@@ -4,6 +4,7 @@
  */
 package tools.options;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -15,6 +16,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author ssoldatos
  */
 public class LookAndFeel {
+
+ 
 
   public LookAndFeel(String laf) {
     try {
@@ -41,43 +44,48 @@ public class LookAndFeel {
     }
     for (int i = 0; i < lafsEx.length; i++) {
       LookAndFeelInfo laf = lafsEx[i];
-      if (laf.getName().equals(name)) {
-        return laf.getClassName();
+      if (laf != null) {
+        if (laf.getName().equals(name)) {
+          return laf.getClassName();
+        }
       }
     }
     return UIManager.getCrossPlatformLookAndFeelClassName();
   }
 
   private static LookAndFeelInfo[] getAuxiliaryLookAndFeels() {
+   // isLafAvailable();
     LookAndFeelInfo[] l = {
-      new LookAndFeelInfo("Liquid", "com.birosoft.liquid.LiquidLookAndFeel"),
-//      new LookAndFeelInfo("Smart", "com.jtattoo.plaf.smart.SmartLookAndFeel"),
-//      new LookAndFeelInfo("Acryl", "com.jtattoo.plaf.acryl.AcrylLookAndFeel"),
-//      new LookAndFeelInfo("Aero", "com.jtattoo.plaf.aero.AeroLookAndFeel"),
-//      new LookAndFeelInfo("Aluminium", "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel"),
-//      new LookAndFeelInfo("Bernstein", "com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"),
-//      new LookAndFeelInfo("Fast", "com.jtattoo.plaf.fast.FastLookAndFeel"),
-//      new LookAndFeelInfo("Graphite", "com.jtattoo.plaf.graphite.GraphiteLookAndFeel"),
-//      new LookAndFeelInfo("HiFi", "com.jtattoo.plaf.hifi.HiFiLookAndFeel"),
-//      new LookAndFeelInfo("Luna", "com.jtattoo.plaf.luna.LunaLookAndFeel"),
-//      new LookAndFeelInfo("McWin", "com.jtattoo.plaf.mcwin.McWinLookAndFeel"),
-//      new LookAndFeelInfo("Mint", "com.jtattoo.plaf.mint.MintLookAndFeel"),
-//      new LookAndFeelInfo("Noire", "com.jtattoo.plaf.noire.NoireLookAndFeel"),
-      };
+       new LookAndFeelInfo("Easynth", "com.easynth.lookandfeel.EaSynthLookAndFeel"),
+       new LookAndFeelInfo("Liquid", "com.birosoft.liquid.LiquidLookAndFeel"),
+//            new LookAndFeelInfo("Acryl", "com.jtattoo.plaf.acryl.AcrylLookAndFeel"),
+//          new LookAndFeelInfo("Aero", "com.jtattoo.plaf.aero.AeroLookAndFeel"),
+//          new LookAndFeelInfo("Aluminium", "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel"),
+//          new LookAndFeelInfo("Bernstein", "com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"),
+//          new LookAndFeelInfo("Fast", "com.jtattoo.plaf.fast.FastLookAndFeel"),
+//          new LookAndFeelInfo("Graphite", "com.jtattoo.plaf.graphite.GraphiteLookAndFeel"),
+//          new LookAndFeelInfo("HiFi", "com.jtattoo.plaf.hifi.HiFiLookAndFeel"),
+//          new LookAndFeelInfo("Luna", "com.jtattoo.plaf.luna.LunaLookAndFeel"),
+//          new LookAndFeelInfo("McWin", "com.jtattoo.plaf.mcwin.McWinLookAndFeel"),
+//          new LookAndFeelInfo("Mint", "com.jtattoo.plaf.mint.MintLookAndFeel"),
+//          new LookAndFeelInfo("Noire", "com.jtattoo.plaf.noire.NoireLookAndFeel")
+    };
     return l;
   }
 
-  public static String[] getLookAndFeels() {
+  public static ArrayList<String> getLookAndFeels() {
     LookAndFeelInfo[] lafs = UIManager.getInstalledLookAndFeels();
     LookAndFeelInfo[] lafsEx = getAuxiliaryLookAndFeels();
-    String[] names = new String[lafs.length + lafsEx.length];
+    ArrayList<String> names = new ArrayList<String>();
     for (int i = 0; i < lafs.length; i++) {
       LookAndFeelInfo laf = lafs[i];
-      names[i] = laf.getName();
+      names.add(laf.getName());
     }
     for (int i = 0; i < lafsEx.length; i++) {
       LookAndFeelInfo laf = lafsEx[i];
-      names[lafs.length + i] = laf.getName();
+      if (laf != null) {
+        names.add(laf.getName());
+      }
     }
     return names;
   }

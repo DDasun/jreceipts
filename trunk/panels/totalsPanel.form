@@ -121,7 +121,9 @@
               </FontInfo>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&#x3a3;&#x3cd;&#x3bd;&#x3bf;&#x3bb;&#x3b1; &#x388;&#x3c4;&#x3bf;&#x3c5;&#x3c2;"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="&quot;&#x3a3;&#x3cd;&#x3bd;&#x3bf;&#x3bb;&#x3b1; &#x388;&#x3c4;&#x3bf;&#x3c5;&#x3c2; &quot; + Options.YEAR" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="label_apYear_lektiko">

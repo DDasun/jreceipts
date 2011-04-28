@@ -135,14 +135,14 @@ public class Receipt extends DBRecord {
   }
 
   public static Vector<Object> getCollection(boolean addHeader) {
-    return getCollection(addHeader, "");
+    return getCollection(addHeader, "",true,"DESC");
   }
 
   public static Vector<Object> getCollection(boolean addHeader, String criteria) {
-    return getCollection(addHeader, "", true);
+    return getCollection(addHeader, criteria, true,"DESC");
   }
 
-  public static Vector<Object> getCollection(boolean addHeader, String criteria, boolean valid) {
+  public static Vector<Object> getCollection(boolean addHeader, String criteria, boolean valid, String order) {
     try {
       if (criteria.equals("")) {
         criteria = " WHERE strftime('%Y', " + COLUMN_BUY_DATE + ")= '" + Options.YEAR + "'";
@@ -152,8 +152,7 @@ public class Receipt extends DBRecord {
       sql = "SELECT r.*,t." + Type.COLUMN_DESCRIPTION + ",t." + Type.COLUMN_MULTIPLIER
           + " FROM " + TABLE + "  r "
           + "INNER JOIN " + Type.TABLE + " t ON r." + COLUMN_TYPE_ID + " = t." + Type.COLUMN_TYPE_ID + " "
-          + criteria + " AND r." + COLUMN_VALID + " = " + (valid ? 1 : 0) + " ORDER BY " + COLUMN_BUY_DATE + " DESC";
-
+          + criteria + " AND r." + COLUMN_VALID + " = " + (valid ? 1 : 0) + " ORDER BY " + COLUMN_BUY_DATE + " " + order;
       rs = Database.stmt.executeQuery(sql);
       collection = new Vector<Object>();
       if (addHeader) {

@@ -64,7 +64,7 @@ public class GeneralPanel extends javax.swing.JPanel {
 
     jLabel2.setText("Εμφάνιση:");
 
-    combo_laf.setModel(new DefaultComboBoxModel(LookAndFeel.getLookAndFeels()));
+    combo_laf.setModel(new DefaultComboBoxModel(LookAndFeel.getLookAndFeels().toArray()));
     combo_laf.setSelectedItem(Options.toString(Options.LOOK_FEEL));
     combo_laf.setName(Options.LOOK_FEEL);
 
