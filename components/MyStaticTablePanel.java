@@ -12,6 +12,7 @@ package components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.BorderFactory;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -36,11 +37,13 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
   protected String _RECEIPTS_ = "Receipts";
 
   public MyStaticTablePanel() {
-    //initComponents();
+    super();
   }
 
   protected void init() {
     initComponents();
+    scrollPane_table.setBorder(BorderFactory.createEmptyBorder());
+    scrollPane_table.getViewport().setOpaque(false);
   }
 
   public void setTitle(String title) {
@@ -70,8 +73,6 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     jLabel1 = new javax.swing.JLabel();
     tf_filter = new javax.swing.JTextField();
 
-    setOpaque(false);
-
     scrollPane_table.setOpaque(false);
 
     table.setAutoCreateRowSorter(true);
@@ -95,8 +96,6 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
     bt_popup.setBorderPainted(false);
     bt_popup.setContentAreaFilled(false);
     bt_popup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-    panel_filter.setOpaque(false);
 
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     jLabel1.setText("Φίλτρο:");

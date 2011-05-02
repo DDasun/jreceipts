@@ -92,11 +92,9 @@ public class InputField extends MyDraggable {
 
     jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-    panel_main.setBackground(new java.awt.Color(255, 255, 255));
     panel_main.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     panel_main.setPreferredSize(new java.awt.Dimension(389, 200));
 
-    panel_fields.setBackground(new java.awt.Color(255, 255, 255));
     panel_fields.setLayout(new javax.swing.BoxLayout(panel_fields, javax.swing.BoxLayout.Y_AXIS));
 
     javax.swing.GroupLayout panel_mainLayout = new javax.swing.GroupLayout(panel_main);

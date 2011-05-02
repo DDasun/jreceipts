@@ -88,8 +88,8 @@ public class Info extends MyDraggable {
       }
     });
 
-    jPanel1.setBackground(new java.awt.Color(255, 255, 255));
     jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    jPanel1.setOpaque(false);
 
     jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info.png"))); // NOI18N
     jLabel3.setText("jLabel3");
@@ -98,10 +98,11 @@ public class Info extends MyDraggable {
     jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
     jScrollPane1.setEnabled(false);
+    jScrollPane1.setOpaque(false);
 
     ta.setColumns(20);
     ta.setEditable(false);
-    ta.setFont(new java.awt.Font("Arial", 0, 12));
+    ta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
     ta.setLineWrap(true);
     ta.setRows(4);
     ta.setText(message);

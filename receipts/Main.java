@@ -13,8 +13,6 @@ package receipts;
 import com.googlecode.svalidators.validators.PositiveNumberValidator;
 import com.googlecode.svalidators.validators.RequiredValidator;
 import com.googlecode.svalidators.validators.SValidator;
-import components.JarFileLoader;
-import java.net.MalformedURLException;
 import models.Database;
 import components.MyDisabledGlassPane;
 import exceptions.ErrorMessages;
@@ -34,10 +32,8 @@ import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
@@ -52,18 +48,15 @@ import panels.ReceiptsTablePanel;
 import panels.TypesTablePanel;
 import panels.totalsPanel;
 import forms.EarnForm;
-import java.awt.Color;
+import java.awt.Font;
 import java.io.FilenameFilter;
 import java.net.URI;
-import java.net.URL;
-import java.net.URLClassLoader;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
 import tools.About;
 import tools.CalcTaxes;
 import tools.CheckUpdate;
+import tools.Fonts;
 import tools.Helper;
-import tools.Skin;
+import tools.LookAndFeels;
 import tools.options.Options;
 import tools.log.myLogger;
 import tools.options.OptionsForm;
@@ -85,39 +78,50 @@ public class Main extends javax.swing.JFrame {
 
   /** Creates new form Main */
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-    setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
-    createDirs();
-    // if (Options.toBoolean(Options.DEBUG)) {
-    createLogger();
-    // }
-    Options.getOptions();
-    
-    //Skin skin = new Skin(Color.yellow);
-    //Skin.applySkin();
-     new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
-    logger.log(Level.INFO, "Initializing components");
-    initComponents();
-    glassPane = new MyDisabledGlassPane();
-    JRootPane root = SwingUtilities.getRootPane(this);
-    root.setGlassPane(glassPane);
-    logger.log(Level.FINE, "Components initialized");
-    logger.log(Level.INFO, "Creating connection to database");
-    Database.createConnection(false);
-    if (Options.toBoolean(Options.START_UP_BACKUP)) {
-      backUpDb();
-    }
-    logger.log(Level.FINE, "Connected to database: {0}", Options.toString(Options.DATABASE));
-    logger.log(Level.INFO, "Setting the year");
-    setYear();
-    logger.log(Level.FINE, "Year set to : {0}", Options.YEAR);
-    setAppTitle();
-    logger.log(Level.INFO, "Updating panels");
-    updateReceiptPanel();
-    updateTotalsPanel();
-    logger.log(Level.FINE, "Panels updated");
-    setLocationRelativeTo(null);
-    if (Options.toBoolean(Options.AUTO_UPDATE)) {
-      CheckUpdate c = new CheckUpdate(true);
+    try {
+      setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
+      createDirs();
+      // if (Options.toBoolean(Options.DEBUG)) {
+      createLogger();
+      // }
+      Options.getOptions();
+       LookAndFeels laf = new LookAndFeels();
+       laf.setLookAndFeel(Options.toString(Options.LOOK_FEEL));
+       SwingUtilities.updateComponentTreeUI(this);
+       
+       Fonts f = new Fonts();
+       f.setDefaultFont(new Font("Arial",Font.PLAIN,12));
+      //Skin skin = new Skin(Color.yellow);
+      //Skin.applySkin();
+      
+      logger.log(Level.INFO, "Initializing components");
+      initComponents();
+      
+      glassPane = new MyDisabledGlassPane();
+      JRootPane root = SwingUtilities.getRootPane(this);
+      root.setGlassPane(glassPane);
+      logger.log(Level.FINE, "Components initialized");
+      logger.log(Level.INFO, "Creating connection to database");
+      Database.createConnection(false);
+      if (Options.toBoolean(Options.START_UP_BACKUP)) {
+        backUpDb();
+      }
+      logger.log(Level.FINE, "Connected to database: {0}", Options.toString(Options.DATABASE));
+      logger.log(Level.INFO, "Setting the year");
+      setYear();
+      logger.log(Level.FINE, "Year set to : {0}", Options.YEAR);
+      setAppTitle();
+      logger.log(Level.INFO, "Updating panels");
+      updateReceiptPanel();
+      updateTotalsPanel();
+      logger.log(Level.FINE, "Panels updated");
+      setLocationRelativeTo(null);
+      if (Options.toBoolean(Options.AUTO_UPDATE)) {
+        CheckUpdate c = new CheckUpdate(true);
+      }
+      setVisible(true);
+    } catch (Exception ex) {
+      logger.log(Level.SEVERE, null, ex);
     }
   }
 
@@ -237,7 +241,6 @@ public class Main extends javax.swing.JFrame {
 
     toolbar.setRollover(true);
     toolbar.setMargin(new java.awt.Insets(2, 2, 2, 2));
-    toolbar.setOpaque(false);
 
     toolbar_button_addDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database_save.png"))); // NOI18N
     toolbar_button_addDatabase.setToolTipText("Προσθήκη βάσης");
@@ -532,19 +535,16 @@ public class Main extends javax.swing.JFrame {
     getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
     panel_body.setMinimumSize(new java.awt.Dimension(800, 500));
-    panel_body.setOpaque(false);
     panel_body.setPreferredSize(new java.awt.Dimension(800, 500));
 
     splitPane.setDividerLocation(200);
     splitPane.setAlignmentY(2.0F);
     splitPane.setMaximumSize(new java.awt.Dimension(2000, 2000));
     splitPane.setMinimumSize(new java.awt.Dimension(600, 500));
-    splitPane.setOpaque(false);
 
     panel_leftTop.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
     panel_leftTop.setMaximumSize(new java.awt.Dimension(400, 500));
     panel_leftTop.setMinimumSize(new java.awt.Dimension(200, 500));
-    panel_leftTop.setOpaque(false);
     panel_leftTop.setPreferredSize(new java.awt.Dimension(200, 500));
     panel_leftTop.setLayout(new javax.swing.BoxLayout(panel_leftTop, javax.swing.BoxLayout.PAGE_AXIS));
     splitPane.setLeftComponent(panel_leftTop);
@@ -552,7 +552,6 @@ public class Main extends javax.swing.JFrame {
     panel_main.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
     panel_main.setMaximumSize(new java.awt.Dimension(2000, 2000));
     panel_main.setMinimumSize(new java.awt.Dimension(500, 500));
-    panel_main.setOpaque(false);
     panel_main.setLayout(new java.awt.BorderLayout());
     splitPane.setRightComponent(panel_main);
 
@@ -1400,7 +1399,7 @@ public class Main extends javax.swing.JFrame {
 
       public void run() {
         try {
-          new Main().setVisible(true);
+          new Main();
         } catch (FileNotFoundException ex) {
           log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -1515,6 +1514,7 @@ public class Main extends javax.swing.JFrame {
 
   private void createDirs() {
     new File(Options.USER_DIR + "/" + Options.LOG_PATH).mkdir();
+    new File(Options.USER_DIR + "/" + Options.LAFS_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.DB_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.BACKUP_PATH).mkdir();
     try {

@@ -12,6 +12,7 @@ package tools.options;
 
 import models.Database;
 import javax.swing.DefaultComboBoxModel;
+import tools.LookAndFeels;
 
 /**
  *
@@ -46,8 +47,6 @@ public class GeneralPanel extends javax.swing.JPanel {
     combo_laf = new javax.swing.JComboBox();
     cb_backup = new javax.swing.JCheckBox();
 
-    setBackground(new java.awt.Color(255, 255, 255));
-
     jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+2));
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel1.setText("Γενικές Ρυθμίσεις");
@@ -64,7 +63,7 @@ public class GeneralPanel extends javax.swing.JPanel {
 
     jLabel2.setText("Εμφάνιση:");
 
-    combo_laf.setModel(new DefaultComboBoxModel(LookAndFeel.getLookAndFeels().toArray()));
+    combo_laf.setModel(LookAndFeels.getComboBoxModel());
     combo_laf.setSelectedItem(Options.toString(Options.LOOK_FEEL));
     combo_laf.setName(Options.LOOK_FEEL);
 

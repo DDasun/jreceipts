@@ -79,11 +79,9 @@ public class About extends MyDraggable {
 
     jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-    jPanel2.setBackground(new java.awt.Color(255, 255, 255));
     jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
     jScrollPane2.setBorder(null);
-    jScrollPane2.setOpaque(false);
 
     propertiesEditor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
     propertiesEditor.setContentType("text/html");

@@ -29,6 +29,7 @@ public class Options {
   public static final String USER_DIR = "./";
   public static final String LOG_PATH = "logs/";
   public static final String DB_PATH = "databases/";
+  public static final String LAFS_PATH = "lafs/";
   public static final String BACKUP_PATH = DB_PATH + "backup/";
   public static final String EXPORTS_PATH = "exports/";
   public static final String DOCS_PATH = "docs/";
