@@ -43,8 +43,6 @@ public class DBPanel extends javax.swing.JPanel {
     jLabel2 = new javax.swing.JLabel();
     combo_db = new javax.swing.JComboBox();
 
-    setBackground(new java.awt.Color(255, 255, 255));
-
     jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+2));
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel1.setText("Ρυθμίσεις Βάσης Δεδομένων");

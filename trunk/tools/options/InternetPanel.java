@@ -42,8 +42,6 @@ public class InternetPanel extends javax.swing.JPanel {
     tf_proxy = new com.googlecode.svalidators.formcomponents.STextField(new NoSpaceValidator("",false));
     tf_port = new com.googlecode.svalidators.formcomponents.STextField(new PositiveNumberValidator("",false,false));
 
-    setBackground(new java.awt.Color(255, 255, 255));
-
     jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+2));
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel1.setText("Ρυθμίσεις Internet");
@@ -52,6 +50,7 @@ public class InternetPanel extends javax.swing.JPanel {
     cb_useProxy.setSelected(Options.toBoolean(Options.USE_PROXY));
     cb_useProxy.setText("Χρήση proxy server");
     cb_useProxy.setName(Options.USE_PROXY);
+    cb_useProxy.setOpaque(false);
     cb_useProxy.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         cb_useProxyActionPerformed(evt);

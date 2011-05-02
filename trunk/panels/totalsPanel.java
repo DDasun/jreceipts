@@ -59,10 +59,6 @@ public class totalsPanel extends javax.swing.JPanel {
 
     jLabel1.setText("jLabel1");
 
-    setOpaque(false);
-
-    jPanel1.setOpaque(false);
-
     label_titleYear.setFont(label_titleYear.getFont().deriveFont(label_titleYear.getFont().getStyle() | java.awt.Font.BOLD, label_titleYear.getFont().getSize()+2));
     label_titleYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     label_titleYear.setText("Σύνολα Έτους " + Options.YEAR);

@@ -138,9 +138,6 @@ public class Graph extends MyDraggable {
       }
     });
 
-    tabs.setOpaque(true);
-
-    piechartPanel.setBackground(new java.awt.Color(255, 255, 255));
     piechartPanel.setMinimumSize(new java.awt.Dimension(600, 400));
 
     javax.swing.GroupLayout piechartPanelLayout = new javax.swing.GroupLayout(piechartPanel);
@@ -155,8 +152,6 @@ public class Graph extends MyDraggable {
     );
 
     tabs.addTab("Γράφημα πίτας", new javax.swing.ImageIcon(getClass().getResource("/images/pie_chart.png")), piechartPanel); // NOI18N
-
-    barschartPanel.setBackground(new java.awt.Color(255, 255, 255));
 
     javax.swing.GroupLayout barschartPanelLayout = new javax.swing.GroupLayout(barschartPanel);
     barschartPanel.setLayout(barschartPanelLayout);

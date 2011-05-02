@@ -78,7 +78,6 @@ public class Confirm extends MyDraggable {
       }
     });
 
-    jPanel1.setBackground(new java.awt.Color(255, 255, 255));
     jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
     jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/question.png"))); // NOI18N
@@ -91,7 +90,7 @@ public class Confirm extends MyDraggable {
 
     ta.setColumns(20);
     ta.setEditable(false);
-    ta.setFont(new java.awt.Font("Arial", 0, 12));
+    ta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
     ta.setLineWrap(true);
     ta.setRows(4);
     ta.setText(message);

@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import receipts.Main;
 import tools.Helper;
+import tools.LookAndFeels;
 
 /**
  *
@@ -70,11 +71,7 @@ public class OptionsForm extends MyDraggable {
 
     panel_top.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-    panel_main.setBackground(new java.awt.Color(255, 255, 255));
     panel_main.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-    panel_options.setBackground(new java.awt.Color(255, 255, 255));
-    panel_options.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
     javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Ρυθμίσεις");
     javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Γενικά");
@@ -187,15 +184,13 @@ public class OptionsForm extends MyDraggable {
         new OptionsParser(new JPanel[]{dbPanel, internetPanel, generalPanel});
         String newLook = Options.toString(Options.LOOK_FEEL);
         if (!oldLook.equals(newLook)) {
-          new tools.options.LookAndFeel(Options.toString(Options.LOOK_FEEL));
+          LookAndFeels.setLookAndFeel(Options.toString(Options.LOOK_FEEL));
           SwingUtilities.updateComponentTreeUI(m);
           m.pack();
 
         }
-      } catch (IOException ex) {
-        Main.log(Level.SEVERE, null, ex);
-      } catch (ParseException ex) {
-        Main.log(Level.SEVERE, null, ex);
+      } catch (Exception ex) {
+        Main.logger.log(Level.SEVERE, null, ex);
       }
       dispose();
     }//GEN-LAST:event_bt_okActionPerformed
