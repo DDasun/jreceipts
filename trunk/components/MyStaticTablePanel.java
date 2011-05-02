@@ -10,6 +10,7 @@
  */
 package components;
 
+import com.lowagie.text.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
@@ -42,6 +43,7 @@ public abstract class MyStaticTablePanel extends javax.swing.JPanel {
 
   protected void init() {
     initComponents();
+    table.getTableHeader().setFont(table.getTableHeader().getFont().deriveFont(Font.BOLD));
     scrollPane_table.setBorder(BorderFactory.createEmptyBorder());
     scrollPane_table.getViewport().setOpaque(false);
   }
