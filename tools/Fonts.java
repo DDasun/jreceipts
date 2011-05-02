@@ -19,16 +19,20 @@ public class Fonts {
   public Fonts() {
   }
 
-  public void setDefaultFont(Font font) {
+  public void setDefaultFont(String font) {
     UIDefaults defaults = UIManager.getDefaults();
     Enumeration keys = defaults.keys();
     while (keys.hasMoreElements()) {
       Object key = keys.nextElement();
       Object value = defaults.get(key);
-      if (value != null && value instanceof Font) {
+      if (value != null && value instanceof FontUIResource) {
+        Font dFont = (Font) value;
+        int style = dFont.getStyle();
+        int size = dFont.getSize();
         UIManager.put(key, null);
+        System.out.println(key + " " +style + " " + size);
         if (font != null) {
-          UIManager.put(key, new FontUIResource(font));
+          UIManager.put(key, new FontUIResource(font,style,size));
         }
       }
     }

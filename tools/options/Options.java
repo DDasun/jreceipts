@@ -272,7 +272,7 @@ public class Options {
     out.println(Options.PROXY_PORT + " =");
     out.println(Options.AUTO_UPDATE + " =true");
     out.println(Options.DEBUG + "=true");
-    out.println(Options.LOOK_FEEL + "=Liquid");
+    out.println(Options.LOOK_FEEL + "=EasySynth");
     out.println(Options.START_UP_BACKUP + "=true");
     out.close();
   }
@@ -284,7 +284,7 @@ public class Options {
     options.put(Options.PROXY_PORT, "");
     options.put(Options.AUTO_UPDATE, true);
     options.put(Options.DEBUG, true);
-    options.put(Options.LOOK_FEEL, "Liquid");
+    options.put(Options.LOOK_FEEL, "EasySynth");
     options.put(Options.START_UP_BACKUP, true);
   }
 

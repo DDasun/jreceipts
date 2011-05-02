@@ -51,6 +51,7 @@ import forms.EarnForm;
 import java.awt.Font;
 import java.io.FilenameFilter;
 import java.net.URI;
+import javax.swing.UIManager;
 import tools.About;
 import tools.CalcTaxes;
 import tools.CheckUpdate;
@@ -78,51 +79,58 @@ public class Main extends javax.swing.JFrame {
 
   /** Creates new form Main */
   public Main() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+
+    setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
+    createDirs();
+    // if (Options.toBoolean(Options.DEBUG)) {
+    createLogger();
+    // }
+    Options.getOptions();
+     Fonts f = new Fonts();
+    f.setDefaultFont("Arial");
+    LookAndFeels laf = new LookAndFeels();
     try {
-      setIconImage(new javax.swing.ImageIcon(getClass().getResource("/images/receiptsList.png")).getImage());
-      createDirs();
-      // if (Options.toBoolean(Options.DEBUG)) {
-      createLogger();
-      // }
-      Options.getOptions();
-       LookAndFeels laf = new LookAndFeels();
-       laf.setLookAndFeel(Options.toString(Options.LOOK_FEEL));
-       SwingUtilities.updateComponentTreeUI(this);
-       
-       Fonts f = new Fonts();
-       f.setDefaultFont(new Font("Arial",Font.PLAIN,12));
-      //Skin skin = new Skin(Color.yellow);
-      //Skin.applySkin();
-      
-      logger.log(Level.INFO, "Initializing components");
-      initComponents();
-      
-      glassPane = new MyDisabledGlassPane();
-      JRootPane root = SwingUtilities.getRootPane(this);
-      root.setGlassPane(glassPane);
-      logger.log(Level.FINE, "Components initialized");
-      logger.log(Level.INFO, "Creating connection to database");
-      Database.createConnection(false);
-      if (Options.toBoolean(Options.START_UP_BACKUP)) {
-        backUpDb();
-      }
-      logger.log(Level.FINE, "Connected to database: {0}", Options.toString(Options.DATABASE));
-      logger.log(Level.INFO, "Setting the year");
-      setYear();
-      logger.log(Level.FINE, "Year set to : {0}", Options.YEAR);
-      setAppTitle();
-      logger.log(Level.INFO, "Updating panels");
-      updateReceiptPanel();
-      updateTotalsPanel();
-      logger.log(Level.FINE, "Panels updated");
-      setLocationRelativeTo(null);
-      if (Options.toBoolean(Options.AUTO_UPDATE)) {
-        CheckUpdate c = new CheckUpdate(true);
-      }
-      setVisible(true);
+      laf.setLookAndFeel(Options.toString(Options.LOOK_FEEL));
     } catch (Exception ex) {
-      logger.log(Level.SEVERE, null, ex);
+      try {
+        laf.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+      } catch (Exception ex1) {
+        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex1);
+      }
     }
+    SwingUtilities.updateComponentTreeUI(this);
+
+   
+    //Skin skin = new Skin(Color.yellow);
+    //Skin.applySkin();
+
+    logger.log(Level.INFO, "Initializing components");
+    initComponents();
+
+    glassPane = new MyDisabledGlassPane();
+    JRootPane root = SwingUtilities.getRootPane(this);
+    root.setGlassPane(glassPane);
+    logger.log(Level.FINE, "Components initialized");
+    logger.log(Level.INFO, "Creating connection to database");
+    Database.createConnection(false);
+    if (Options.toBoolean(Options.START_UP_BACKUP)) {
+      backUpDb();
+    }
+    logger.log(Level.FINE, "Connected to database: {0}", Options.toString(Options.DATABASE));
+    logger.log(Level.INFO, "Setting the year");
+    setYear();
+    logger.log(Level.FINE, "Year set to : {0}", Options.YEAR);
+    setAppTitle();
+    logger.log(Level.INFO, "Updating panels");
+    updateReceiptPanel();
+    updateTotalsPanel();
+    logger.log(Level.FINE, "Panels updated");
+    setLocationRelativeTo(null);
+    if (Options.toBoolean(Options.AUTO_UPDATE)) {
+      CheckUpdate c = new CheckUpdate(true);
+    }
+    setVisible(true);
+
   }
 
   public static void log(Level level, String message, Exception ex) {
@@ -1074,7 +1082,7 @@ public class Main extends javax.swing.JFrame {
     private void menuItem_pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_pdfActionPerformed
       logger.log(Level.INFO, "Starting pdf export");
       PdfExport exp = new PdfExport();
-       Main.logger.log(Level.INFO, "Setting the export file");
+      Main.logger.log(Level.INFO, "Setting the export file");
       exp.setFile();
     }//GEN-LAST:event_menuItem_pdfActionPerformed
 
@@ -1521,7 +1529,7 @@ public class Main extends javax.swing.JFrame {
       //move backup files
       moveBackupFiles();
     } catch (IOException ex) {
-     // log(Level.SEVERE, null, ex);
+      // log(Level.SEVERE, null, ex);
     }
     new File(Options.USER_DIR + "/" + Options.EXPORTS_PATH).mkdir();
     new File(Options.USER_DIR + "/" + Options.DOCS_PATH).mkdir();
